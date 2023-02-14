@@ -1,3 +1,5 @@
+USE naeboojadb;
+
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
@@ -8,8 +10,8 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS file;
 DROP TABLE IF EXISTS transaction;
 DROP TABLE IF EXISTS property;
-DROP TABLE IF EXISTS write;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS `write`;
+DROP TABLE IF EXISTS `user`;
 
 
 
@@ -53,7 +55,7 @@ CREATE TABLE property
 	idx int NOT NULL AUTO_INCREMENT,
 	user_idx int NOT NULL,
 	-- 현금, 카드
-	group varchar(20) NOT NULL COMMENT '현금, 카드',
+	`group` varchar(20) NOT NULL COMMENT '현금, 카드',
 	-- 사용자가 붙이는 자산의 이름
 	name varchar(20) NOT NULL COMMENT '사용자가 붙이는 자산의 이름',
 	-- 자산의 잔액
@@ -101,7 +103,7 @@ CREATE TABLE user_authorities
 );
 
 
-CREATE TABLE write
+CREATE TABLE `write`
 (
 	idx int NOT NULL AUTO_INCREMENT,
 	user_id int NOT NULL,
@@ -156,7 +158,7 @@ ALTER TABLE user_authorities
 ;
 
 
-ALTER TABLE write
+ALTER TABLE `write`
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (idx)
 	ON UPDATE RESTRICT
@@ -166,7 +168,7 @@ ALTER TABLE write
 
 ALTER TABLE comment
 	ADD FOREIGN KEY (write_idx)
-	REFERENCES write (idx)
+	REFERENCES `write` (idx)
 	ON UPDATE RESTRICT
 	ON DELETE CASCADE
 ;
@@ -174,10 +176,7 @@ ALTER TABLE comment
 
 ALTER TABLE file
 	ADD FOREIGN KEY (write_idx)
-	REFERENCES write (idx)
+	REFERENCES `write` (idx)
 	ON UPDATE RESTRICT
 	ON DELETE CASCADE
 ;
-
-
-
