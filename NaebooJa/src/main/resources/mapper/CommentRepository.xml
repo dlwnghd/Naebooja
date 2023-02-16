@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.CommentRepository">
+
+    <!-- JOIN 문에서 여러 테이블의 데이터 매핑 받기 -->
+    <!-- User 매핑 -->
+    <resultMap id="mapUser" type="com.lec.spring.domain.User">
+        <result column="u_id" property="id"/>
+        <result column="u_username" property="username"/>
+        <result column="u_password" property="password"/>
+        <result column="u_name" property="name"/>
+        <result column="u_regdate" property="regDate"/>
+    </resultMap>
+
+    <!-- Comment 매핑 -->
+    <resultMap id="mapComment" type="com.lec.spring.domain.Comment">
+        <result column="c_id" property="id"/>
+        <result column="c_content" property="content"/>
+        <result column="c_regdate" property="regDate"/>
+        <result column="c_write_id" property="write_id"/>
+        <collection property="user" resultMap="mapUser"/>   <!-- User 매핑 가져오기 -->
+    </resultMap>
+
+
+    <select id="findByWrite" resultMap="mapComment">
+        SELECT
+            c.id "c_id",
+            c.content "c_content",
+            c.regdate "c_regdate",
+            c.write_id "c_write_id",
+            u.id "u_id",
+            u.username "u_username",
+            u.password "u_password",
+            u.name "u_name",
+            u.regdate "u_regdate"
+        FROM comment c, user u
+        WHERE
+            c.user_id = u.id
+            AND c.write_id = #{param1}
+        ORDER BY c.id DESC
+    </select>
+
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Comment"
+            keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO comment(user_id, write_id, content)
+        VALUES(#{user.id}, #{write_id}, #{content})
+    </insert>
+
+    <delete id="deleteById" flushCache="true">
+        DELETE FROM comment WHERE id = #{id}
+    </delete>
+
+
+
+</mapper>
