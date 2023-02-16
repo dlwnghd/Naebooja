@@ -22,14 +22,15 @@ INSERT INTO authority (name) VALUES
 ;
 
 -- 샘플 사용자
-INSERT INTO `user` (id, password, email, phonenum) VALUES
+INSERT INTO `user` (username, password, name) VALUES
 -- ('USER1', '1234', '회원1'),
 -- ('USER2', '1234', '회원2'),
 -- ('ADMIN1', '1234', '관리자1')
-('USER1', '$2a$10$6gVaMy7.lbezp8bGRlV2fOArmA3WAk2EHxSKxncnzs28/m3DXPyA2','user1@naver.com', '010-1111-2222'),
-('USER2', '$2a$10$7LTnvLaczZbEL0gabgqgfezQPr.xOtTab2NAF/Yt4FrvTSi0Y29Xa','user2@naver.com', '010-2222-3333'),
-('ADMIN1', '$2a$10$53OEi/JukSMPr3z5RQBFH.z0TCYSUDPtxf1/8caRyRVdDNdHA9QHi','admin@naver.com', '010-4444-5555')
+('USER1', '$2a$10$6gVaMy7.lbezp8bGRlV2fOArmA3WAk2EHxSKxncnzs28/m3DXPyA2', '회원1'),
+('USER2', '$2a$10$7LTnvLaczZbEL0gabgqgfezQPr.xOtTab2NAF/Yt4FrvTSi0Y29Xa', '회원2'),
+('ADMIN1', '$2a$10$53OEi/JukSMPr3z5RQBFH.z0TCYSUDPtxf1/8caRyRVdDNdHA9QHi', '관리자1')
 ;
+
 -- 샘플 사용자-권한
 INSERT INTO user_authorities VALUES
 (1, 1),
@@ -37,16 +38,14 @@ INSERT INTO user_authorities VALUES
 (3, 2)
 ;
 -- 샘플 글
-INSERT INTO `write` (user_idx, subject, content) VALUES
+INSERT INTO `write` (user_id, subject, content) VALUES
 (1, '제목입니다1', '내용입니다1'),
 (1, '제목입니다2', '내용입니다2'),
-(2, '제목입니다3', '내용입니다3'),
-(2, '제목입니다4', '내용입니다4'),
-(3, '제목입니다5', '내용입니다5'),
-(3, '제목입니다6', '내용입니다6')
+(3, '제목입니다3', '내용입니다3'),
+(3, '제목입니다4', '내용입니다4')
 ;
 -- 샘플 댓글
-INSERT INTO comment(user_idx, write_idx, content) VALUES
+INSERT INTO comment(user_id, write_id, content) VALUES
 (1, 1, '1. user1이 1번글에 댓글 작성.'),
 (1, 1, '2. user1이 1번글에 댓글 작성.'),
 (1, 2, '3. user1이 2번글에 댓글 작성.'),
@@ -64,9 +63,8 @@ INSERT INTO comment(user_idx, write_idx, content) VALUES
 (3, 4, '15. admin1이 4번글에 댓글 작성.'),
 (3, 4, '16. admin1이 4번글에 댓글 작성.')
 ;
-
--- 샘플 file
-INSERT INTO file(write_idx, source, file) VALUES
+-- 샘플 댓글
+INSERT INTO file(write_id, source, file) VALUES
 (1, 'face01.png', 'face01.png'),
 (1, 'face02.png', 'face02.png'),
 (2, 'face03.png', 'face03.png'),
@@ -78,7 +76,7 @@ INSERT INTO file(write_idx, source, file) VALUES
 ;
 
 -- 샘플 property
-INSERT INTO property(user_idx, `group`, `name`, rest_money) VALUES
+INSERT INTO property(user_id, `group`, `name`, rest_money) VALUES
 -- 1번 유저
 (1, '현금', '테스트자산1', 100000),
 (1, '현금', '테스트자산2', 10000),
@@ -90,7 +88,7 @@ INSERT INTO property(user_idx, `group`, `name`, rest_money) VALUES
 ;
 
 -- 잔액 없이 생성 테스트
-INSERT INTO property(user_idx, `group`, `name`) VALUES
+INSERT INTO property(user_id, `group`, `name`) VALUES
 -- 1번 유저
 (1, '카드', '테스트자산4'),
 -- 1번 유저
@@ -102,14 +100,14 @@ INSERT INTO property(user_idx, `group`, `name`) VALUES
 
 -- *수입
 -- (날짜, 내용 제외)
-INSERT INTO transaction(property_idx, transaction_type, money, category) VALUES
+INSERT INTO transaction(property_id, transaction_type, money, category) VALUES
 (1,'수입', 2800000,'월급'),
 (1,'수입', 5000,'용돈'),
 (2,'수입', 2800000,'월급'),
 (2,'수입', 2800000,'월급')
 ;
 -- (날짜, 내용 포함)
-INSERT INTO transaction(property_idx, transaction_type, regdate, money, category, content) VALUES
+INSERT INTO transaction(property_id, transaction_type, regdate, money, category, content) VALUES
 (1,'수입','2021-01-01 00:00:00', 3000000,'월급','2021년 1월 1일'),
 (1,'수입','2021-02-01 00:00:00', 5000,'용돈', '2021년 2월 1일'),
 (1,'수입','2021-03-01 00:00:00', 5000,'용돈', '2021년 3월 1일'),
@@ -121,7 +119,8 @@ INSERT INTO transaction(property_idx, transaction_type, regdate, money, category
 (1,'수입','2021-09-01 00:00:00', 5000,'용돈', '2021년 9월 1일'),
 (1,'수입','2021-10-01 00:00:00', 5000,'용돈', '2021년 10월 1일'),
 (1,'수입','2021-11-01 00:00:00', 5000,'용돈', '2021년 11월 1일'),
-(1,'수입','2021-12-01 00:00:00', 5000,'용돈', '2021년 12월 1일'),
+(1,'수입','2021-12-01 00:00:00', 5000,'용돈', '2021년 12월 1일')
+
 (1,'수입','2022-01-22 00:00:00', 3000000,'월급','2022년 1월 1일'),
 (1,'수입','2022-02-22 00:00:00', 5000,'용돈', '2022년 2월 22일'),
 (1,'수입','2022-03-22 00:00:00', 5000,'용돈', '2022년 3월 22일'),
@@ -134,6 +133,7 @@ INSERT INTO transaction(property_idx, transaction_type, regdate, money, category
 (1,'수입','2022-10-22 00:00:00', 5000,'용돈', '2022년 10월 22일'),
 (1,'수입','2022-11-22 00:00:00', 5000,'용돈', '2022년 11월 22일'),
 (1,'수입','2022-12-22 00:00:00', 5000,'용돈', '2022년 12월 22일'),
+
 (2,'수입','2020-01-01 00:00:00', 3000000,'월급','2021년 2월 1일'),
 (2,'수입','2020-02-01 00:00:00', 5000,'용돈', '2021년 2월 1일')
 ;
@@ -142,7 +142,7 @@ INSERT INTO transaction(property_idx, transaction_type, regdate, money, category
 
 -- *지출
 -- (날짜, 내용 제외)
-INSERT INTO transaction(property_idx, transaction_type, money, category) VALUES
+INSERT INTO transaction(property_id, transaction_type, money, category) VALUES
 (1,'지출', 9000,'식비'),
 (1,'지출', 1500,'교통비'),
 (2,'지출', 50000,'쇼핑'),
@@ -150,7 +150,7 @@ INSERT INTO transaction(property_idx, transaction_type, money, category) VALUES
 ;
 
 -- (날짜, 내용 포함)
-INSERT INTO transaction(property_idx, transaction_type, regdate, money, category, content) VALUES
+INSERT INTO transaction(property_id, transaction_type, regdate, money, category, content) VALUES
 (1,'지출','2023-01-01 00:00:00', 9000,'식비','테스트내용1'),
 (1,'지출','202-02-01 00:00:00', 1500,'교통비','테스트내용2'),
 (2,'지출','2020-01-01 00:00:00', 50000,'쇼핑','테스트내용3'),
@@ -159,7 +159,7 @@ INSERT INTO transaction(property_idx, transaction_type, regdate, money, category
 
 
 -- 수수료
-INSERT INTO transaction(property_idx, transaction_type, money, category, content) VALUES
+INSERT INTO transaction(property_id, transaction_type, money, category, content) VALUES
 (1,'지출', 500,'기타','수수료'),
 (1,'지출', 500,'기타','수수료'),
 (2,'지출', 500,'기타','수수료'),
@@ -169,7 +169,7 @@ INSERT INTO transaction(property_idx, transaction_type, money, category, content
 
 -- *이체
 -- (날짜, 내용 제외)
-INSERT INTO transaction(property_idx, transaction_type, money, category, in_property_idx) VALUES
+INSERT INTO transaction(property_id, transaction_type, money, category, in_property_id) VALUES
 (1,'이체',10000,'이체',2),
 (1,'이체',20000,'이체',2),
 (2,'이체',30000,'이체',1),
@@ -178,7 +178,7 @@ INSERT INTO transaction(property_idx, transaction_type, money, category, in_prop
 
 
 -- (날짜, 내용 포함)
-INSERT INTO transaction(property_idx, transaction_type, regdate, money, category, content, in_property_idx) VALUES
+INSERT INTO transaction(property_id, transaction_type, regdate, money, category, content, in_property_id) VALUES
 (1,'이체','2022-01-01 00:00:00',10000,'이체','이체내용1',2),
 (1,'이체','2022-01-01 00:00:00',20000,'이체','이체내용2',2),
 (2,'이체','2021-01-01 00:00:00',30000,'이체','이체내용3',1),

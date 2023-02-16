@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.WriteRepository">
+
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Write"
+            useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO `write`
+            (subject, content, user_id)
+        VALUES
+            (#{subject}, #{content}, #{user.id})
+    </insert>
+
+    <update id="incViewCnt" flushCache="true">
+        UPDATE `write`
+        SET viewcnt = viewcnt + 1
+        WHERE id = #{param1}
+    </update>
+
+    <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
+    <sql id="SELECT_BASE">
+        SELECT
+            w.id "w_id",
+            w.subject "w_subject",
+            w.content "w_content",
+            w.viewcnt "w_viewcnt",
+            w.regdate "w_regdate",
+            u.id "u_id",
+            u.username "u_username",
+            u.name "u_name",
+            u.regdate "u_regdate"
+        FROM
+            `write` w, user u
+        WHERE
+            w.user_id = u.id
+    </sql>
+
+    <!-- JOIN 문에서 여러 테이블의 데이터 매핑 받기 -->
+    <!-- User 매핑 -->
+    <resultMap id="mapUser" type="com.lec.spring.domain.User">
+        <result column="u_id" property="id"/>   <!--User.java-->
+        <result column="u_username" property="username"/>
+        <result column="u_password" property="password"/>
+        <result column="u_name" property="name"/>
+        <result column="u_regdate" property="regDate"/>
+    </resultMap>
+
+    <!-- Write 매핑 -->
+    <resultMap id="mapWrite" type="com.lec.spring.domain.Write"> <!--Write 객체로 매핑-->
+        <result column="w_id" property="id"/> <!--w_id 값을 id 에 꽂아넣음(Write.java)-->
+        <result column="w_subject" property="subject"/>
+        <result column="w_content" property="content"/>
+        <result column="w_viewcnt" property="viewCnt"/>
+        <result column="w_regdate" property="regDate"/>
+        <collection property="user" resultMap="mapUser"/><!--User 객체에 대해서는 mapUser 로 이향-->
+    </resultMap>
+
+    <!--특정 ID의 글을 찾는데 결과는 mapWrite⬇️ 가 책임진다-->
+    <select id="findById" resultMap="mapWrite">
+        <include refid="SELECT_BASE"/>
+            AND w.id = #{id}
+        ORDER BY w.id DESC
+    </select>
+
+    <select id="findAll" resultMap="mapWrite">
+        <include refid="SELECT_BASE"/>
+        ORDER BY w.id DESC
+    </select>
+
+    <update id="update" flushCache="true"
+        parameterType="com.lec.spring.domain.Write">
+        UPDATE `write`
+        SET subject = #{subject}, content = #{content}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" flushCache="true"
+        parameterType="com.lec.spring.domain.Write">
+        DELETE FROM `write` WHERE id = #{id}
+    </delete>
+
+    <!-- 페이징용 쿼리 -->
+    <select id="selectFromRow" resultMap="mapWrite">
+        <include refid="SELECT_BASE"/>
+        ORDER BY w.id DESC
+        LIMIT #{param1}, #{param2}
+    </select>
+
+    <!-- 전체 글의 개수 -->
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM `write`
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
