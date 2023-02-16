@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.FileRepository">
+
+    <insert id="insert" flushCache="true"
+            parameterType="arraylist">
+
+        INSERT INTO file(source, file, write_id)
+        VALUES
+        <foreach collection="param1" item="e" separator=",">
+            (#{e.source}, #{e.file}, #{param2})
+        </foreach>
+    </insert>
+
+    <insert id="save" flushCache="true"
+            parameterType="com.lec.spring.domain.FileDTO">
+        INSERT INTO file (source, file, write_id)
+        VALUES
+        (#{source}, #{file}, #{write_id})
+    </insert>
+
+    <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
+    <sql id="SELECTFILE">
+        SELECT id, source, file, write_id
+        FROM file
+    </sql>
+
+    <select id="findByWrite" resultType="com.lec.spring.domain.FileDTO">
+        <include refid="SELECTFILE"/>
+        WHERE
+        write_id = #{param1}
+        ORDER BY id ASC
+    </select>
+
+    <select id="findById" resultType="com.lec.spring.domain.FileDTO">
+        <include refid="SELECTFILE"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByIds" resultType="com.lec.spring.domain.FileDTO"
+            parameterType="java.util.ArrayList">
+        <include refid="SELECTFILE"/>
+        WHERE
+        id IN
+        <foreach collection="array" item="e" separator="," open="(" close=")">
+            #{e}
+        </foreach>
+        ORDER BY id ASC
+    </select>
+
+    <delete id="deleteByIds" flushCache="true"
+            parameterType="java.util.ArrayList">
+        DELETE FROM file
+        WHERE id IN (<foreach collection="array" item="item" separator=",">
+        #{item}
+    </foreach>)
+    </delete>
+
+    <delete id="delete" flushCache="true">
+        DELETE FROM file WHERE id = #{id}
+    </delete>
+
+
+</mapper>

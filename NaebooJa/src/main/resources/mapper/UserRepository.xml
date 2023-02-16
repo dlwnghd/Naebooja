@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.UserRepository">
+    <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
+    <sql id="SELECT_BASE">
+        SELECT
+        id "id"
+        , username "username"
+        , password "password"
+        , name "name"
+        , regdate "regdate"
+        FROM user
+    </sql>
+
+    <!-- id로 찾기 -->
+    <select id="findById" resultType="com.lec.spring.domain.User">
+        <include refid="SELECT_BASE"/>
+        WHERE
+        id = #{param1}  <!-- #{param1} : 첫번째 파라미터 -->
+    </select>
+
+    <!-- username으로 찾기  -->
+    <select id="findByUsername" resultType="com.lec.spring.domain.User">
+        <include refid="SELECT_BASE"/>
+        WHERE
+        username = #{username}
+    </select>
+
+    <!-- 새로운 User 등록 -->
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.User"
+            keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO user(username, password, name)
+        VALUE(#{username}, #{password}, #{name})
+    </insert>
+
+    <!-- User 정보 업데이트 -->
+    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.User">
+        UPDATE user SET username = #{username}, password = #{password}, name = #{name}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.AuthorityRepository"> <!-- AuthorityRepository 매핑 -->
+
+    <!-- 특정 이름(name) 의 권한 정보 읽어오기 -->
+    <select id="findByName" resultType="com.lec.spring.domain.Authority">
+        SELECT
+        id "id"
+        , name "name"
+        FROM authority
+        WHERE name = #{name}
+    </select>
+
+    <!-- 특정 사용자(User) 의 권한(들) 읽어오기 -->
+    <select id="findByUser"
+            resultType="com.lec.spring.domain.Authority"
+            parameterType="com.lec.spring.domain.User">
+        SELECT a.id "id", a.name "name"
+        FROM authority a, user_authorities u
+        WHERE a.id = u.authority_id  AND  u.user_id = #{id}
+    </select>
+
+    <!-- 특정 사용자(user_id) 에 권한(auth_id) 추가 -->
+    <insert id="addAuthority" flushCache="true">
+        INSERT INTO user_authorities(user_id, authority_id)
+        VALUES(#{param1}, #{param2})
+    </insert>
+
+</mapper>
+
