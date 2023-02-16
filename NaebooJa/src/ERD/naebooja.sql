@@ -1,5 +1,3 @@
-USE naeboojadb;
-
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
@@ -67,23 +65,21 @@ CREATE TABLE property
 CREATE TABLE transaction
 (
 	idx int NOT NULL AUTO_INCREMENT,
-	property_idx int NOT NULL,
+	-- 수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호
+	property_idx int NOT NULL COMMENT '수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호',
 	transaction_type enum('수입', '지출', '이체') CHARACTER SET utf8 NOT NULL,
 	regdate datetime NOT NULL DEFAULT now(),
 	money int DEFAULT 0 NOT NULL,
-	classfication enum('이체','월급','용돈','식비','교통비','쇼핑','기타'),
+	-- '이체','월급','용돈','식비','교통비','쇼핑','기타'
+	category enum('이체','월급','용돈','식비','교통비','쇼핑','기타') DEFAULT '기타' NOT NULL COMMENT '이체,월급,용돈,식비,교통비,쇼핑,기타,',
 	content text,
-	-- 이체일때만
-	fee int COMMENT '이체일때만',
-	-- 이체일때 돈이 들어오는 자산의 이름
-	in_property varchar(20) COMMENT '이체일때 돈이 들어오는 자산의 이름',
-	-- 이체일때 돈이 나가는 자산의 이름
-	out_property varchar(20) COMMENT '이체일때 돈이 나가는 자산의 이름',
+	-- 이체시 입금될 자산의 번호
+	in_property_idx int COMMENT '이체시 입금될 자산의 번호',
 	PRIMARY KEY (idx)
 );
 
 
-CREATE TABLE user
+CREATE TABLE `user`
 (
 	idx int NOT NULL AUTO_INCREMENT,
 	id varchar(20) NOT NULL,
@@ -106,7 +102,7 @@ CREATE TABLE user_authorities
 CREATE TABLE `write`
 (
 	idx int NOT NULL AUTO_INCREMENT,
-	user_id int NOT NULL,
+	user_idx int NOT NULL,
 	subject varchar(200) NOT NULL,
 	content longtext,
 	viewcnt int DEFAULT 0,
@@ -128,6 +124,14 @@ ALTER TABLE user_authorities
 
 ALTER TABLE transaction
 	ADD FOREIGN KEY (property_idx)
+	REFERENCES property (idx)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE transaction
+	ADD FOREIGN KEY (in_property_idx)
 	REFERENCES property (idx)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -159,7 +163,7 @@ ALTER TABLE user_authorities
 
 
 ALTER TABLE `write`
-	ADD FOREIGN KEY (user_id)
+	ADD FOREIGN KEY (user_idx)
 	REFERENCES user (idx)
 	ON UPDATE RESTRICT
 	ON DELETE CASCADE
@@ -180,3 +184,6 @@ ALTER TABLE file
 	ON UPDATE RESTRICT
 	ON DELETE CASCADE
 ;
+
+
+
