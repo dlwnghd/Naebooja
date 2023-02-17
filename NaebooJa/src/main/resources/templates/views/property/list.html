@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>자산 페이지</title>
+  <script th:src="@{/js/property.js}"></script>
+</head>
+<body>
+
+<h1>자산</h1>
+<!-- 목록 -->
+<table class="table table-hover">
+  <thead class="table-success">
+  <tr>
+    <th>ID</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>조회수</th>
+    <th>작성일</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="dto : ${list}">
+    <td>[[${dto.id}]]</td>
+    <td><a th:href="@{/board/detail(id=${dto.id})}">[[${dto.subject}]]</a> </td>
+    <td>[[${dto.user.username}]]</td>
+    <td>[[${dto.viewCnt}]]</td>
+    <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+  </tr>
+  </tbody>
+</table>
+<!-- 목록 -->
+
+</body>
+</html>
+
+
