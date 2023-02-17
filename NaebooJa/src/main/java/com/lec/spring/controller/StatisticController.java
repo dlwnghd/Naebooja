@@ -13,7 +13,7 @@ public class StatisticController {
         System.out.println("StatisticController() 생성");
     }
 
-    @GetMapping("/test")
+    @GetMapping("/list")
     public void statistic(){}
 
 }
