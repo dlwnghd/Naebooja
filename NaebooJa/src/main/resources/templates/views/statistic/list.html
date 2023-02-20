@@ -18,9 +18,13 @@
     <title>목록</title>
   </head>
   <body>
+
   <!--/* 인증 헤더 */-->
   <th:block th:insert="~{common/header::header}"></th:block>
 
+  <div class="under_header">
+  <!--/* 사이드바 */-->
+  <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
   <div class="container mt-3">
     <h2>목록</h2>
     <hr>
@@ -72,7 +76,7 @@
       </div>
     </div>
   </div>
-
+  </div>
   <!-- pagination -->
   <th:block th:insert="~{board/pagination::pagination}"></th:block>
   <!-- pagination -->

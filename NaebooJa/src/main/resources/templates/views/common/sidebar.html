@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="sidebar">
+    <div class="sidebar">
+        <ul class="menu">
+            <li class="menu-item"><a href="#">내역</a></li>
+            <li class="menu-item"><a href="#">달력</a></li>
+            <li class="menu-item"><a href="#">통계</a></li>
+            <li class="menu-item"><a href="#">자산</a></li>
+            <li class="menu-item"><a th:href="@{/board/list}">게시판</a></li>
+        </ul>
+    </div>
+
+</th:block>
+<sidebar>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sidebar.css}">
+    <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+</sidebar>
+</html>
