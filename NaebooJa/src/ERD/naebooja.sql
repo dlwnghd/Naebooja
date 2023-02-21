@@ -11,9 +11,6 @@ DROP TABLE IF EXISTS property;
 DROP TABLE IF EXISTS `write`;
 DROP TABLE IF EXISTS `USER`;
 
-
-
-
 /* Create Tables */
 
 CREATE TABLE authority
@@ -67,6 +64,7 @@ CREATE TABLE transaction
 	id int NOT NULL AUTO_INCREMENT,
 	-- 수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호
 	property_id int NOT NULL COMMENT '수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호',
+	user_id int NOT NULL,
 	transaction_type enum('수입', '지출', '이체') CHARACTER SET utf8 NOT NULL,
 	regdate datetime NOT NULL DEFAULT now(),
 	money int DEFAULT 0 NOT NULL,
@@ -128,6 +126,12 @@ ALTER TABLE transaction
 	ON DELETE RESTRICT
 ;
 
+ALTER TABLE transaction
+	ADD FOREIGN KEY (user_id)
+	REFERENCES user (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
 
 ALTER TABLE transaction
 	ADD FOREIGN KEY (in_property_id)
