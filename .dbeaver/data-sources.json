@@ -1,0 +1,32 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql8-1866e676f04-1b9895bf675ee4d1": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "naeboojadb",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "naeboojadb",
+				"url": "jdbc:mysql://localhost:3306/naeboojadb",
+				"configurationType": "MANUAL",
+				"home": "/usr/local/mysql-8.0.32-macos13-x86_64",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

@@ -16,6 +16,7 @@ SELECT * FROM comment ORDER BY user_id DESC;
 SELECT * FROM file ORDER BY write_id DESC;
 SELECT * FROM property;
 SELECT * FROM transaction;
+SELECT * FROM transaction WHERE user_id = '1';
 
 -- 특정 id 의 사용자 조회
 SELECT
