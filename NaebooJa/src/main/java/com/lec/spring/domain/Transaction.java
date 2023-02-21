@@ -22,4 +22,5 @@ public class Transaction {
 
     private Property property;              // 거래의 자산의 번호 (FK)
     private Property in_property;           // 이체의 자산의 번호 (FK)
+    private User user_id;                   // User id (FK)
 }
