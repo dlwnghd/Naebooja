@@ -23,8 +23,8 @@ public class PropertyController {
     }
 
     @GetMapping("/list")
-    public void property(Integer page, Model model){
-        boardService.list(page, model);
+    public void property(Model model){
+        propertyService.list(model);
     }
 
 }

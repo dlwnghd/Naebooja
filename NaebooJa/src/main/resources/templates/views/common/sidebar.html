@@ -2,20 +2,53 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<th:block th:fragment="sidebar">
-    <div class="sidebar">
-        <ul class="menu">
-            <li class="menu-item"><a href="#">내역</a></li>
-            <li class="menu-item"><a href="#">달력</a></li>
-            <li class="menu-item"><a href="#">통계</a></li>
-            <li class="menu-item"><a href="#">자산</a></li>
-            <li class="menu-item"><a th:href="@{/board/list}">게시판</a></li>
-        </ul>
-    </div>
-
-</th:block>
 <sidebar>
     <link rel="stylesheet" type="text/css" th:href="@{/css/sidebar.css}">
-    <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+    <script
+            type="module"
+            src="https://unpkg.com/ionicons@6.1.3/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+            nomodule
+            src="https://unpkg.com/ionicons@6.1.3/dist/ionicons/ionicons.js"
+    ></script>
 </sidebar>
+<th:block th:fragment="sidebar">
+    <div class="sidebar">
+        <ul class="link-items">
+            <li class="link-item active">
+                <a href="#" class="link">
+                    <ion-icon name="cash-outline"></ion-icon>
+                    <span style="--i: 1">내역</span>
+                </a>
+            </li>
+            <li class="link-item">
+                <a href="#" class="link">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <span style="--i: 2">달력</span>
+                </a>
+            </li>
+            <li class="link-item">
+                <a href="#" class="link"
+                ><ion-icon name="cellular"></ion-icon>
+                    <span style="--i: 3">통계</span>
+                </a>
+            </li>
+            <li class="link-item">
+                <a href="#" class="link">
+                    <ion-icon name="card-outline"></ion-icon>
+                    <span style="--i: 4">자산</span>
+                </a>
+            </li>
+            <li class="link-item">
+                <a th:href="@{/board/list}" class="link">
+                    <ion-icon name="notifications"></ion-icon
+                    ><span style="--i: 5">게시판</span>
+                </a>
+            </li>
+        </ul>
+        <i data-feather="circle"></i>
+    </div>
+    <script type="text/javascript" th:src="@{/js/sidebar.js}"></script>
+</th:block>
 </html>
