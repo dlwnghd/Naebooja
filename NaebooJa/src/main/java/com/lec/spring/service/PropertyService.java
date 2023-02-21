@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,10 +26,20 @@ public class PropertyService {
         System.out.println("PropertyService() 생성");
     }
 
-    public Property list(){
+    public List<Property> list(Model model){
 
-        Property list = propertyRepository.findById(1l);
+        // 현재 로그인한 작성자 정보
+        User user = U.getLoggedUser();
 
-        return list;
+        System.out.println("☢️☢️☢️☢️☢️☢️☢️☢️");
+        System.out.println(propertyRepository.findAll(user.getId()));
+        System.out.println("☢️☢️☢️☢️☢️☢️☢️☢️");
+
+        List<Property> list = propertyRepository.findAll(user.getId());
+        model.addAttribute("list", list);
+
+        // 한 유저의 전체 자산 정보
+        return propertyRepository.findAll(user.getId());
+
     }
 }
