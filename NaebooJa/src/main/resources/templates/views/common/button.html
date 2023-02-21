@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" />
+</head>
+
+<floating-button>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/button.css}">
+</floating-button>
+<th:block th:fragment="floating-button">
+    <div class="floating-button">
+        <span class="insert-transaction">
+           <a class="add-btn" href="/transaction/insert">
+            <i class="fa-sharp fa-solid fa-plus"></i>
+           </a>
+        </span>
+     </div>
+    <script type="text/javascript" th:src="@{/js/button.js}"></script>
+</th:block>
+</html>
