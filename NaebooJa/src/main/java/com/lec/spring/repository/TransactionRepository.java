@@ -18,10 +18,10 @@ public interface TransactionRepository {
     // 자산 삭제
     int delete(Transaction transaction);
 
-    // 특정 id (PK)의 자산 전체 보기 (transaction id)
-    List<Transaction> findById(Long id);
+    // 특정 transaction id 의 거래 찾기 (transaction id)
+    Transaction findById(Long id);
 
-    // 특정 user(FK) 의 자산 일괄 보기(user_id)
+    // 특정 user(FK) 의 거래 내역 일괄 보기(user_id)
     List<Transaction> findAll(Long id);
 
     // 특정 user 의 특정 거래 내역 보기 (user_id, transaction_type)
