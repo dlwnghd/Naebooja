@@ -22,11 +22,15 @@ public interface TransactionRepository {
     List<Transaction> findById(Long id);
 
     // 특정 user(FK) 의 자산 일괄 보기(user_id)
-    List<Transaction> findByUserId(Long id);
+    List<Transaction> findAll(Long id);
 
     // 특정 user 의 특정 거래 내역 보기 (user_id, transaction_type)
     List<Transaction> findByType(Long id, String type);
 
-    // 특정 user 의 특정 기간 내 거래 전체 보기 (user_id, regDate)
-    List<Transaction> findByDate(Long id, LocalDateTime regDate);
+    // 특정 user 의 하루동안 거래내역 전체 보기 (user_id, regDate)
+    List<Transaction> findAllByDaily(Long id, int day, int month, int year);
+
+    // 특정 user 의 한달동안 거래내역 전체 보기 (user_id, regDate)
+    List<Transaction> findAllByMonthly(Long id, int month, int year);
+
 }
