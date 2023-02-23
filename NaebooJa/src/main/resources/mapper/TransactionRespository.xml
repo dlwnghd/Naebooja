@@ -96,13 +96,34 @@
             ORDER BY t.id DESC
     </select>
 
-<!--    로그인한 user의 하루동안 거래내역 찾기-->
-    <select id="findAllByDaily" resultMap="mapTransaction">
+<!--    로그인한 user의 한달동안 거래내역 찾기-->
+    <select id="findAllByMonthly" resultMap="mapTransaction">
         <include refid="SELECT_BASE"/>
             AND u.id = #{id}
             AND MONTH(t.regdate) = #{month}
             AND YEAR(t.regdate) = #{year}
             ORDER BY t.id DESC
+    </select>
+
+    <!--    로그인한 user의 하루동안 특정 type의 거래내역 찾기-->
+    <select id="findByDayandType" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+        AND u.id = #{id}
+        AND t.transaction_type = #{type}
+        AND DAY(t.regdate) = #{day}
+        AND MONTH(t.regdate) = #{month}
+        AND YEAR(t.regdate) = #{year}
+        ORDER BY t.id DESC
+    </select>
+
+    <!--    로그인한 user의 한달동안 특정 type의 거래내역 찾기-->
+    <select id="findByMonthandType" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+        AND u.id = #{id}
+        AND t.transaction_type = #{type}
+        AND MONTH(t.regdate) = #{month}
+        AND YEAR(t.regdate) = #{year}
+        ORDER BY t.id DESC
     </select>
 
 <!--    transaction Create-->
