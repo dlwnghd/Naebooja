@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransactionService {
 
@@ -25,7 +27,7 @@ public class TransactionService {
         System.out.println("TransactionService() 생성");
     }
 
-//    CRUD - Create
+//    1. CRUD - Create
     public int insert(Transaction transaction){
         User user = U.getLoggedUser();
 //        DB 에서 다시 읽어옴
@@ -33,26 +35,62 @@ public class TransactionService {
         transaction.setUser_id(user);
 
         int cnt = transactionRepository.save(transaction);
-
         return cnt;
     }
 
-//    CRUD - Read
+//    2. CRUD - Read
+//    (2-1) 특정 user 의 거래내역 전부 불러오기 (언제 필요한지는 모르겠음)
+    public List<Transaction> list(){
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+        return transactionRepository.findAll(id);
+    }
 
+//    (2-2) 특정 user 의 특정 타입의 거래 내역 불러오기
+    public List<Transaction> listByType(String type){
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+        return transactionRepository.findByType(id, type);
+    }
 
-//    CRUD - Update
+//    (2-3) 특정 user 의 특정 날짜(일) 의 거래내역 전체 불러오기
+    public List<Transaction> listByDay(int day, int month, int year){
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+        return transactionRepository.findAllByDaily(id, day, month, year);
+    }
+
+//    (2-4) 특정 user 의 특정 달(월) 의 거래내역 전체 불러오기
+    public List<Transaction> listByMonth(int month, int year){
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+        return transactionRepository.findAllByMonthly(id, month, year);
+    }
+
+//    (2-5) 특정 user 의 특정 날짜(일) 의 특정 타입의 거래 내역 불러오기
+    public List<Transaction> listByTypeinDay(String type,int day, int month, int year){
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+        return transactionRepository.findByDayandType(id, type, day, month, year);
+    }
+
+//    (2-6) 특정 user 의 특정 달(월)의 특정 타입의 거래 내역 불러오기
+    public List<Transaction> listByTypeinMonth(String type, int month, int year){
+    User user = U.getLoggedUser();
+    Long id = user.getId();
+    return transactionRepository.findByMonthandType(id, type, month, year);
+}
+
+//    3. CRUD - Update
     public int update(Transaction transaction){
         int result = 0;
-
         result = transactionRepository.update(transaction);
-
         return result;
     }
 
-//    CRUD - Delete
+//    4. CRUD - Delete
     public int deleteById(long id){
         int result = 0;
-
         Transaction transaction = transactionRepository.findById(id);
         result = transactionRepository.delete(transaction);
         return result;
