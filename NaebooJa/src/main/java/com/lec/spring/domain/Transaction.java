@@ -1,10 +1,7 @@
 package com.lec.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +17,6 @@ public class Transaction {
     private String category;                // 거래의 분류(이체,월급,용돈,식비,교통비,쇼핑,기타)
     private String content;                 // 거래의 내용
 
-    private Property property;              // 거래의 자산의 번호 (FK)
+    @ToString.Exclude
     private Property in_property;           // 이체의 자산의 번호 (FK)
 }

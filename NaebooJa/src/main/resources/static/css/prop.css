@@ -1,0 +1,38 @@
+.property-detail{
+    width: 900px;
+}
+
+.detail-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.de-first{
+    display: flex;
+    width: 130px;
+    justify-content: space-between;
+}
+
+.de-second{
+    width: 150px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.property-card{
+    display: flex;
+    justify-content: space-around;
+}
+
+.prop-type {
+    background: gray;
+    width: 100px;
+}
+
+.transac-head tr th{
+    width: 270px;
+}
+
+.transac-head tr th div{
+    display: flex;
+}
