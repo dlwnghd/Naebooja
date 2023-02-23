@@ -27,13 +27,14 @@ public class PropertyService {
         System.out.println("PropertyService() 생성");
     }
 
+    // 한 유저의 전체 자산 정보
     public List<Property> list(Model model){
 
         // 현재 로그인 사용자 정보
         User user = U.getLoggedUser();
 
-        System.out.println("☢️☢️☢️☢️☢️☢️☢️☢️");
-        System.out.println(propertyRepository.findAll(user.getId()));
+//        System.out.println("☢️☢️☢️☢️☢️☢️☢️☢️");
+//        System.out.println(propertyRepository.findAll(user.getId()));
 
         // 특정 유저의 자산 리스트
         List<Property> list = propertyRepository.findAll(user.getId());
@@ -43,24 +44,29 @@ public class PropertyService {
         return list;
     }
 
-    public List<Transaction> propList(Model model){
+    // 특정 자산의 거래 정보
+    public QryPropertyList propDetail(Long id){
+        QryPropertyList propList = new QryPropertyList();
 
-        // 현재 로그인 사용자 정보
-        User user = U.getLoggedUser();
+        List<Transaction> trans = propertyRepository.findPropTransAll(id);
 
-        // 특정 자산의 번호⚠️
-        // 특정 자산의 번호를 받아와야 한다 슈불탱
+        propList.setCount(trans.size());
+        propList.setList(trans);
+        propList.setStatus("OK");
+        propList.setPropName(propertyRepository.findById(id).getName());
 
-        // 특정 유저의 특정 자산의 거래 리스트
-        List<Transaction> propList = propertyRepository.findPropTransAll(user.getId(), 1L);
-        model.addAttribute("propList", propList);
-        System.out.println("🟡🟡🟡🟡🟡🟡🟡🟡🟡");
-        System.out.println(propertyRepository.findPropTransAll(user.getId(), 1L));
+        System.out.println("🥶🥶🥶🥶🥶🥶🥶🥶");
+        System.out.println(propList.getCount());
+        System.out.println("🥶🥶🥶🥶🥶🥶🥶🥶");
+        System.out.println(propList.getList());
+        System.out.println("🥶🥶🥶🥶🥶🥶🥶🥶");
+        System.out.println(propList.getStatus());
 
-        // 한 유저의 전체 자산 정보
+        // 특정 자산 정보
         return propList;
     }
 
+    // 자산 생성
     public int write(Property property){
 
         // 현재 로그인한 작성자 정보
@@ -70,11 +76,16 @@ public class PropertyService {
         user = userRepository.findById(user.getId());
         property.setUser(user);  // 글 작성자 세팅
 
+        // 잔액을 입력하지 않는다면 0원으로 기본값 세팅
+        if(property.getRest_money() == null) property.setRest_money(0L);
+
+        System.out.println(property);
         int cnt = propertyRepository.save(property);
 
         return cnt;
     }
 
+    // 자산 삭제
     public int deleteById(long id){
         int result = 0;
 

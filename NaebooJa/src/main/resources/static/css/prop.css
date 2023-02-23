@@ -1,5 +1,16 @@
 .property-detail{
-    width: 900px;
+    width: 0px;
+    overflow-x: hidden;
+    transition: all 0.3s ease;
+}
+
+.property-detail tbody{
+    overflow-y: scroll;
+}
+
+#cmt_list tr{
+    display: flex;
+    justify-content: space-between;
 }
 
 .detail-header{
@@ -35,4 +46,15 @@
 
 .transac-head tr th div{
     display: flex;
+}
+
+.closebtn{
+    text-decoration: none;
+    color: gray;
+    font-size: 34px;
+}
+
+.de-first p{
+    margin: 0;
+    align-self: center;
 }

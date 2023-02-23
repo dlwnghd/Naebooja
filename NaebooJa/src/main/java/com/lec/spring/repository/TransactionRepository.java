@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository {
 
-    // 특정 id (PK)의 자산 보기
-    Transaction findById(Long id);
+    // 특정 id (PK)의 거래 보기
+    Transaction findById(Long id, Long p_id);
 }

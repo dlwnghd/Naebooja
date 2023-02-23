@@ -22,7 +22,7 @@ public interface PropertyRepository {
     List<Property> findAll(Long id);
 
     // 특정 자산의 거래보기 : 최신순
-    List<Transaction> findPropTransAll(Long id, Long p_id);
+    List<Transaction> findPropTransAll(Long p_id);
 
     // 특정 id 자산 삭제하기
     int delete(Property property);

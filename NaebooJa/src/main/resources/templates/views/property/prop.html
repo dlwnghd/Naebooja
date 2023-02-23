@@ -47,10 +47,12 @@
       </tr>
       </thead>
       <tbody>
-        <tr th:each="dto : ${list}">
-          <td>[[${dto.id}]]</td>
-          <td>[[${dto.name}]]</td>
-          <td>[[${dto.group}]]</td>
+        <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
+          <div>
+            <td>[[${dto.id}]]</td>
+            <td>[[${dto.name}]]</td>
+            <td>[[${dto.group}]]</td>
+          </div>
           <td style="display: flex; justify-content: space-between;">
             [[${dto.rest_money}]]
             <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
@@ -65,75 +67,14 @@
 
     <div class="row">
       <div class="col-12">
-        <a class="btn btn-outline-dark" th:href="@{/board/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">자산 생성</a>
+        <a class="btn btn-outline-dark" th:href="@{/property/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">자산 생성</a>
       </div>
     </div>
   </div>
-  <div class="property-detail">
-    <div class="detail-header">
-      <div class="de-first">
-        <p>자산의 이름</p>
-      </div>
-      <div class="de-second">
-        <p><</p>
-        <p>2023.02</p>
-        <p>></p>
-      </div>
-    </div>
-    <div class="use-month">
-      <p>사용기간 : 23.02.01 ~ 23.02.28</p>
-    </div>
-    <div class="property-card">
-      <div class="in_money prop-type">
-        <span>입금</span>
-        <p>0</p>
-      </div>
-      <div class="out_money prop-type">
-        <span>출금</span>
-        <p>0</p>
-      </div>
-      <div class="transfer_money prop-type">
-        <span>이체</span>
-        <p>0</p>
-      </div>
-      <div class="rest_money prop-type">
-        <span>누적잔액</span>
-        <p>0</p>
-      </div>
-    </div>
-    <div>
-      <!-- 자산 거래 목록 -->
-      <table class="table table-hover">
-        <thead class="table-success transac-head">
-        <tr>
-          <th>
-            <div>
-              <p>15</p>
-              <p>수요일</p>
-              <p>2023.02</p>
-            </div>
-          </th>
-          <th>2000</th>
-          <th>12000</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="prop_dto : ${propList}">
-          <td>[[${prop_dto.category}]]</td>
-<!--          <td><a th:href="@{/board/detail(id=${dto.id})}">제목</a> </td>-->
-          <td>
-            <div>
-              <p>[[${prop_dto.id}]]</p>
-              <p>[[${prop_dto.money}]]</p>
-              <p>[[${prop_dto.transaction_type}]]</p>
-            </div>
-          </td>
-          <td>[[${prop_dto.regDate}]]</td>
-        </tr>
-        </tbody>
-      </table>
-      <!-- 목록 -->
-    </div>
+
+  <!-- 특정 자산 거래 정보 목록-->
+  <th:block th:insert="~{property/prop_detail::prop_detail}"></th:block>
+  <!-- 특정 자산 거래 정보 목록 -->
   </div>
 </div>
 </body>

@@ -53,6 +53,7 @@
     <resultMap id="mapTransaction" type="com.lec.spring.domain.Transaction"> <!--Transaction 객체로 매핑-->
         <result column="t_id" property="id"/> <!--p_id 값을 id 에 꽂아넣음(Property.java)-->
         <result column="t_transaction_type" property="transaction_type"/>
+        <result column="t_property_id" property="property_id"/>
         <result column="t_regdate" property="regDate"/>
         <result column="t_money" property="money"/>
         <result column="t_category" property="category"/>
@@ -74,7 +75,7 @@
         ORDER BY p.id ASC
     </select>
 
-    <!--특정 사용자의 특정 자산의 전체 거래정보를 찾는데 결과는 mapProperty⬇️ 가 책임진다-->
+    <!--특정 사용자의 특정 자산의 전체 거래정보를 찾는데 결과는 mapTransaction⬇️ 가 책임진다-->
     <select id="findPropTransAll" resultMap="mapTransaction">
         SELECT
             t.id "t_id",
