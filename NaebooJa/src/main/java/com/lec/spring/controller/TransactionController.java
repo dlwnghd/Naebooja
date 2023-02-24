@@ -27,8 +27,7 @@ public class TransactionController {
 
     @GetMapping("/daily")
     public void daily(Model model){
-        model.addAttribute("list", transactionService.list());
-        model.addAttribute("conPath", U.getRequest().getContextPath());
+        model.addAttribute("list", transactionService.list(model));
     }
 
 }
