@@ -34,8 +34,8 @@ public interface TransactionRepository {
     List<Transaction> findAllByMonthly(Long id, int month, int year);
 
     // 특정 user 의 하룻동안 특정 type 의 거래내역 전체 보기
-    List<Transaction> findByDayandType(Long id, String type, int day, int month, int year);
+    List<Transaction> findByDayType(Long id, String type, int day, int month, int year);
 
     // 특정 user 의 한달동안 특정 type 의 거래내역 전체 보기
-    List<Transaction> findByMonthandType(Long id, String type, int month, int year);
+    List<Transaction> findByMonthType(Long id, String type, int month, int year);
 }

@@ -71,14 +71,14 @@ public class TransactionService {
     public List<Transaction> listByTypeinDay(String type,int day, int month, int year){
         User user = U.getLoggedUser();
         Long id = user.getId();
-        return transactionRepository.findByDayandType(id, type, day, month, year);
+        return transactionRepository.findByDayType(id, type, day, month, year);
     }
 
 //    (2-6) 특정 user 의 특정 달(월)의 특정 타입의 거래 내역 불러오기
     public List<Transaction> listByTypeinMonth(String type, int month, int year){
     User user = U.getLoggedUser();
     Long id = user.getId();
-    return transactionRepository.findByMonthandType(id, type, month, year);
+    return transactionRepository.findByMonthType(id, type, month, year);
 }
 
 //    3. CRUD - Update

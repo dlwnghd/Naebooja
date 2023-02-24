@@ -106,7 +106,7 @@
     </select>
 
     <!--    로그인한 user의 하루동안 특정 type의 거래내역 찾기-->
-    <select id="findByDayandType" resultMap="mapTransaction">
+    <select id="findByDayType" resultMap="mapTransaction">
         <include refid="SELECT_BASE"/>
         AND u.id = #{id}
         AND t.transaction_type = #{type}
@@ -117,7 +117,7 @@
     </select>
 
     <!--    로그인한 user의 한달동안 특정 type의 거래내역 찾기-->
-    <select id="findByMonthandType" resultMap="mapTransaction">
+    <select id="findByMonthType" resultMap="mapTransaction">
         <include refid="SELECT_BASE"/>
         AND u.id = #{id}
         AND t.transaction_type = #{type}
@@ -126,24 +126,24 @@
         ORDER BY t.id DESC
     </select>
 
-<!--    transaction Create-->
-    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"
-            keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        INSERT INTO transaction(t.transaction_type, money, category, content, property, in_property, user_id)
-        VALUE(#{transaction_type}, #{money}, #{category}, #{content}, #{property}, #{in_property}, #{user_id})
-    </insert>
+<!--&lt;!&ndash;    transaction Create&ndash;&gt;-->
+<!--    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"-->
+<!--            keyProperty="id" useGeneratedKeys="true" keyColumn="id">-->
+<!--        INSERT INTO transaction(t.transaction_type, money, category, content, property, in_property, user_id)-->
+<!--        VALUE(#{transaction_type}, #{money}, #{category}, #{content}, #{property}, #{in_property}, #{user_id})-->
+<!--    </insert>-->
 
-<!--    transaction Update-->
-    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.Transaction">
-        UPDATE transaction
-        SET transaction_type = #{transaction_type}, money = #{money}, category = #{category}, content = #{content}, property = #{property}, in_property = #{in_property}
-        WHERE t.id = #{id}
-    </update>
+<!--&lt;!&ndash;    transaction Update&ndash;&gt;-->
+<!--    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.Transaction">-->
+<!--        UPDATE transaction-->
+<!--        SET transaction_type = #{transaction_type}, money = #{money}, category = #{category}, content = #{content}, property = #{property}, in_property = #{in_property}-->
+<!--        WHERE t.id = #{id}-->
+<!--    </update>-->
 
-<!--    transaction Delete-->
-    <delete id="delete" flushCache="true"
-            parameterType="com.lec.spring.domain.Transaction">
-        DELETE FROM transaction WHERE t.id = #{id}
-    </delete>
+<!--&lt;!&ndash;    transaction Delete&ndash;&gt;-->
+<!--    <delete id="delete" flushCache="true"-->
+<!--            parameterType="com.lec.spring.domain.Transaction">-->
+<!--        DELETE FROM transaction WHERE t.id = #{id}-->
+<!--    </delete>-->
 
 </mapper>
