@@ -94,7 +94,9 @@
             `transaction` t, `property` p, `user` u
         WHERE
             property_id = #{id}
-        ORDER BY t.id ASC
+            AND MONTH(t.regdate) = MONTH(#{date})
+            AND YEAR(t.regdate) = YEAR(#{date})
+        ORDER BY t.id DESC
     </select>
 
     <delete id="delete" flushCache="true"

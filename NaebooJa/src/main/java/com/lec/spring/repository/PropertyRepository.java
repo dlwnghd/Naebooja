@@ -7,6 +7,7 @@ import com.lec.spring.domain.Property;
 import com.lec.spring.domain.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -21,8 +22,8 @@ public interface PropertyRepository {
     // 전체 자산 보기 : 최신순
     List<Property> findAll(Long id);
 
-    // 특정 자산의 거래보기 : 최신순
-    List<Transaction> findPropTransAll(Long p_id);
+    // 특정 자산의 특정월 거래보기 : 최신순
+    List<Transaction> findPropTransAll(Long id, Date date);
 
     // 특정 id 자산 삭제하기
     int delete(Property property);

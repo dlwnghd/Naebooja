@@ -8,6 +8,14 @@ import com.lec.spring.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
+
 @RestController  // data 를 response 한다  ('View' 를 리턴하는게 아니다!)
 @RequestMapping("/propertyDetail")
 public class PropertyDetailController {
@@ -19,7 +27,16 @@ public class PropertyDetailController {
     }
 
     @GetMapping("/propList")
-    public QryPropertyList list(Long id){return propertyService.propDetail(id);}
+    public QryPropertyList list(Long id, String date){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date ChangeDate = null;
+        try {
+            ChangeDate = formatter.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return propertyService.propDetail(id, ChangeDate);}
 }
 
 

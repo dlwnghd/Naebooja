@@ -58,3 +58,7 @@
     margin: 0;
     align-self: center;
 }
+
+.btnDel{
+    z-index: 9999;
+}

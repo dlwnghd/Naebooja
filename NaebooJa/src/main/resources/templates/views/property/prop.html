@@ -48,11 +48,9 @@
       </thead>
       <tbody>
         <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
-          <div>
             <td>[[${dto.id}]]</td>
             <td>[[${dto.name}]]</td>
             <td>[[${dto.group}]]</td>
-          </div>
           <td style="display: flex; justify-content: space-between;">
             [[${dto.rest_money}]]
             <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>

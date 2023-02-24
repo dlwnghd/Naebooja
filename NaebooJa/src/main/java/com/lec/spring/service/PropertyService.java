@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,15 +46,17 @@ public class PropertyService {
     }
 
     // 특정 자산의 거래 정보
-    public QryPropertyList propDetail(Long id){
+    public QryPropertyList propDetail(Long id, Date date){
         QryPropertyList propList = new QryPropertyList();
 
-        List<Transaction> trans = propertyRepository.findPropTransAll(id);
+        List<Transaction> trans = propertyRepository.findPropTransAll(id, date);
 
         propList.setCount(trans.size());
         propList.setList(trans);
         propList.setStatus("OK");
         propList.setPropName(propertyRepository.findById(id).getName());
+        propList.setDate(date);
+        propList.setPropNum(id);
 
         System.out.println("🥶🥶🥶🥶🥶🥶🥶🥶");
         System.out.println(propList.getCount());

@@ -33,10 +33,14 @@
   </div>
 
   <form th:action="@{/property/write}" method="post" enctype="Multipart/form-data">
-    <div class="mb-3 mt-3">
-      <label for="group">그룹:</label>
-      <input type="text" class="form-control" id="group" placeholder="그룹을 입력하세요" name="group" th:value="${group}" required>
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <input type="radio" class="btn-check A" id="group1" name="group" autocomplete="off" value="현금" checked>
+      <label class="btn btn-outline-primary A_" for="group1">현금</label>
+
+      <input type="radio" class="btn-check B" id="group2" name="group" autocomplete="off" value="카드">
+      <label class="btn btn-outline-primary B_" for="group2">카드</label>
     </div>
+
     <div class="mb-3 mt-3">
       <label for="name">이름:</label>
       <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요" name="name" th:value="${name}" required>
