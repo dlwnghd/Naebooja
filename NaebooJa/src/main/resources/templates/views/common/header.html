@@ -23,7 +23,7 @@
                 <span class="user">[[${user.name}]]</span>
                 <img class="userlogo" th:src="@{/img/admin.png}" alt="">
             </div>
-            <form th:action="@{user/logout}" method="POST" sec:authorize="isAuthenticated()" th:with="user=${#authentication.getPrincipal().getUser()}">
+            <form th:action="@{/user/logout}" method="POST" sec:authorize="isAuthenticated()" th:with="user=${#authentication.getPrincipal().getUser()}">
                 <!--TODO : 로그아웃후 다시 돌아오기 -->
                 <span class="d-flex">
                         <span><button class="btn btn-danger" type="submit">Logout</button></span>
