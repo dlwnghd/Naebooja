@@ -18,8 +18,8 @@ public interface TransactionRepository {
     // 자산 삭제
     int delete(Transaction transaction);
 
-    // 특정 transaction id 의 거래 찾기 (transaction id)
-    Transaction findById(Long id);
+    // 특정 id (PK)의 거래 보기
+    Transaction findById(Long id, Long p_id);
 
     // 특정 user(FK) 의 거래 내역 일괄 보기(user_id)
     List<Transaction> findAll(Long id);
@@ -38,4 +38,6 @@ public interface TransactionRepository {
 
     // 특정 user 의 한달동안 특정 type 의 거래내역 전체 보기
     List<Transaction> findByMonthType(Long id, String type, int month, int year);
+
+
 }

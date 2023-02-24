@@ -89,10 +89,5 @@ public class TransactionService {
     }
 
 //    4. CRUD - Delete
-    public int deleteById(long id){
-        int result = 0;
-        Transaction transaction = transactionRepository.findById(id);
-        result = transactionRepository.delete(transaction);
-        return result;
-    }
+
 }

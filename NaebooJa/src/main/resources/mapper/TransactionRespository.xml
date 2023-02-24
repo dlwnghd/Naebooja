@@ -64,7 +64,7 @@
 
     <!--    transaction Read-->
 
-    <!--특정 t.id  의 transaction 찾기 결과는 mapTransaction⬇️ 가 책임진다-->
+    <!--특정 ID의 거래를 찾는데 결과는 mapTransaction⬇️ 가 책임진다-->
     <select id="findById" resultMap="mapTransaction">
         <include refid="SELECT_BASE"/>
             AND t.id = #{id}
@@ -116,6 +116,7 @@
         ORDER BY t.id DESC
     </select>
 
+
     <!--    로그인한 user의 한달동안 특정 type의 거래내역 찾기-->
     <select id="findByMonthType" resultMap="mapTransaction">
         <include refid="SELECT_BASE"/>
@@ -145,5 +146,23 @@
 <!--            parameterType="com.lec.spring.domain.Transaction">-->
 <!--        DELETE FROM transaction WHERE t.id = #{id}-->
 <!--    </delete>-->
+
+    <!--특정 사용자의 특정 자산의 전체 거래를 찾는데 결과는 mapProperty⬇️ 가 책임진다-->
+    <select id="findAll" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+            AND u.id = #{id}
+            AND p.id = #{p_id}
+        ORDER BY t.id ASC
+    </select>
+
+    <!-- 특정 사용자의 특정 자산의 특정 월의 자산의 거래내역 -->
+    <select id="findMonthlyProperty" resultMap="mapProperty">
+        <include refid="SELECT_BASE"/>
+            MONTH(t.regdate) = MONTH(#{regdate})
+            AND YEAR(t.regdate) = YEAR(#{regdate})
+            AND u.id = #{id}
+            AND p.id = #{p_id}
+        ORDER BY t.id ASC
+    </select>
 
 </mapper>
