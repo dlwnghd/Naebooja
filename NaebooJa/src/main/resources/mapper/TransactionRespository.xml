@@ -6,13 +6,13 @@
 <mapper namespace="com.lec.spring.repository.TransactionRepository">
 
     <!--    transaction Create-->
-        <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"
-                keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-            INSERT INTO `transaction`
-                    (`transaction_type`, money, `category`, `content`, property_id, in_property, user_id)
-            VALUE
-                (#{transaction_type}, #{money}, #{category}, #{content}, #{property_id}, #{in_property}, #{user_id})
-        </insert>
+<!--        <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"-->
+<!--                keyProperty="id" useGeneratedKeys="true" keyColumn="id">-->
+<!--            INSERT INTO `transaction`-->
+<!--                    (`transaction_type`, money, `category`, `content`, property_id, in_property, user_id)-->
+<!--            VALUE-->
+<!--                (#{transaction_type}, #{money}, #{category}, #{content}, #{property_id}, #{in_property}, #{user_id})-->
+<!--        </insert>-->
 
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
     <sql id="SELECT_BASE">
@@ -83,7 +83,7 @@
     </select>
 
 <!--    로그인한 user 의 transaction 전체  -->
-    <select id="findAll" resultMap="mapTransaction">
+    <select id="findAlls" resultMap="mapTransaction">
         <include refid="SELECT_BASE"/>
             AND u.id = #{id}
             ORDER BY t.regdate DESC

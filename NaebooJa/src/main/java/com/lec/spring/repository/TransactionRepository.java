@@ -24,7 +24,7 @@ public interface TransactionRepository {
     Transaction findById(Long u_id, Long p_id);
 
     // 특정 user(FK) 의 거래 내역 일괄 보기(user_id)
-    List<Transaction> findAll(Long id);
+    List<Transaction> findAlls(Long id);
 
     // 특정 user 의 특정 거래 내역 보기 (user_id, transaction_type)
     List<Transaction> findByType(Long id, String type);

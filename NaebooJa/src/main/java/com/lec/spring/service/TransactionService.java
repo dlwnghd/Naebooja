@@ -46,7 +46,7 @@ public class TransactionService {
         User user = U.getLoggedUser();
         Long id = user.getId();
 
-        List<Transaction> list = transactionRepository.findAll(id);
+        List<Transaction> list = transactionRepository.findAlls(id);
         model.addAttribute("list", list);
         return list;
     }
