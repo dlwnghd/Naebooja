@@ -89,6 +89,8 @@ function buildComment(result){
 
     const out = [];
 
+    console.log(result.data);
+
     result.data.forEach(comment => {
         let id = comment.id;
         let content = comment.content.trim();
