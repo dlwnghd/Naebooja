@@ -11,7 +11,7 @@ AND TABLE_NAME LIKE '%'
 SELECT * FROM authority;
 SELECT * FROM `user` ORDER BY id DESC;
 SELECT * FROM user_authorities;
-SELECT * FROM `write` ORDER BY user_id DESC;
+SELECT * FROM board ORDER BY user_id DESC;
 SELECT * FROM comment ORDER BY user_id DESC;
 SELECT * FROM file ORDER BY write_id DESC;
 SELECT * FROM property;
@@ -22,7 +22,7 @@ SELECT * FROM transaction WHERE user_id = '1';
 SELECT
 	id "id"
 	, password "password"
-	, email "email"
+	, name "name"
 FROM `user`
 WHERE id = 1
 ;
@@ -42,16 +42,16 @@ WHERE a.id = u.authority_id AND u.user_id = 3	-- 3번은 관리자임
 ;
 
 -- 페이징 테스트용 다량의 데이터
-INSERT INTO `write`(user_id, subject, content)
-SELECT user_id, subject, content FROM `write`;
+INSERT INTO board(user_id, subject, content)
+SELECT user_id, subject, content FROM board;
 
-SELECT count(*) FROM `write`;
+SELECT count(*) FROM board;
 
-SELECT * FROM `write` ORDER BY id desc limit 5;
+SELECT * FROM board ORDER BY id desc limit 5;
 
-SELECT * FROM `write` ORDER BY id desc limit 5, 5;
+SELECT * FROM board ORDER BY id desc limit 5, 5;
 
-DELETE FROM `write` WHERE id > 4;
+DELETE FROM board WHERE id > 4;
 
 # -------------------------------------------------------
 # 댓글

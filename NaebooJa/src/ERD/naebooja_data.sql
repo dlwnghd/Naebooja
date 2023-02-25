@@ -38,7 +38,7 @@ INSERT INTO user_authorities VALUES
 (3, 2)
 ;
 -- 샘플 글
-INSERT INTO `write` (user_id, subject, content) VALUES
+INSERT INTO board (user_id, subject, content) VALUES
 (1, '제목입니다1', '내용입니다1'),
 (1, '제목입니다2', '내용입니다2'),
 (3, '제목입니다3', '내용입니다3'),
@@ -76,7 +76,7 @@ INSERT INTO file(write_id, source, file) VALUES
 ;
 
 -- 샘플 property
-INSERT INTO property(user_id, `group`, `name`, rest_money) VALUES
+INSERT INTO property(user_id, category, `name`, rest_money) VALUES
 -- 1번 유저
 (1, '현금', '테스트자산1', 100000),
 (1, '현금', '테스트자산2', 10000),
@@ -88,7 +88,7 @@ INSERT INTO property(user_id, `group`, `name`, rest_money) VALUES
 ;
 
 -- 잔액 없이 생성 테스트
-INSERT INTO property(user_id, `group`, `name`) VALUES
+INSERT INTO property(user_id, category, `name`) VALUES
 -- 1번 유저
 (1, '카드', '테스트자산4'),
 -- 1번 유저
