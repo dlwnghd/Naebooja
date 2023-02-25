@@ -168,20 +168,19 @@ INSERT INTO transaction(property_id, user_id,transaction_type, money, category, 
 
 
 -- *이체
--- (날짜, 내용 제외)
-INSERT INTO transaction(property_id, user_id,transaction_type, money, category, in_property_id) VALUES
-(1,1,'이체',10000,'이체',2),
-(1,1,'이체',20000,'이체',2),
-(2,2,'이체',30000,'이체',1),
-(2,2,'이체',40000,'이체',1)
+-- (날짜 제외)
+INSERT INTO transfer( user_id,in_property_id,out_property_id, money, content) VALUES
+(1,1,2,10000,'이체1'),
+(1,2,1,10000,'이체2'),
+(1,3,2,10000,'이체3'),
+(2,4,5,10000,'이체4')
 ;
 
-
--- (날짜, 내용 포함)
-INSERT INTO transaction(property_id, user_id,transaction_type, regdate, money, category, content, in_property_id) VALUES
-(1,1,'이체','2022-01-01 00:00:00',10000,'이체','이체내용1',2),
-(1,1,'이체','2022-01-01 00:00:00',20000,'이체','이체내용2',2),
-(2,2,'이체','2021-01-01 00:00:00',30000,'이체','이체내용3',1),
-(2,2,'이체','2021-01-01 00:00:00',40000,'이체','이체내용4',1)
+INSERT INTO transfer( user_id,in_property_id,out_property_id, money, content, regdate) VALUES
+(1,1,2,10000,'이체1','2023-01-22 00:00:00'),
+(1,2,1,10000,'이체2','2022-01-22 00:00:00'),
+(1,3,2,10000,'이체3','2022-02-22 00:00:00'),
+(2,4,5,10000,'이체4','2022-02-22 00:00:00')
 ;
+
 

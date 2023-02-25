@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS file;
 DROP TABLE IF EXISTS board;
 DROP TABLE IF EXISTS transaction;
+DROP TABLE IF EXISTS transfer;
 DROP TABLE IF EXISTS property;
 DROP TABLE IF EXISTS user;
 
@@ -80,13 +81,25 @@ CREATE TABLE transaction
 	-- 수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호
 	property_id int NOT NULL COMMENT '수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호',
 	user_id int NOT NULL,
-	transaction_type enum('수입', '지출', '이체') CHARACTER SET utf8 NOT NULL,
+	transaction_type enum('수입', '지출') CHARACTER SET utf8 NOT NULL,
 	regdate datetime NOT NULL DEFAULT now(),
 	money int DEFAULT 0 NOT NULL,
 	-- '이체','월급','용돈','식비','교통비','쇼핑','기타'
 	category enum('이체','월급','용돈','식비','교통비','쇼핑','기타') DEFAULT '기타' NOT NULL COMMENT '''이체'',''월급'',''용돈'',''식비'',''교통비'',''쇼핑'',''기타''',
 	content text,
-	in_property_id int,
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE transfer
+(
+	id int NOT NULL,
+	user_id int NOT NULL,
+	in_property_id int NOT NULL,
+	out_property_id int NOT NULL,
+	money int NOT NULL,
+	content text,
+	regdate datetime DEFAULT NOW(), SYSDATE() NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -145,8 +158,16 @@ ALTER TABLE transaction
 ;
 
 
-ALTER TABLE transaction
+ALTER TABLE transfer
 	ADD FOREIGN KEY (in_property_id)
+	REFERENCES property (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE transfer
+	ADD FOREIGN KEY (out_property_id)
 	REFERENCES property (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -178,6 +199,14 @@ ALTER TABLE property
 
 
 ALTER TABLE transaction
+	ADD FOREIGN KEY (user_id)
+	REFERENCES user (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE transfer
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (id)
 	ON UPDATE RESTRICT
