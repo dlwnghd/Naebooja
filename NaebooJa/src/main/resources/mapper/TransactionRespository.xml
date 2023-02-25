@@ -6,13 +6,13 @@
 <mapper namespace="com.lec.spring.repository.TransactionRepository">
 
     <!--    transaction Create-->
-<!--        <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"-->
-<!--                keyProperty="id" useGeneratedKeys="true" keyColumn="id">-->
-<!--            INSERT INTO `transaction`-->
-<!--                    (`transaction_type`, money, `category`, `content`, property_id, in_property, user_id)-->
-<!--            VALUE-->
-<!--                (#{transaction_type}, #{money}, #{category}, #{content}, #{property_id}, #{in_property}, #{user_id})-->
-<!--        </insert>-->
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"
+                keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+            INSERT INTO `transaction`
+                    (`transaction_type`, money, `category`, `content`, property_id, in_property, user_id)
+            VALUE
+                (#{transaction_type}, #{money}, #{category}, #{content}, #{property_id}, #{in_property}, #{user_id})
+    </insert>
 
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
     <sql id="SELECT_BASE">
@@ -21,7 +21,6 @@
             t.property_id "t_property_id",
             t.user_id "t_user_id",
             t.transaction_type "t_transaction_type",
-            t.regdate "t_regdate",
             t.money "t_money",
             t.category "t_category",
             t.content "t_content",
@@ -32,8 +31,7 @@
             p.rest_money "p_rest_money",
             u.id "u_id",
             u.username "u_username",
-            u.name "u_name",
-            u.regdate "u_regdate"
+            u.name "u_name"
         FROM
             `transaction` t, `property` p, `user` u
         WHERE t.user_id = u.id
@@ -46,7 +44,6 @@
         <result column="u_username" property="username"/>
         <result column="u_password" property="password"/>
         <result column="u_name" property="name"/>
-        <result column="u_regdate" property="regDate"/>
     </resultMap>
 
     <!-- Property 매핑 -->
@@ -139,12 +136,12 @@
     </select>
 
 
-<!--&lt;!&ndash;    transaction Update&ndash;&gt;-->
-<!--    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.Transaction">-->
-<!--        UPDATE `transaction`-->
-<!--        SET transaction_type = #{transaction_type}, money = #{money}, category = #{category}, content = #{content}, property = #{property}, in_property = #{in_property}-->
-<!--        WHERE t.id = #{id}-->
-<!--    </update>-->
+<!--    transaction Update-->
+    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.Transaction">
+        UPDATE `transaction`
+        SET transaction_type = #{transaction_type}, money = #{money}, category = #{category}, content = #{content}, property = #{property}, in_property = #{in_property}
+        WHERE t.id = #{id}
+    </update>
 
 <!--    transaction Delete-->
     <delete id="delete" flushCache="true"

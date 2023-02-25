@@ -20,7 +20,7 @@ public interface TransactionRepository {
     int delete(Transaction transaction);
 
 //    Read
-    // 특정 id (PK)의 거래 보기 -> transaction 에서는 사용하지 않긴 하는데, 이거 왜 Param 이 2개나 필요한건지 모르겠습니다..!
+    // 특정 id (PK)의 거래 보기 (detail 볼때 필요, user_id, property_id)
     Transaction findById(Long u_id, Long p_id);
 
     // 특정 user(FK) 의 거래 내역 일괄 보기(user_id)

@@ -16,9 +16,9 @@ public class Transaction {
     private String category;                // 거래의 분류(이체,월급,용돈,식비,교통비,쇼핑,기타)
     private String content;                 // 거래의 내용
 
-    private Long property_id;               // 거래의 기본 자산 번호(FK)
+    private Property property_id;               // 거래의 기본 자산 번호(FK)
 
     @ToString.Exclude
-    private Property in_property;           // 이체의 자산의 번호 (FK)
+    private Property in_property_id;           // 이체의 자산의 번호 (FK)
     private User user_id;                   // User id (FK)
 }
