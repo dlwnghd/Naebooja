@@ -194,7 +194,7 @@ FROM transaction t, `user` u
 WHERE t.regdate BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) 
 	AND NOW() 
 	AND u.id = 1
-ORDER BY t.id DESC
+ORDER BY t.id DESC;
 
 # 통계페이지
 
@@ -312,3 +312,65 @@ SELECT sum(
 		ORDER BY t.id DESC)
 ) AS "특정 사용자의 전체 자산의 전체 수입";
 # 특정 사용자의 자산의 전체 합계
+
+
+
+# 오늘 기준 특정 사용자의 특정 자산의 특정 월의 자산의 거래내역
+SELECT t.id "거래번호", u.id "유저번호", t.property_id "출금자산번호",
+	t.in_property_id "입금자산번호",
+	t.transaction_type "거래타입", t.regdate "거래일", t.money "거래액",
+	t.category "분류"
+FROM transaction t, `user` u
+WHERE t.regdate BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) 
+	AND NOW() 
+	AND u.id = 1
+	AND t.property_id = 1
+ORDER BY t.id DESC;
+
+# 오늘 기준 특정 사용자의 특정 자산의 특정 월의 자산의 이체내역
+SELECT t.id "거래번호", u.id "유저번호", t.property_id "출금자산번호",
+	t.in_property_id "입금자산번호",
+	t.transaction_type "거래타입", t.regdate "거래일", t.money "거래액",
+	t.category "분류"
+FROM transaction t, `user` u
+WHERE MONTH(t.regdate) = 2
+   	AND YEAR(t.regdate) = 2023
+	AND u.id = 1
+	AND t.property_id = 1
+	AND t.transaction_type = "이체"
+ORDER BY t.id DESC;
+
+# 오늘 기준 특정 사용자의 특정 자산의 특정 월의 자산의 지출내역
+SELECT t.id "거래번호", u.id "유저번호", t.property_id "출금자산번호",
+	t.in_property_id "입금자산번호",
+	t.transaction_type "거래타입", t.regdate "거래일", t.money "거래액",
+	t.category "분류"
+FROM transaction t, `user` u
+WHERE MONTH(t.regdate) = 1
+   	AND YEAR(t.regdate) = 2023
+	AND u.id = 1
+	AND t.property_id = 1
+	AND t.transaction_type = "지출"
+ORDER BY t.id DESC;
+
+# 오늘 기준 특정 사용자의 특정 자산의 특정 월의 자산의 수입내역
+SELECT t.id "거래번호", u.id "유저번호", t.property_id "출금자산번호",
+	t.in_property_id "입금자산번호",
+	t.transaction_type "거래타입", DAY(t.regdate) "거래일", t.money "거래액",
+	t.category "분류"
+FROM transaction t, `user` u
+WHERE 
+	MONTH(t.regdate) = 1
+   	AND YEAR(t.regdate) = 2023
+	AND u.id = 1
+	AND t.property_id = 1
+	AND t.transaction_type = "수입"
+ORDER BY t.id DESC;
+
+# 특정 사용자의 특정 자산의 전체 거래정보
+SELECT 
+	* 
+FROM `transaction` t
+WHERE
+	property_id = 1
+;

@@ -16,7 +16,7 @@
 <th:block th:fragment="sidebar">
     <div class="sidebar">
         <ul class="link-items">
-            <li class="link-item active">
+            <li class="link-item">
                 <a href="#" class="link">
                     <ion-icon name="cash-outline"></ion-icon>
                     <span style="--i: 1">내역</span>
@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li class="link-item">
-                <a href="#" class="link">
+                <a th:href="@{/property/prop}" class="link">
                     <ion-icon name="card-outline"></ion-icon>
                     <span style="--i: 4">자산</span>
                 </a>

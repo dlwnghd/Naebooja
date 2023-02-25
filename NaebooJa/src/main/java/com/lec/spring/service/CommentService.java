@@ -36,6 +36,13 @@ public class CommentService {
         list.setList(comments);
         list.setStatus("OK");
 
+        System.out.println("😁😁😁😁😁😁😁");
+        System.out.println(list.getCount());
+        System.out.println("😁😁😁😁😁😁😁");
+        System.out.println(list.getList());
+        System.out.println("😁😁😁😁😁😁😁");
+        System.out.println(list.getStatus());
+
         return list;
     }
 
