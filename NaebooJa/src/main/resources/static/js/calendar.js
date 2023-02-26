@@ -55,6 +55,17 @@ const makeCalendar = (date) => {
   document.querySelector(`.dateBoard`).innerHTML = htmlDummy;
   document.querySelector(`.dateTitle`).innerText = `${currentYear}년 ${currentMonth}월`;
 }
+
 const date = new Date();
 
-makeCalendar(date)
+makeCalendar(date);
+
+// 이전달 이동
+document.querySelector(`.prevDay`).onclick = () => {
+makeCalendar(new Date(date.setMonth(date.getMonth() - 1)));
+}
+
+// 다음달 이동
+document.querySelector(`.nextDay`).onclick = () => {
+makeCalendar(new Date(date.setMonth(date.getMonth() + 1)));
+}
