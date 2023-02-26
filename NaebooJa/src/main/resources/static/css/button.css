@@ -1,33 +1,16 @@
-/*플로팅 버튼 아이콘 공용 스타일 수정X========*/
-i::before {
-   width: 100%;
-   height: 100%;
-   opacity: 1;
-   border-radius: 50%;
-   font-size: 3em;
-   font-family: 'Font Awesome 5 Pro';
-	 /*플로팅 버튼 아이콘 색상 수정O*/
-    color: #000000;
-}
-
-/*플로팅 버튼 스타일========*/
-.insert-transaction {
+.floating_button{
+  display:inline-block;
+  border-radius: 100%;
+  position:sticky;
+  right : 15px;
+  width: 67px;
+  height: 67px;
   float: right;
-  display: flex;
-  position: relative;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  margin-left: 5px;
-  /*사용자 설정 파트*/
-  font-weight: 700;
-  background-color: #FFDF7B;
-  border: 2px solid #ffc504;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background: #FFE699;
+  color : #FFE699;
+  text-align : center;
 }
 
-
+i {
+  color : black;
+}

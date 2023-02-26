@@ -10,12 +10,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/daily.css}">
 
     <script src="https://kit.fontawesome.com/51772bd9bd.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script th:src="@{/js/list.js}"></script>
+    <script th:src="@{/js/transaction.js}"></script>
 
-    <title>목록</title>
+    <title>일별 거래</title>
 </head>
 <body>
 
@@ -26,50 +27,88 @@
     <!--/* 사이드바 */-->
     <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
 
-    <div class="container mt-3">
+
         <!-- 이 페이지에서 보여줄 내용 -->
         <div class="container mt-3">
-            <h2>자산</h2>
-            <hr>
-
-            <!-- 목록 -->
-            <table class="table table-hover">
-                <thead class="table-success">
-                <tr>
-                    <th>ID</th>
-                    <th>자산명</th>
-                    <th>자산그룹</th>
-                    <th>잔액</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
-                    <td>[[${dto.id}]]</td>
-                    <td>[[${dto.name}]]</td>
-                    <td>[[${dto.group}]]</td>
-                    <td style="display: flex; justify-content: space-between;">
-                        [[${dto.rest_money}]]
-                        <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
-                    </td>
-                    <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
-                        <input type="hidden" name="id" th:value="${dto.id}">
-                    </form>
-                </tr>
-                </tbody>
-            </table>
-            <!-- 목록 -->
-
-            <div class="row">
-                <div class="col-12">
-                    <a class="btn btn-outline-dark" th:href="@{/property/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">자산 생성</a>
+            <div th:class="show-duration">
+                <div th:class="daily" >
+                    <p>일 별</p>
+                </div>
+                <div th:class="monthly" th:onclick="location.href='/transaction/monthly'">
+                    <p>월 별</p>
                 </div>
             </div>
+
+            <hr>
+            <div class="favorite-area">
+                <div th:class="transition-type">
+                    <div th:class="transition-total" th:onclick='total()'>
+                        <span>통계</span><br>
+                        <span>000000</span>
+                    </div>
+                    <div th:class="transition-income" th:onclick='income()'>
+                        <span>수입</span><br>
+                        <span>000000</span>
+                    </div>
+                    <div th:class="transition-outcome" th:onclick='outcome()'>
+                        <span>지출</span><br>
+                        <span>000000</span>
+                    </div>
+                    <div th:class="transition-transfer" th:onclick='transfer()'>
+                        <span>이체</span><br>
+                        <span>000000</span>
+                    </div>
+                </div>
+                <hr>
+                <div th:class="content">
+                    <table class="table table-hover" bgcolor="#F4F4F7">
+                        <thead th="table-success">
+                        <tr>
+                            <th>ID</th>
+                            <th>날짜</th>
+                            <th>계좌</th>
+                            <th>분류</th>
+                            <th>내용</th>
+                            <th>금액</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
+                            <td>[[${dto.id}]]</td>
+                            <td>[[${dto.date}]]</td>
+                            <td>[[${dto.property_id}</td>
+                            <td>[[${dto.category}]]</td>
+                            <td>[[${dto.content}]]</td>
+                            <td>[[${dto.money}]]</td>
+                            <td style="display: flex; justify-content: space-between;">
+                                [[${dto.money}]]
+                                <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
+                            </td>
+                            <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
+                                <input type="hidden" name="id" th:value="${dto.id}">
+                            </form>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- 목록 -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <a class="btn btn-outline-dark" th:href="@{/property/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">자산 생성</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+           
         </div>
 
-    </div>
 </div>
-<!--/* button */-->
-<th:block th:insert="~{common/button::floating-button}"></th:block>
-
 </body>
+<!--/* button */-->
+<footer>
+    <th:block th:insert="~{common/button}"></th:block>
+</footer>
+
+
 </html>
