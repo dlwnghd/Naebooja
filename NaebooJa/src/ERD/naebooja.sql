@@ -6,14 +6,10 @@ DROP TABLE IF EXISTS user_authorities;
 DROP TABLE IF EXISTS authority;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS file;
-DROP TABLE IF EXISTS board;
 DROP TABLE IF EXISTS transaction;
-DROP TABLE IF EXISTS transfer;
 DROP TABLE IF EXISTS property;
-DROP TABLE IF EXISTS user;
-
-
-
+DROP TABLE IF EXISTS `write`;
+DROP TABLE IF EXISTS `USER`;
 
 /* Create Tables */
 
@@ -23,18 +19,6 @@ CREATE TABLE authority
 	name varchar(40) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE (name)
-);
-
-
-CREATE TABLE board
-(
-	id int NOT NULL AUTO_INCREMENT,
-	user_id int NOT NULL,
-	subject varchar(200) NOT NULL,
-	content longtext,
-	viewcnt int DEFAULT 0,
-	regdate datetime DEFAULT now(),
-	PRIMARY KEY (id)
 );
 
 
@@ -65,8 +49,8 @@ CREATE TABLE property
 (
 	id int NOT NULL AUTO_INCREMENT,
 	user_id int NOT NULL,
-	-- '현금', '카드'
-	category enum('현금', '카드') NOT NULL COMMENT '''현금'', ''카드''',
+	-- 현금, 카드
+	`group` varchar(20) NOT NULL COMMENT '현금, 카드',
 	-- 사용자가 붙이는 자산의 이름
 	name varchar(20) NOT NULL COMMENT '사용자가 붙이는 자산의 이름',
 	-- 자산의 잔액
@@ -81,25 +65,14 @@ CREATE TABLE transaction
 	-- 수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호
 	property_id int NOT NULL COMMENT '수입, 지출, 이체 시 제일 첫번째로 대상이 될 기본 자산의 번호',
 	user_id int NOT NULL,
-	transaction_type enum('수입', '지출') CHARACTER SET utf8 NOT NULL,
+	transaction_type enum('수입', '지출', '이체') CHARACTER SET utf8 NOT NULL,
 	regdate datetime NOT NULL DEFAULT now(),
 	money int DEFAULT 0 NOT NULL,
-	-- '이체','월급','용돈','식비','교통비','쇼핑','기타'
-	category enum('이체','월급','용돈','식비','교통비','쇼핑','기타') DEFAULT '기타' NOT NULL COMMENT '''이체'',''월급'',''용돈'',''식비'',''교통비'',''쇼핑'',''기타''',
+	-- 이체,월급,용돈,식비,교통비,쇼핑,기타
+	category enum('이체','월급','용돈','식비','교통비','쇼핑','기타') DEFAULT '기타' NOT NULL COMMENT '이체,월급,용돈,식비,교통비,쇼핑,기타',
 	content text,
-	PRIMARY KEY (id)
-);
-
-
-CREATE TABLE transfer
-(
-	id int NOT NULL,
-	user_id int NOT NULL,
-	in_property_id int NOT NULL,
-	out_property_id int NOT NULL,
-	money int NOT NULL,
-	content text,
-	regdate datetime DEFAULT NOW(), SYSDATE() NOT NULL,
+	-- 이체시 입금될 자산의 번호
+	in_property_id int COMMENT '이체시 입금될 자산의 번호',
 	PRIMARY KEY (id)
 );
 
@@ -123,28 +96,24 @@ CREATE TABLE user_authorities
 );
 
 
+CREATE TABLE `write`
+(
+	id int NOT NULL AUTO_INCREMENT,
+	user_id int NOT NULL,
+	subject varchar(200) NOT NULL,
+	content longtext,
+	viewcnt int DEFAULT 0,
+	regdate datetime DEFAULT now(),
+	PRIMARY KEY (id)
+);
+
+
 
 /* Create Foreign Keys */
 
 ALTER TABLE user_authorities
 	ADD FOREIGN KEY (authority_id)
 	REFERENCES authority (id)
-	ON UPDATE RESTRICT
-	ON DELETE CASCADE
-;
-
-
-ALTER TABLE comment
-	ADD FOREIGN KEY (write_id)
-	REFERENCES board (id)
-	ON UPDATE RESTRICT
-	ON DELETE CASCADE
-;
-
-
-ALTER TABLE file
-	ADD FOREIGN KEY (write_id)
-	REFERENCES board (id)
 	ON UPDATE RESTRICT
 	ON DELETE CASCADE
 ;
@@ -157,28 +126,18 @@ ALTER TABLE transaction
 	ON DELETE RESTRICT
 ;
 
+ALTER TABLE transaction
+	ADD FOREIGN KEY (user_id)
+	REFERENCES user (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
 
-ALTER TABLE transfer
+ALTER TABLE transaction
 	ADD FOREIGN KEY (in_property_id)
 	REFERENCES property (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE transfer
-	ADD FOREIGN KEY (out_property_id)
-	REFERENCES property (id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE board
-	ADD FOREIGN KEY (user_id)
-	REFERENCES user (id)
-	ON UPDATE RESTRICT
-	ON DELETE CASCADE
 ;
 
 
@@ -198,22 +157,6 @@ ALTER TABLE property
 ;
 
 
-ALTER TABLE transaction
-	ADD FOREIGN KEY (user_id)
-	REFERENCES user (id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE transfer
-	ADD FOREIGN KEY (user_id)
-	REFERENCES user (id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
 ALTER TABLE user_authorities
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (id)
@@ -222,4 +165,25 @@ ALTER TABLE user_authorities
 ;
 
 
+ALTER TABLE `write`
+	ADD FOREIGN KEY (user_id)
+	REFERENCES user (id)
+	ON UPDATE RESTRICT
+	ON DELETE CASCADE
+;
 
+
+ALTER TABLE comment
+	ADD FOREIGN KEY (write_id)
+	REFERENCES `write` (id)
+	ON UPDATE RESTRICT
+	ON DELETE CASCADE
+;
+
+
+ALTER TABLE file
+	ADD FOREIGN KEY (write_id)
+	REFERENCES `write` (id)
+	ON UPDATE RESTRICT
+	ON DELETE CASCADE
+;
