@@ -27,7 +27,7 @@ public class TransactionController {
 
     @GetMapping("/daily")
     public void daily(Model model){
-//        model.addAttribute("list", transactionService.list(model));
+        model.addAttribute("list", transactionService.list(model));
     }
 
     @GetMapping("/monthly")
