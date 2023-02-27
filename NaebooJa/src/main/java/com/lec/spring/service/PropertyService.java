@@ -34,9 +34,6 @@ public class PropertyService {
         // 현재 로그인 사용자 정보
         User user = U.getLoggedUser();
 
-//        System.out.println("☢️☢️☢️☢️☢️☢️☢️☢️");
-//        System.out.println(propertyRepository.findAll(user.getId()));
-
         // 특정 유저의 자산 리스트
         List<Property> list = propertyRepository.findAll(user.getId());
         model.addAttribute("list", list);
