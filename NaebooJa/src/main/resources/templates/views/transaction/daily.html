@@ -75,8 +75,8 @@
                         <tbody>
                         <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
                             <td>[[${dto.id}]]</td>
-                            <td>[[${dto.date}]]</td>
-                            <td>[[${dto.property_id}</td>
+                            <td>[[${dto.regdate}]]</td>
+                            <td>[[${dto.property_id.name}]]</td>
                             <td>[[${dto.category}]]</td>
                             <td>[[${dto.content}]]</td>
                             <td>[[${dto.money}]]</td>

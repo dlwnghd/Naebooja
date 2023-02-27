@@ -5,14 +5,14 @@
 
 <mapper namespace="com.lec.spring.repository.TransactionRepository">
 
-    <!--    transaction Create-->
-<!--        <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"-->
-<!--                keyProperty="id" useGeneratedKeys="true" keyColumn="id">-->
-<!--            INSERT INTO `transaction`-->
-<!--                    (`transaction_type`, money, `category`, `content`, property_id, in_property, user_id)-->
-<!--            VALUE-->
-<!--                (#{transaction_type}, #{money}, #{category}, #{content}, #{property_id}, #{in_property}, #{user_id})-->
-<!--        </insert>-->
+<!--        transaction Create-->
+        <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"
+                keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+            INSERT INTO `transaction`
+                    (`transaction_type`, money, `category`, `content`, `property_id`, `in_property_id`, user_id)
+            VALUE
+                (#{transaction_type}, #{money}, #{category}, #{content}, #{property.id}, #{property.id}, #{user.id})
+        </insert>
 
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
     <sql id="SELECT_BASE">
@@ -28,10 +28,12 @@
             t.in_property_id "t_in_property_id",
             u.id "u_id",
             u.username "u_username",
-            u.name "u_name"
+            u.name "u_name",
+            p.name "p_name",
+            p.rest_money "p_rest_money"
         FROM
-            `transaction` t, `user` u
-        WHERE t.user_id = u.id
+            `transaction` t, `user` u, `property` p
+        WHERE t.user_id = u.id AND p.user_id = u.id
     </sql>
 
     <!-- JOIN 문에서 여러 테이블의 데이터 매핑 받기 -->
@@ -64,15 +66,15 @@
         <collection property="user_id" resultMap="mapUser"/><!--User 객체에 대해서는 mapProperty 로 이향-->
     </resultMap>
 
-<!--    &lt;!&ndash;    transaction Read&ndash;&gt;-->
+    <!--    transaction Read-->
 
-<!--    &lt;!&ndash;특정 ID의 거래를 찾는데 결과는 mapTransaction⬇️ 가 책임진다&ndash;&gt;-->
-<!--    <select id="findById" resultMap="mapTransaction">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--            AND u.id = #{u_id}-->
-<!--            AND p.id = #{p_id}-->
-<!--            ORDER BY t.id DESC-->
-<!--    </select>-->
+    <!--특정 ID의 거래를 찾는데 결과는 mapTransaction⬇️ 가 책임진다-->
+    <select id="findById" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+            AND u.id = #{u_id}
+            AND p.id = #{p_id}
+            ORDER BY t.id DESC
+    </select>
 
 <!--    로그인한 user 의 transaction 전체  -->
     <select id="findAlls" resultMap="mapTransaction">
@@ -81,85 +83,86 @@
             ORDER BY t.regdate DESC
     </select>
 
-<!--&lt;!&ndash;    로그인한 user 의 특정 transaction type 만 찾기 &ndash;&gt;-->
-<!--    <select id="findByType" resultMap="mapTransaction">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--            AND u.id = #{id}-->
-<!--            AND t.transaction_type = #{type}-->
-<!--            ORDER BY t.regdate DESC-->
-<!--    </select>-->
+<!--    로그인한 user 의 특정 transaction type 만 찾기 -->
+    <select id="findByType" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+            AND u.id = #{id}
+            AND t.transaction_type = #{type}
+            ORDER BY t.regdate DESC
+    </select>
 
-<!--&lt;!&ndash;    로그인한 user 의 하루동안 거래내역 찾기&ndash;&gt;-->
-<!--    <select id="findAllByDaily" resultMap="mapTransaction">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--            AND u.id = #{id}-->
-<!--            AND DAY(t.regdate) = DAY(#{date})-->
-<!--            AND MONTH(t.regdate) = MONTH(#{date})-->
-<!--            AND YEAR(t.regdate) = YEAR(#{date})-->
-<!--            ORDER BY t.id DESC-->
-<!--    </select>-->
+<!--    로그인한 user 의 하루동안 거래내역 찾기-->
+    <select id="findAllByDaily" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+            AND u.id = #{id}
+            AND DAY(t.regdate) = DAY(#{date})
+            AND MONTH(t.regdate) = MONTH(#{date})
+            AND YEAR(t.regdate) = YEAR(#{date})
+            ORDER BY t.id DESC
+    </select>
 
-<!--&lt;!&ndash;    로그인한 user의 한달동안 거래내역 찾기&ndash;&gt;-->
-<!--    <select id="findAllByMonthly" resultMap="mapTransaction">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--            AND u.id = #{id}-->
-<!--            AND MONTH(t.regdate) = MONTH(#{date})-->
-<!--            AND YEAR(t.regdate) = YEAR(#{date})-->
-<!--            ORDER BY t.id DESC-->
-<!--    </select>-->
+<!--    로그인한 user의 한달동안 거래내역 찾기-->
+    <select id="findAllByMonthly" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+            AND u.id = #{id}
+            AND MONTH(t.regdate) = MONTH(#{date})
+            AND YEAR(t.regdate) = YEAR(#{date})
+            ORDER BY t.id DESC
+    </select>
 
-<!--    &lt;!&ndash;    로그인한 user의 하루동안 특정 type의 거래내역 찾기&ndash;&gt;-->
-<!--    <select id="findByDayType" resultMap="mapTransaction">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--        AND u.id = #{id}-->
-<!--        AND t.transaction_type = #{type}-->
-<!--        AND DAY(t.regdate) = DAY(#{date})-->
-<!--        AND MONTH(t.regdate) = MONTH(#{date})-->
-<!--        AND YEAR(t.regdate) = YEAR(#{date})-->
-<!--        ORDER BY t.id DESC-->
-<!--    </select>-->
-
-
-<!--    &lt;!&ndash;    로그인한 user의 한달동안 특정 type의 거래내역 찾기&ndash;&gt;-->
-<!--    <select id="findByMonthType" resultMap="mapTransaction">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--        AND u.id = #{id}-->
-<!--        AND t.transaction_type = #{type}-->
-<!--        AND MONTH(t.regdate) = MONTH(#{date})-->
-<!--        AND YEAR(t.regdate) = YEAR(#{date})-->
-<!--        ORDER BY t.id DESC-->
-<!--    </select>-->
+    <!--    로그인한 user의 하루동안 특정 type의 거래내역 찾기-->
+    <select id="findByDayType" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+        AND u.id = #{id}
+        AND t.transaction_type = #{type}
+        AND DAY(t.regdate) = DAY(#{date})
+        AND MONTH(t.regdate) = MONTH(#{date})
+        AND YEAR(t.regdate) = YEAR(#{date})
+        ORDER BY t.id DESC
+    </select>
 
 
-<!--&lt;!&ndash;&lt;!&ndash;    transaction Update&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.Transaction">&ndash;&gt;-->
-<!--&lt;!&ndash;        UPDATE `transaction`&ndash;&gt;-->
-<!--&lt;!&ndash;        SET transaction_type = #{transaction_type}, money = #{money}, category = #{category}, content = #{content}, property = #{property}, in_property = #{in_property}&ndash;&gt;-->
-<!--&lt;!&ndash;        WHERE t.id = #{id}&ndash;&gt;-->
-<!--&lt;!&ndash;    </update>&ndash;&gt;-->
+    <!--    로그인한 user의 한달동안 특정 type의 거래내역 찾기-->
+    <select id="findByMonthType" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+        AND u.id = #{id}
+        AND t.transaction_type = #{type}
+        AND MONTH(t.regdate) = MONTH(#{date})
+        AND YEAR(t.regdate) = YEAR(#{date})
+        ORDER BY t.id DESC
+    </select>
 
-<!--&lt;!&ndash;    transaction Delete&ndash;&gt;-->
-<!--    <delete id="delete" flushCache="true"-->
-<!--            parameterType="com.lec.spring.domain.Transaction">-->
-<!--        DELETE FROM `transaction` WHERE t.id = #{id}-->
-<!--    </delete>-->
 
-<!--    &lt;!&ndash;특정 사용자의 특정 자산의 전체 거래를 찾는데 결과는 mapProperty⬇️ 가 책임진다&ndash;&gt;-->
-<!--    <select id="findAll" resultMap="mapTransaction">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--            AND u.id = #{id}-->
-<!--            AND p.id = #{p_id}-->
-<!--        ORDER BY t.id ASC-->
-<!--    </select>-->
+<!--    transaction Update-->
+    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.Transaction">
+        UPDATE `transaction`
+        SET transaction_type = #{transaction_type}, money = #{money}, category = #{category}, content = #{content},
+        `property_id` = #{property.id}, `in_property_id` = #{property.id}
+        WHERE t.id = #{id}
+    </update>
 
-<!--    &lt;!&ndash; 특정 사용자의 특정 자산의 특정 월의 자산의 거래내역 &ndash;&gt;-->
-<!--    <select id="findMonthlyProperty" resultMap="mapProperty">-->
-<!--        <include refid="SELECT_BASE"/>-->
-<!--            MONTH(t.regdate) = MONTH(#{regdate})-->
-<!--            AND YEAR(t.regdate) = YEAR(#{regdate})-->
-<!--            AND u.id = #{id}-->
-<!--            AND p.id = #{p_id}-->
-<!--        ORDER BY t.id ASC-->
-<!--    </select>-->
+<!--    transaction Delete-->
+    <delete id="delete" flushCache="true"
+            parameterType="com.lec.spring.domain.Transaction">
+        DELETE FROM `transaction` WHERE t.id = #{id}
+    </delete>
+
+    <!--특정 사용자의 특정 자산의 전체 거래를 찾는데 결과는 mapProperty⬇️ 가 책임진다-->
+    <select id="findAll" resultMap="mapTransaction">
+        <include refid="SELECT_BASE"/>
+            AND u.id = #{id}
+            AND p.id = #{p_id}
+        ORDER BY t.id ASC
+    </select>
+
+    <!-- 특정 사용자의 특정 자산의 특정 월의 자산의 거래내역 -->
+    <select id="findMonthlyProperty" resultMap="mapProperty">
+        <include refid="SELECT_BASE"/>
+            MONTH(t.regdate) = MONTH(#{regdate})
+            AND YEAR(t.regdate) = YEAR(#{regdate})
+            AND u.id = #{id}
+            AND p.id = #{p_id}
+        ORDER BY t.id ASC
+    </select>
 
 </mapper>
