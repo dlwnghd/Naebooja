@@ -1,0 +1,17 @@
+.floating_button{
+  display:inline-block;
+  border-radius: 100%;
+  position:sticky;
+  bottom : 15px;
+  right : 15px;
+  width: 67px;
+  height: 67px;
+  float: right;
+  background: #FFE699;
+  color : #FFE699;
+  text-align : center;
+}
+
+i {
+  color : black;
+}

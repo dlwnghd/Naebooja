@@ -51,6 +51,7 @@ public class BoardController {
     // 페이징 사용
     @GetMapping("/list")
     public void list(Integer page, Model model){
+        System.out.println("여기는 옴");
         boardService.list(page, model);
     }
 
