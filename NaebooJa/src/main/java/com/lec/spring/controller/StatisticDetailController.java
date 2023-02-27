@@ -1,7 +1,7 @@
 package com.lec.spring.controller;
 
-import com.lec.spring.domain.QryPropertyList;
-import com.lec.spring.service.PropertyService;
+import com.lec.spring.domain.QryStatisticList;
+import com.lec.spring.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,17 +10,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController  // data 를 response 한다  ('View' 를 리턴하는게 아니다!)
-@RequestMapping("/propertyDetail")
-public class PropertyDetailController {
+@RequestMapping("/statisticDetail")
+public class StatisticDetailController {
     @Autowired
-    private PropertyService propertyService;
+    private StatisticService statisticService;
 
-    public PropertyDetailController() {
+    public StatisticDetailController() {
         System.out.println(getClass().getName() + "() 생성");
     }
 
-    @GetMapping("/propList")
-    public QryPropertyList list(Long id, String date){
+    @GetMapping("/statisticList")
+    public QryStatisticList list(Long id, String date){
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date ChangeDate = null;
@@ -29,7 +29,7 @@ public class PropertyDetailController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return propertyService.propDetail(id, ChangeDate);}
+        return statisticService.statisticDetail(id, ChangeDate);}
 }
 
 

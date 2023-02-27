@@ -184,4 +184,3 @@ INSERT INTO transaction(property_id, user_id,transaction_type, regdate, money, c
 (2,2,'이체','2021-01-01 00:00:00',30000,'이체','이체내용3',1),
 (2,2,'이체','2021-01-01 00:00:00',40000,'이체','이체내용4',1)
 ;
-

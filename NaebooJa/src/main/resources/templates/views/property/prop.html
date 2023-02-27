@@ -43,7 +43,7 @@
         <th>ID</th>
         <th>자산명</th>
         <th>자산그룹</th>
-        <th>잔액</th>
+        <th colspan="2">잔액</th>
       </tr>
       </thead>
       <tbody>
@@ -51,13 +51,15 @@
             <td>[[${dto.id}]]</td>
             <td>[[${dto.name}]]</td>
             <td>[[${dto.group}]]</td>
-          <td style="display: flex; justify-content: space-between;">
+          <td class="rest_money">
             [[${dto.rest_money}]]
-            <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
           </td>
-          <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
-            <input type="hidden" name="id" th:value="${dto.id}">
-          </form>
+          <td>
+            <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
+            <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
+              <input type="hidden" name="id" th:value="${dto.id}">
+            </form>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -76,4 +78,10 @@
   </div>
 </div>
 </body>
+<script>
+  // 자산 천의 자리숫자 로직
+  let rest_money = document.getElementsByClassName("rest_money");
+  const array = Array.from(rest_money);
+  const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());
+</script>
 </html>

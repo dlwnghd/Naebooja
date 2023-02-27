@@ -70,6 +70,7 @@ function buildPropTrans(result){
     if(test.transaction_type == "이체") {transfers += test.money}
     });
 
+    // 1,000 반점 찍기
     let income = String(incomes).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     let outcome = String(outcomes).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     let transfer = String(transfers).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
