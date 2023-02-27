@@ -1,19 +1,12 @@
 package com.lec.spring.controller;
 
-import com.lec.spring.domain.QryCommentList;
 import com.lec.spring.domain.QryPropertyList;
-import com.lec.spring.domain.QryResult;
-import com.lec.spring.service.CommentService;
 import com.lec.spring.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 @RestController  // data 를 response 한다  ('View' 를 리턴하는게 아니다!)

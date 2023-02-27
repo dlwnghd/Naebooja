@@ -96,7 +96,7 @@
             property_id = #{id}
             AND MONTH(t.regdate) = MONTH(#{date})
             AND YEAR(t.regdate) = YEAR(#{date})
-        ORDER BY t.id DESC
+        ORDER BY t.regdate DESC, t.id DESC
     </select>
 
     <delete id="delete" flushCache="true"
