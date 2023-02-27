@@ -51,6 +51,7 @@ public class BoardController {
     // 페이징 사용
     @GetMapping("/list")
     public void list(Integer page, Model model){
+        boardService.adminList(model);
         boardService.list(page, model);
     }
 

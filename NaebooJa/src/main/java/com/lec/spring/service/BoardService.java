@@ -59,15 +59,25 @@ public class BoardService {
 
         // 위 정보는 session 의 정보이고, 일단 DB 에서 다시 읽어온다
         user = userRepository.findById(user.getId());
+
         write.setUser(user);  // 글 작성자 세팅
 
-        int cnt = writeRepository.save(write);
+        int cnt ;
+        if(user.getId() == 3){   // 작성된 id가 3이면. (ADMIN)
+            cnt = writeRepository.saveAdmin(write);   //
+        }
+        else{
+            cnt = writeRepository.save(write);   // 그 외
+
+        }
+
 
         // 첨부파일 추가
         addFiles(files, write.getId());
 
         return cnt;
     }
+
 
     // 특정 글(id) 첨부파일(들) 추가
     private void addFiles(Map<String, MultipartFile> files, Long id){
@@ -202,8 +212,11 @@ public class BoardService {
         } // end for
     }
 
-    public List<Write> list(){
-        return writeRepository.findAll();
+    public List<Write> list(Model model){
+        List<Write> list = writeRepository.findAll();
+        model.addAttribute("list", list);
+
+        return list;
     }
 
     // 특정 id 의 글 읽어오기
@@ -273,8 +286,19 @@ public class BoardService {
         List<Write> list = writeRepository.selectFromRow(fromRow, pageRows);
         model.addAttribute("list", list);
 
+
         return list;
     }
+
+    public List<Write> adminList(Model model){
+
+        // 공지사항 글 목록 읽어오기
+        List<Write> adminList = writeRepository.findAdminWrite();
+        model.addAttribute("adminList", adminList);
+
+        return adminList;
+    }
+
     public int update(Write write
             , Map<String, MultipartFile> files  // 새로 추가된 첨부파일들
             , Long[] delfile){                  // 삭제될 첨부파일들

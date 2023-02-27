@@ -13,6 +13,12 @@ public interface WriteRepository {
     // 새글 작성 <- Write
     int save(Write write);
 
+    // admin 공지글 작성
+    int saveAdmin(Write write);
+
+    // 공지사항 글 조회
+    List<Write> findAdminWrite();
+
     // 특정 id 글 내용 읽기
     Write findById(long id);
 
