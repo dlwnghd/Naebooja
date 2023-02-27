@@ -7,14 +7,14 @@
 
     <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Write"
             useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO board
+        INSERT INTO `write`
             (subject, content, user_id)
         VALUES
             (#{subject}, #{content}, #{user.id})
     </insert>
 
     <update id="incViewCnt" flushCache="true">
-        UPDATE board
+        UPDATE `write`
         SET viewcnt = viewcnt + 1
         WHERE id = #{param1}
     </update>
@@ -32,7 +32,7 @@
             u.name "u_name",
             u.regdate "u_regdate"
         FROM
-            board w, user u
+            `write` w, user u
         WHERE
             w.user_id = u.id
     </sql>
@@ -71,14 +71,14 @@
 
     <update id="update" flushCache="true"
         parameterType="com.lec.spring.domain.Write">
-        UPDATE board
+        UPDATE `write`
         SET subject = #{subject}, content = #{content}
         WHERE id = #{id}
     </update>
 
     <delete id="delete" flushCache="true"
         parameterType="com.lec.spring.domain.Write">
-        DELETE FROM board WHERE id = #{id}
+        DELETE FROM `write` WHERE id = #{id}
     </delete>
 
     <!-- 페이징용 쿼리 -->
