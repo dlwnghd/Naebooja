@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.StatisticRepository">
+
+    <!-- JOIN 문에서 여러 테이블의 데이터 매핑 받기 -->
+    <!-- User 매핑 -->
+    <resultMap id="mapUser" type="com.lec.spring.domain.User">
+        <result column="u_id" property="id"/>   <!--User.java-->
+        <result column="u_username" property="username"/>
+        <result column="u_password" property="password"/>
+        <result column="u_name" property="name"/>
+        <result column="u_regdate" property="regDate"/>
+    </resultMap>
+
+    <!-- Property 매핑 -->
+    <resultMap id="mapProperty" type="com.lec.spring.domain.Property"> <!--Property 객체로 매핑-->
+        <result column="p_id" property="id"/> <!--p_id 값을 id 에 꽂아넣음(Property.java)-->
+        <result column="p_group" property="group"/>
+        <result column="p_name" property="name"/>
+        <result column="p_rest_money" property="rest_money"/>
+        <collection property="user" resultMap="mapUser"/><!--User 객체에 대해서는 mapUser 로 이향-->
+    </resultMap>
+
+    <!-- Transaction 매핑 -->
+    <resultMap id="mapTransaction" type="com.lec.spring.domain.Transaction"> <!--Transaction 객체로 매핑-->
+        <result column="t_id" property="id"/> <!--p_id 값을 id 에 꽂아넣음(Property.java)-->
+        <result column="t_transaction_type" property="transaction_type"/>
+        <result column="t_property_id" property="property_id"/>
+        <result column="t_regdate" property="regDate"/>
+        <result column="t_money" property="money"/>
+        <result column="t_category" property="category"/>
+        <result column="t_content" property="content"/>
+        <collection property="in_property" resultMap="mapProperty"/><!--in_Property 객체에 대해서는 mapProperty 로 이향-->
+    </resultMap>
+
+    <!--특정 사용자의 전체 지출 보기 결과는 mapTransaction⬇️ 가 책임진다-->
+    <select id="findUserOutcomeAll" resultMap="mapTransaction">
+        SELECT
+            t.id "t_id",
+            t.property_id "t_property_id",
+            t.transaction_type "t_transaction_type",
+            t.regdate "t_regdate",
+            t.money "t_money",
+            t.category "t_category",
+            t.content "t_content",
+            t.in_property_id "t_in_property_id",
+            p.id "p_id",
+            p.group "p_group",
+            p.name "p_name",
+            p.rest_money "p_rest_money"
+        FROM
+            `transaction` t, `property` p, `user` u
+        WHERE
+            u.id = #{id}
+            AND t.transaction_type = "지출"
+        ORDER BY t.regdate DESC, t.id DESC;
+    </select>
+
+</mapper>
