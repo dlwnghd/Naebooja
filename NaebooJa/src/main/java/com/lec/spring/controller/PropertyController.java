@@ -24,7 +24,6 @@ public class PropertyController {
     public void property(Model model){
 
         // 자산 리스트
-//        System.out.println("🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴");
         propertyService.list(model);
     }
 

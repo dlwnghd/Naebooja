@@ -3,32 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.lec.spring.repository.PropertyRepository">
-
-    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Property"
-            useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO `property`
-            (user_id,`group`, `name`, rest_money)
-        VALUES
-            (#{user.id}, #{group}, #{name}, #{rest_money})
-    </insert>
-
-    <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
-    <sql id="SELECT_BASE">
-        SELECT
-            p.id "p_id",
-            p.group "p_group",
-            p.name "p_name",
-            p.rest_money "p_rest_money",
-            u.id "u_id",
-            u.username "u_username",
-            u.name "u_name",
-            u.regdate "u_regdate"
-        FROM
-            `property` p, user u, `transaction` t
-        WHERE
-            p.user_id = u.id
-    </sql>
+<mapper namespace="com.lec.spring.repository.StatisticRepository">
 
     <!-- JOIN 문에서 여러 테이블의 데이터 매핑 받기 -->
     <!-- User 매핑 -->
@@ -61,22 +36,8 @@
         <collection property="in_property" resultMap="mapProperty"/><!--in_Property 객체에 대해서는 mapProperty 로 이향-->
     </resultMap>
 
-    <!--특정 ID의 하나의 자산을 찾는데 결과는 mapProperty⬇️ 가 책임진다-->
-    <select id="findById" resultMap="mapProperty">
-        <include refid="SELECT_BASE"/>
-            AND p.id = #{id}
-        ORDER BY p.id DESC
-    </select>
-
-    <!--특정 사용자의 전체 자산을 찾는데 결과는 mapProperty⬇️ 가 책임진다-->
-    <select id="findAll" resultMap="mapProperty">
-        <include refid="SELECT_BASE"/>
-            AND p.user_id = #{id}
-        ORDER BY p.id ASC
-    </select>
-
-    <!--특정 사용자의 특정 자산의 전체 거래정보를 찾는데 결과는 mapTransaction⬇️ 가 책임진다-->
-    <select id="findPropTransAll" resultMap="mapTransaction">
+    <!--특정 사용자의 전체 지출 보기 결과는 mapTransaction⬇️ 가 책임진다-->
+    <select id="findUserOutcomeAll" resultMap="mapTransaction">
         SELECT
             t.id "t_id",
             t.property_id "t_property_id",
@@ -93,15 +54,9 @@
         FROM
             `transaction` t, `property` p, `user` u
         WHERE
-            property_id = #{id}
-            AND MONTH(t.regdate) = MONTH(#{date})
-            AND YEAR(t.regdate) = YEAR(#{date})
-        ORDER BY t.regdate DESC, t.id DESC
+            u.id = #{id}
+            AND t.transaction_type = "지출"
+        ORDER BY t.regdate DESC, t.id DESC;
     </select>
-
-    <delete id="delete" flushCache="true"
-            parameterType="com.lec.spring.domain.Property">
-        DELETE FROM `property` WHERE id = #{id}
-    </delete>
 
 </mapper>
