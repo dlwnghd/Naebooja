@@ -59,9 +59,9 @@
         <result column="t_money" property="money"/>
         <result column="t_category" property="category"/>
         <result column="t_content" property="content"/>
-        <collection property="t_property_id" resultMap="mapProperty"/><!--Property 객체에 대해서는 mapProperty 로 이향-->
-        <collection property="t_in_property_id" resultMap="mapProperty"/><!--Property 객체에 대해서는 mapProperty 로 이향-->
-        <collection property="t_user_id" resultMap="mapUser"/><!--User 객체에 대해서는 mapProperty 로 이향-->
+        <collection property="property_id" resultMap="mapProperty"/><!--Property 객체에 대해서는 mapProperty 로 이향-->
+        <collection property="in_property_id" resultMap="mapProperty"/><!--Property 객체에 대해서는 mapProperty 로 이향-->
+        <collection property="user_id" resultMap="mapUser"/><!--User 객체에 대해서는 mapProperty 로 이향-->
     </resultMap>
 
 <!--    &lt;!&ndash;    transaction Read&ndash;&gt;-->
