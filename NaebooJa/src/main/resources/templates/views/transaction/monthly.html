@@ -47,19 +47,20 @@
             <div th:class="transition-type">
                 <div th:class="transition-total">
                     <span>통계</span><br>
-                    <span>000000</span>
+                    <span class="money"
+                          th:text="${#aggregates.sum(income.![money])} - ${#aggregates.sum(outcome.![money])}"></span>
                 </div>
                 <div th:class="transition-income">
                     <span>수입</span><br>
-                    <span>000000</span>
+                    <span class="money" th:text="${#aggregates.sum(income.![money])}"></span>
                 </div>
                 <div th:class="transition-outcome">
                     <span>지출</span><br>
-                    <span>000000</span>
+                    <span class="money" th:text="${#aggregates.sum(outcome.![money])}"></span>
                 </div>
                 <div th:class="transition-transfer">
                     <span>이체</span><br>
-                    <span>000000</span>
+                    <span class="money" th:text="${#aggregates.sum(transfer.![money])}"></span>
                 </div>
             </div>
             <hr>
@@ -70,7 +71,7 @@
                         <th>ID</th>
                         <th>날짜</th>
                         <th>계좌</th>
-                        <th>분류</th>
+                        <th>거래</th>
                         <th>분류</th>
                         <th>내용</th>
                         <th>금액</th>
@@ -84,9 +85,8 @@
                         <td>[[${dto.transaction_type}]]</td>
                         <td>[[${dto.category}]]</td>
                         <td>[[${dto.content}]]</td>
-                        <td>[[${dto.money}]]</td>
+                        <td class="money">[[${dto.money}]]</td>
                         <td style="display: flex; justify-content: space-between;">
-                            [[${dto.money}]]
                             <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
                         </td>
                         <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
@@ -108,6 +108,9 @@
 <footer>
     <th:block th:insert="~{common/button}"></th:block>
 </footer>
-
-
+<script>
+  let money = document.getElementsByClassName("money");
+  const array = Array.from(money);
+  const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());
+</script>
 </html>

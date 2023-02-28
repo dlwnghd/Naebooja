@@ -79,9 +79,7 @@
     border : 2px solid #F4F4F7;
 }
 
-.chooseDay {
+p {
     height: 50px;
     width : 240px;
-    border : 2px solid #F4F4F7;
-    text-align: center;
 }

@@ -1,16 +1,18 @@
 package com.lec.spring.controller;
 
+import com.lec.spring.domain.Transaction;
+import com.lec.spring.domain.Write;
 import com.lec.spring.service.TransactionService;
 import com.lec.spring.util.U;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/transaction")
@@ -27,7 +29,9 @@ public class TransactionController {
     }
 
     @RequestMapping("/home")
-    public void home() {}
+    public void home(Model model) {
+        model.addAttribute("list", transactionService.list(model));
+    }
 
     @GetMapping("/daily")
     public void daily(Model model){
@@ -54,4 +58,14 @@ public class TransactionController {
         model.addAttribute("list",transactionService.list(model));
     }
 
+    @GetMapping("/insert")
+    public void insert(){}
+
+    @PostMapping("/insert")
+    public String insertOk(@ModelAttribute("dto")Transaction transaction
+            , Model model
+    ){
+        model.addAttribute("result", transactionService.insert(transaction));
+        return "transaction/insertOk";
+    }
 }

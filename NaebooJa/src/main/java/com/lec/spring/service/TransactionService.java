@@ -48,6 +48,7 @@ public class TransactionService {
         Long id = user.getId();
 
         List<Transaction> list = transactionRepository.findAlls(id);
+//        list == null 이면 , list = []
         model.addAttribute("list", list);
         return list;
     }
