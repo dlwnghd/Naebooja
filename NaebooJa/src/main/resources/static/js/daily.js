@@ -117,7 +117,7 @@ $(function () {
             $("#mydate").text(week[date.getDay()]);
 
             $.ajax({
-                    url: "/transactionDaily/transacList?date=" + d,
+                    url: "/transactionDetail/transacList?date=" + d,
                     type: "GET",
                     cache: false,
                     success: function(data, status, xhr){

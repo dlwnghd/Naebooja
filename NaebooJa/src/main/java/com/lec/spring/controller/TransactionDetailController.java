@@ -10,13 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController  // data 를 response 한다  ('View' 를 리턴하는게 아니다!)
-@RequestMapping("/transactionDaily")
-public class TransactionDailyController {
+@RequestMapping("/transactionDetail")
+public class TransactionDetailController {
     @Autowired
     private TransactionService transactionService;
 
 
-    public TransactionDailyController() {
+    public TransactionDetailController() {
         System.out.println(getClass().getName() + "() 생성");
     }
 
@@ -32,5 +32,19 @@ public class TransactionDailyController {
         }
 
         return transactionService.transacDetail(ChangeDate);
+    }
+
+    @GetMapping("/transacListbyMonth")
+    public QryTransactionList listbyMonth(String date){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date ChangeDate = new Date();
+        try {
+            ChangeDate = formatter.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return transactionService.transacDetailbyMonth(ChangeDate);
     }
 }

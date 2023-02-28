@@ -103,6 +103,20 @@ public class TransactionService {
         return transactionList;
     }
 
+//    (2-8) 특정 user 의 특정 달의 transaction 불러오기
+    public QryTransactionList transacDetailbyMonth(Date date){
+        QryTransactionList transactionList = new QryTransactionList();
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+
+        LocalDate localDate = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        List<Transaction> trans = transactionRepository.findAllByMonthly(id, localDate);
+        transactionList.setList(trans);
+        transactionList.setStatus("OK");
+
+        return transactionList;
+    }
+
 //    3. CRUD - Update
     public int update(Transaction transaction){
         int result = 0;
