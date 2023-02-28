@@ -1,0 +1,75 @@
+.e1_190 {
+	width: 500px;
+	height: 500px;
+	margin: 100px auto;
+}
+
+.e1_3 {
+	background-color:rgba(217, 217, 217, 0.47);
+	width:350px;
+	height:70px;
+	position:relative;
+	left:250px;
+	top:100px;
+	border: 0 solid;
+    font-size: 20px;
+}
+
+.e1_4 {
+	background-color:rgba(217, 217, 217, 0.47);
+	width:350px;
+	height:70px;
+	position:relative;
+	left:250px;
+	top:100px;
+	margin-top: 10px;
+	border: 0 solid;
+	font-size: 20px;
+}
+
+.e1_5 {
+	background-color:rgba(255, 196, 12, 0.4);
+	width:350px;
+	height:70px;
+	position:relative;
+	left:250px;
+	top:100px;
+	margin-top: 10px;
+	border: 0 solid;
+	font-size: 20px;
+}
+
+.e1_6{
+    width:350px;
+    height:70px;
+    position:relative;
+    left: 250px;
+    top:120px;
+    margin-top: 10px;
+}
+.e1_6 p {
+    font-size: 20px;
+    text-align: left;
+}
+.e1_6 a {
+    font-size: 20px;
+}
+
+
+.e1_15 {
+	width: 450px;
+    height: 450px;
+    position: absolute;
+    top: 150px;
+    left: 0px;
+	background-image:url(../img/login_home.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+@media (max-width: 600px) {
+	div {
+		width: 100%;
+		height: auto;
+	}
+}
