@@ -29,7 +29,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         request.getSession().invalidate();   // 그리고 세션을 수동으로 invalidate (session 날리기)
 
         // 로그아웃 직후에 갈 수 있는 url
-        String redirectUrl = "/user/login?logoutHandler";
+        String redirectUrl = "/home";
 
         // ret_url  이 있는 경우 logout 하고 해당  url 로 redirect
         if(request.getParameter("ret_url") != null) {

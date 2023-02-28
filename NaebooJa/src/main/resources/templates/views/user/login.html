@@ -20,11 +20,10 @@
           <!--/* 에러메세지 */-->
         </div>
       </div>
-      <div class="form-floating">
+
+      <div>
         <!--  ⬇️⭐  -->
-        <input type="text" class="e1_3" name="username" id="username" th:value="${username }" placeholder="  아이디"  required>
-      </div>
-      <div class="form-floating mt-1">
+        <input type="text" class="e1_3" name="username" id="username" th:value="${username }" placeholder="  아이디" required>
         <!--  ⬇️⭐  -->
         <input type="password" class="e1_4" name="password" id="password" value="" placeholder="  비밀번호" required>
       </div>
@@ -35,7 +34,7 @@
     <div class="e1_6">
       <p>계정이 없으신가요?&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;<a th:href="@{/user/register}"><span>가입하기</span></a></p>
       <p>아이디를 잊으셨나요?&emsp;&emsp; <a th:href="@{/user/findId}"><span>아이디 찾기</span></a></p>
-      <p>비밀번호를 잊으셨나요? <a><span>비밀번호 찾기</span></a></p>
+      <p>비밀번호를 잊으셨나요? <a th:href="@{/user/updatePw}"><span>비밀번호 변경</span></a></p>
     </div>
   </div>
 </th:block>
