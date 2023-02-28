@@ -10,10 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -86,6 +83,25 @@ public class UserController {
         String page = "/user/registerOk";
         int cnt = userService.register(user);
         model.addAttribute("result", cnt);
+        return page;
+    }
+
+    // 아이디찾기
+    @GetMapping("/findId")
+    public String findId(Model model,
+                         User user) {
+        return "/user/findId";
+    }
+
+    // 아이디찾기 확인
+    @PostMapping("/findId")
+    public String findIdOk(User user, Model model,
+                           @RequestParam("name") String name
+    ) {
+
+        String page = "user/findIdOk";
+        String result = userService.findByName(name);
+        model.addAttribute("result", result);
         return page;
     }
 

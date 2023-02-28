@@ -42,6 +42,13 @@
         WHERE id = #{id}
     </update>
 
+    <!-- 아이디 찾기 -->
+    <select id="findByName" resultType="com.lec.spring.domain.User">
+        <include refid="SELECT_BASE"/>
+        WHERE
+        name = #{name}
+    </select>
+
 </mapper>
 
 
