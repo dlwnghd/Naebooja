@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script th:if="${result == &quot;&quot; }">
+     alert("찾는 아이디가 없습니다");
+     history.back();
+  </script>
+<script th:unless="${result == &quot;&quot; }">
+     alert("아이디 : [[${result}]]");
+     location.href = "/user/findId";
+  </script>
+</html>

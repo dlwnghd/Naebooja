@@ -17,4 +17,7 @@ public interface UserRepository {
 
     int update(User user);
 
+    // 특정 name 의 user 리턴
+    User findByName(String name);
+
 }

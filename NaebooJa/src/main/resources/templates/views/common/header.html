@@ -23,6 +23,12 @@
                 <span class="user">[[${user.name}]]</span>
                 <img class="userlogo" th:src="@{/img/admin.png}" alt="">
             </div>
+
+            <!-- 로그인 안했을때는 로그인 form 보여주기 -->
+            <!-- 모달창으로 로그인창 띄우기 -->
+            <a data-toggle="modal" data-target="#modal_login" class="btn btn-primary" sec:authorize="isAnonymous()" >Login</a>
+
+
             <form th:action="@{/user/logout}" method="POST" sec:authorize="isAuthenticated()" th:with="user=${#authentication.getPrincipal().getUser()}">
                 <!--TODO : 로그아웃후 다시 돌아오기 -->
                 <span class="d-flex">

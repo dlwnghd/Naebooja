@@ -60,4 +60,17 @@ public class UserService {
         return authorityRepository.findByUser(user);
     }
 
+    // 아이디찾기
+    public String findByName(String name){
+        String result = "";
+
+        User user = userRepository.findByName(name);
+
+        if (user != null){
+            result = user.getUsername();
+        }
+
+        return result;
+    }
+
 }
