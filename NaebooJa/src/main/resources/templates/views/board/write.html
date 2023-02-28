@@ -19,16 +19,24 @@
   <script th:src="@{/js/summernote-ko-KR.js}"></script>
 
   <script th:src="@{/js/write.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/write.css}">
 
   <title>작성</title>
+
+
 </head>
 
 <body>
 <!--/* 인증 헤더 */-->
 <th:block th:insert="~{common/header::header}"></th:block>
 
+<div class="under_header">
+
+  <!--/* 사이드바 */-->
+  <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
+  <div>
 <div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}">
-  <h2>작성</h2>
+  <h2 class="sub">W r i t e</h2>
   <hr>
 
   <div class="row mt-5" th:if="${error }">
@@ -38,14 +46,18 @@
   </div>
 
   <form th:action="@{/board/write}" method="post" enctype="Multipart/form-data">
-    <div class="mb-3">
-      <label>작성자:</label>
-      <span class="form-control">[[${user.username }]] ([[${user.name }]])</span>
-    </div>
-    <div class="mb-3 mt-3">
+    <span class="mb-3">
+      <label>작성자</label>
+      <span class="writeName">[[${user.username }]] ([[${user.name }]])</span>
+    </span>
+    <span>
+      <label>작성날짜</label>
+      <span class="form-control">[[${#temporals.format(user.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</span>
+    </span>
+    <span class="mb-3 mt-3">
       <label for="subject">제목:</label>
       <input type="text" class="form-control" id="subject" placeholder="제목을 입력하세요" name="subject" th:value="${subject}" required>
-    </div>
+    </span>
     <div class="mb-3 mt-3">
       <label for="content">내용:</label>
       <textarea class="form-control" rows="5" id="content" placeholder="내용을 입력하세요" name="content">[[${content}]]</textarea>

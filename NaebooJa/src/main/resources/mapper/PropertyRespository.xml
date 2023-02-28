@@ -8,26 +8,26 @@
     <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Property"
             useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO `property`
-            (user_id,`group`, `name`, rest_money)
+        (user_id,`group`, `name`, rest_money)
         VALUES
-            (#{user.id}, #{group}, #{name}, #{rest_money})
+        (#{user.id}, #{group}, #{name}, #{rest_money})
     </insert>
 
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
     <sql id="SELECT_BASE">
         SELECT
-            p.id "p_id",
-            p.group "p_group",
-            p.name "p_name",
-            p.rest_money "p_rest_money",
-            u.id "u_id",
-            u.username "u_username",
-            u.name "u_name",
-            u.regdate "u_regdate"
+        p.id "p_id",
+        p.group "p_group",
+        p.name "p_name",
+        p.rest_money "p_rest_money",
+        u.id "u_id",
+        u.username "u_username",
+        u.name "u_name",
+        u.regdate "u_regdate"
         FROM
-            `property` p, user u, `transaction` t
+        `property` p, user u, `transaction` t
         WHERE
-            p.user_id = u.id
+        p.user_id = u.id
     </sql>
 
     <!-- JOIN 문에서 여러 테이블의 데이터 매핑 받기 -->
@@ -53,50 +53,51 @@
     <resultMap id="mapTransaction" type="com.lec.spring.domain.Transaction"> <!--Transaction 객체로 매핑-->
         <result column="t_id" property="id"/> <!--p_id 값을 id 에 꽂아넣음(Property.java)-->
         <result column="t_transaction_type" property="transaction_type"/>
-        <result column="t_property_id" property="property_id"/>
         <result column="t_regdate" property="regDate"/>
         <result column="t_money" property="money"/>
         <result column="t_category" property="category"/>
         <result column="t_content" property="content"/>
-        <collection property="in_property" resultMap="mapProperty"/><!--in_Property 객체에 대해서는 mapProperty 로 이향-->
+        <collection property="property_id" resultMap="mapProperty"/><!--Property 객체에 대해서는 mapProperty 로 이향-->
+        <collection property="in_property_id" resultMap="mapProperty"/><!--in_Property 객체에 대해서는 mapProperty 로 이향-->
+        <collection property="user_id" resultMap="mapUser"/><!--User 객체에 대해서는 mapProperty 로 이향-->
     </resultMap>
 
     <!--특정 ID의 하나의 자산을 찾는데 결과는 mapProperty⬇️ 가 책임진다-->
     <select id="findById" resultMap="mapProperty">
         <include refid="SELECT_BASE"/>
-            AND p.id = #{id}
+        AND p.id = #{id}
         ORDER BY p.id DESC
     </select>
 
     <!--특정 사용자의 전체 자산을 찾는데 결과는 mapProperty⬇️ 가 책임진다-->
     <select id="findAll" resultMap="mapProperty">
         <include refid="SELECT_BASE"/>
-            AND p.user_id = #{id}
+        AND p.user_id = #{id}
         ORDER BY p.id ASC
     </select>
 
     <!--특정 사용자의 특정 자산의 전체 거래정보를 찾는데 결과는 mapTransaction⬇️ 가 책임진다-->
     <select id="findPropTransAll" resultMap="mapTransaction">
         SELECT
-            t.id "t_id",
-            t.property_id "t_property_id",
-            t.transaction_type "t_transaction_type",
-            t.regdate "t_regdate",
-            t.money "t_money",
-            t.category "t_category",
-            t.content "t_content",
-            t.in_property_id "t_in_property_id",
-            p.id "p_id",
-            p.group "p_group",
-            p.name "p_name",
-            p.rest_money "p_rest_money"
+        t.id "t_id",
+        t.property_id "t_property_id",
+        t.transaction_type "t_transaction_type",
+        t.regdate "t_regdate",
+        t.money "t_money",
+        t.category "t_category",
+        t.content "t_content",
+        t.in_property_id "t_in_property_id",
+        p.id "p_id",
+        p.group "p_group",
+        p.name "p_name",
+        p.rest_money "p_rest_money"
         FROM
-            `transaction` t, `property` p, `user` u
+        `transaction` t, `property` p, `user` u
         WHERE
             property_id = #{id}
             AND MONTH(t.regdate) = MONTH(#{date})
             AND YEAR(t.regdate) = YEAR(#{date})
-        ORDER BY t.id DESC
+        ORDER BY t.regdate DESC, t.id DESC
     </select>
 
     <delete id="delete" flushCache="true"
