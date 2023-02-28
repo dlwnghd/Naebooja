@@ -1,5 +1,6 @@
 package com.lec.spring.service;
 
+import com.lec.spring.domain.QryTransactionList;
 import com.lec.spring.domain.Transaction;
 import com.lec.spring.domain.User;
 import com.lec.spring.repository.PropertyRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -87,6 +89,19 @@ public class TransactionService {
     Long id = user.getId();
     return transactionRepository.findByMonthType(id, type, date);
 }
+//    (2-7) 특정 user 의 특정 날짜의 transaction 불러오기
+    public QryTransactionList transacDetail(Date date){
+        QryTransactionList transactionList = new QryTransactionList();
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+
+        LocalDate localDate = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        List<Transaction> trans = transactionRepository.findAllByDaily(id, localDate);
+        transactionList.setList(trans);
+        transactionList.setStatus("OK");
+
+        return transactionList;
+    }
 
 //    3. CRUD - Update
     public int update(Transaction transaction){

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
 
@@ -34,13 +35,18 @@ public class TransactionController {
     }
 
     @GetMapping("/daily")
-    public void daily(Model model){
-        LocalDate date = LocalDate.of(2023,2,26);
-        model.addAttribute("income", transactionService.listByTypeinDay("수입", date));
-        model.addAttribute("outcome",transactionService.listByTypeinDay("지출", date));
-        model.addAttribute("transfer",transactionService.listByTypeinDay("이체", date));
-        model.addAttribute("list", transactionService.listByDay(date));
-        model.addAttribute("date", date);
+    public void daily(Model model, String date){
+        LocalDate localdate = LocalDate.now();
+//      date 값이 있다면 ,
+        if(date != null){
+            localdate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
+        }
+        model.addAttribute("income", transactionService.listByTypeinDay("수입", localdate));
+
+        model.addAttribute("outcome",transactionService.listByTypeinDay("지출", localdate));
+        model.addAttribute("transfer",transactionService.listByTypeinDay("이체", localdate));
+        model.addAttribute("list", transactionService.listByDay(localdate));
+        model.addAttribute("date", localdate);
     }
 
     @GetMapping("/monthly")

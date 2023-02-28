@@ -47,26 +47,26 @@
             </div>
 
             <hr>
-            <div class="favorite-area">
-                <div th:class="transition-type">
+            <div class="favorite-area" id="dailyTransaction">
+                <div th:class="transition-type" >
                     <div th:class="transition-total">
                         <span>통계</span><br>
-                        <span class="money"
-                              th:text="${#aggregates.sum(income.![money])} - ${#aggregates.sum(outcome.![money])}"></span>
+                        <span class="money">0</span>
                     </div>
                     <div th:class="transition-income">
                         <span>수입</span><br>
-                        <span class="money" th:text="${#aggregates.sum(income.![money])}"></span>
+                        <span class="money">0</span>
                     </div>
                     <div th:class="transition-outcome">
                         <span>지출</span><br>
-                        <span class="money" th:text="${#aggregates.sum(outcome.![money])}"></span>
+                        <span class="money">0</span>
                     </div>
                     <div th:class="transition-transfer">
                         <span>이체</span><br>
-                        <span class="money" th:text="${#aggregates.sum(transfer.![money])}"></span>
+                        <span class="money">0</span>
                     </div>
                 </div>
+
                 <hr>
                 <div th:class="content">
                     <table class="table table-hover" bgcolor="#F4F4F7">
@@ -82,31 +82,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="dto : ${list}">
-                            <td>[[${dto.id}]]</td>
-                            <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
-                            <td>[[${dto.property_id.name}]]</td>
-                            <td>[[${dto.transaction_type}]]</td>
-                            <td>[[${dto.category}]]</td>
-                            <td>[[${dto.content}]]</td>
-                            <td class="money">[[${dto.money}]]</td>
-                            <td style="display: flex; justify-content: space-between;">
-                                <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
-                            </td>
-                            <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
-                                <input type="hidden" name="id" th:value="${dto.id}">
-                            </form>
-                        </tr>
+                            <tr th:each="dto : ${list}">
+                                <td>[[${dto.id}]]</td>
+                                <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                <td>[[${dto.property_id.name}]]</td>
+                                <td>[[${dto.transaction_type}]]</td>
+                                <td>[[${dto.category}]]</td>
+                                <td>[[${dto.content}]]</td>
+                                <td class="money">[[${dto.money}]]</td>
+                                <td style="display: flex; justify-content: space-between;">
+                                    <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
+                                </td>
+                                <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
+                                    <input type="hidden" name="id" th:value="${dto.id}">
+                                </form>
+                            </tr>
                         </tbody>
                     </table>
-                    <!-- 목록 -->
-
-                    <div class="row">
-                        <div class="col-12">
-                            <a class="btn btn-outline-dark" th:href="@{/property/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">자산 생성</a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
