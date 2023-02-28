@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/transaction")
@@ -27,17 +31,27 @@ public class TransactionController {
 
     @GetMapping("/daily")
     public void daily(Model model){
-        model.addAttribute("list", transactionService.list(model));
+        LocalDate date = LocalDate.of(2023,2,26);
+        model.addAttribute("income", transactionService.listByTypeinDay("수입", date));
+        model.addAttribute("outcome",transactionService.listByTypeinDay("지출", date));
+        model.addAttribute("transfer",transactionService.listByTypeinDay("이체", date));
+        model.addAttribute("list", transactionService.listByDay(date));
+        model.addAttribute("date", date);
     }
 
     @GetMapping("/monthly")
     public void monthly(Model model){
-
+        LocalDate date = LocalDate.now();
+        model.addAttribute("income", transactionService.listByTypeinMonth("수입", date));
+        model.addAttribute("outcome",transactionService.listByTypeinMonth("지출", date));
+        model.addAttribute("transfer",transactionService.listByTypeinMonth("이체", date));
+        model.addAttribute("list", transactionService.listByMonth(date));
+        model.addAttribute("date", date);
     }
 
     @GetMapping("/calendar")
     public void calendar(Model model){
-
+        model.addAttribute("list",transactionService.list(model));
     }
 
 }

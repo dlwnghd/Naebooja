@@ -1,4 +1,4 @@
-// 임시 데이터
+ 임시 데이터
 const data = [
   { date: '2023-02-03', content: '테스트1' },
   { date: '2023-02-03', content: '테스트2' },
@@ -7,9 +7,16 @@ const data = [
   { date: '2023-02-21', content: '테스트5' },
 ];
 
+//function putData(data) {
+//    const calendarList = data.reduce(
+//      (acc, v) =>
+//        ({ ...acc, [v.date]: [...(acc[v.date] || []), v.content] })
+//      , {}
+//    );
+//}
 // 데이터 가공
 const calendarList = data.reduce(
-  (acc, v) => 
+  (acc, v) =>
     ({ ...acc, [v.date]: [...(acc[v.date] || []), v.content] })
   , {}
 );

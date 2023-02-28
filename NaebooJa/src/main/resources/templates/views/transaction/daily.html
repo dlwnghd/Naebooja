@@ -37,24 +37,27 @@
                 <div th:class="monthly" th:onclick="location.href='/transaction/monthly'">
                     <p>월 별</p>
                 </div>
+
+                <div th:class="chooseDay" th:text="${date}"></div>
+
             </div>
 
             <hr>
             <div class="favorite-area">
                 <div th:class="transition-type">
-                    <div th:class="transition-total" th:onclick='total()'>
+                    <div th:class="transition-total">
                         <span>통계</span><br>
                         <span>000000</span>
                     </div>
-                    <div th:class="transition-income" th:onclick='income()'>
+                    <div th:class="transition-income">
                         <span>수입</span><br>
                         <span>000000</span>
                     </div>
-                    <div th:class="transition-outcome" th:onclick='outcome()'>
+                    <div th:class="transition-outcome">
                         <span>지출</span><br>
                         <span>000000</span>
                     </div>
-                    <div th:class="transition-transfer" th:onclick='transfer()'>
+                    <div th:class="transition-transfer">
                         <span>이체</span><br>
                         <span>000000</span>
                     </div>
@@ -68,15 +71,17 @@
                             <th>날짜</th>
                             <th>계좌</th>
                             <th>분류</th>
+                            <th>분류</th>
                             <th>내용</th>
                             <th>금액</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
+                        <tr th:each="dto : ${list}">
                             <td>[[${dto.id}]]</td>
-                            <td>[[${dto.regdate}]]</td>
+                            <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                             <td>[[${dto.property_id.name}]]</td>
+                            <td>[[${dto.transaction_type}]]</td>
                             <td>[[${dto.category}]]</td>
                             <td>[[${dto.content}]]</td>
                             <td>[[${dto.money}]]</td>
