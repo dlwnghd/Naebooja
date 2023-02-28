@@ -20,7 +20,7 @@ public class StatisticController {
         System.out.println("StatisticController() 생성");
     }
 
-    @GetMapping("/list")
+    @GetMapping("/stat")
     public void statistic(Model model){
         statisticService.list(model);
     }

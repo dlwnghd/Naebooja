@@ -121,7 +121,7 @@ function buildPropTrans(result){
         let id = transaction.id;
         let money = String(transaction.money).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         let transaction_type = transaction.transaction_type;
-        let regdate = transaction.regDate;
+        let regdate = transaction.regdate;
 
         // 거래시간 구하기
         const dateObject = new Date(regdate);
