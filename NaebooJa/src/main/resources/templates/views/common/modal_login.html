@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="modal_login">
+  <!-- modal -->
+  <ul class="nav">
+    <li>
+
+      <div class="modal fade" id="modal_login" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <div class="modal-body">
+              <th:block th:replace="~{/user/login :: setLogin(~{this::login} )}"></th:block>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</th:block>
+</html>
