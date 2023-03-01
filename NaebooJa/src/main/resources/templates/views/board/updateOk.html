@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  <script th:unless="${result > 0}">
-     alert("수정 실패");
-     history.back();
-  </script>
-  <script th:if="${result > 0}" th:inline="javascript">
-     alert("수정 성공");
-     location.href = "detail?id=[[${dto.id}]]";
-  </script>
+<link rel="stylesheet" th:href="@{/css/updateOk.css}">
+
+
+<script>
+  function move()
+{
+location.href = "detail?id=[[${dto.id}]]"
+}
+
+
+
+</script>
+<body>
+<div class="background">
+    <div class="window">
+        <div class="popup">
+            <img src="/img/money.png"/>
+            <div class="popupText">
+                <div class="content" th:if="${result > 0}">
+                    게시글 수정이 완료되었습니다.
+                </div>
+                <div th:unless="${result > 0}">
+                    수정 실패하였습니다
+                </div>
+            </div>
+            <div>
+                <button class="ok" th:onclick="move()" th:if="${result > 0}">확인</button>
+                <button th:onclick="history.back()" th:unless="${result > 0}">확인</button>
+            </div>
+        </div>
+        <div>
+            <div></div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
 

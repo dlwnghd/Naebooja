@@ -63,8 +63,8 @@ public class BoardService {
         write.setUser(user);  // 글 작성자 세팅
 
         int cnt ;
-        if(user.getId() == 3){   // 작성된 id가 3이면. (ADMIN)
-            cnt = writeRepository.saveAdmin(write);   //
+        if(user.getUsername() == "admin"){   // 작성자가 admin 이면
+            cnt = writeRepository.saveAdmin(write);
         }
         else{
             cnt = writeRepository.save(write);   // 그 외
@@ -249,7 +249,7 @@ public class BoardService {
         HttpSession session = U.getSession();
 
         // 기본값 페이지 세팅
-        Integer writePages = (Integer)session.getAttribute("writepPages");
+        Integer writePages = (Integer)session.getAttribute("writePages");
         if(writePages == null) writePages = C.WRITE_PAGES;  // 만약 session 에 없으면 기본값으로 동작
 
         Integer pageRows = (Integer)session.getAttribute("pageRows");
