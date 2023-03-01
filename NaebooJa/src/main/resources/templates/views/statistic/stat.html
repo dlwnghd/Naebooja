@@ -30,26 +30,12 @@
 
 
   <!-- 이 페이지에서 보여줄 내용 -->
-  <div id="graph_container"></div>
   <div class="container mt-3">
     <h2>통계</h2>
     <hr>
-    <table class="table table-hover">
-      <thead class="table-success">
-      <tr>
-        <th>ID</th>
-        <th>자산명</th>
-        <th>자산그룹</th>
-        <th colspan="2">잔액</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="dto : ${list}">
-        <td>[[${dto.id}]]</td>
-      </tr>
-      </tbody>
-    </table>
-    <div class="row">
+    <div style="display: flex;justify-content: space-around;">
+        <div id="graph_container"></div>
+        <div id="graph_container_test"></div>
     </div>
   </div>
 </div>

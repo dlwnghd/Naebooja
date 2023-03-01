@@ -3,6 +3,8 @@ const linkItems = document.querySelectorAll(".link-item");
 
 const link = document.location.href.substring(22, document.location.href.length);
 
+console.log(link);
+
 for (let i = 0; i < linkItems.length; i++) {
     if(linkItems[i].innerHTML.search(link) > 0){
         linkItems[i].classList.add("active");

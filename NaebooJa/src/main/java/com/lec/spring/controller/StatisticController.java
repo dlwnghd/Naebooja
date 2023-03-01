@@ -22,7 +22,6 @@ public class StatisticController {
 
     @GetMapping("/stat")
     public void statistic(Model model){
-        statisticService.list(model);
     }
 
 }
