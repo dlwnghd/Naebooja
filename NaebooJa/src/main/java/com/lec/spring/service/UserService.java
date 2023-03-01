@@ -73,4 +73,17 @@ public class UserService {
         return result;
     }
 
+    // 비밀번호 변경
+    public int updatePw(User user){
+        int result = 0;
+
+        if (user != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));   // password 는 암호화해서 저장해야 한다.
+            userRepository.update(user);  // 업데이트
+            result = 1;
+        }
+
+        return result;
+    }
+
 }
