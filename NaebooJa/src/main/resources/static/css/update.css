@@ -7,34 +7,57 @@
 }
 
 .sub {
-    font-weight:bold;
+    font-weight: bold;
 }
 
-.writeName {
-    background-color: rgb(237, 235, 235);
+.id {
+    float: left;
+    width: 20%;
+    box-sizing: border-box;
 }
 
-.username {
+.id div {
     display : inline-block;
+    font-size : 24px;
+    font-weight : bold;
 }
 
-.username div{
-    float : left;
-    padding : 0 5px 0 1px;
-    font-size: 24px;
+#myId {
+    background-color: rgb(237, 235, 235);
     font-weight:bold;
 }
 
-#date {
+.username{
+    float: left;
+    margin-left: 5%;
+    width:20%;
+    box-sizing: border-box;
+}
+.username div {
+    display : inline-block;
+    font-size : 24px;
+    font-weight : bold;
+}
+
+#myName {
     background-color: rgb(237, 235, 235);
     font-weight:bold;
 }
 
 .regDate {
+    float: right;
+    width:40%;
+    box-sizing: border-box;
+}
+
+.regDate div {
     display : inline-block;
-    float : right;
-    padding : 0 3px 0 3px;
-    font-size: 24px;
+    font-size : 24px;
+    font-weight : bold;
+}
+
+#myDate {
+    background-color: rgb(237, 235, 235);
     font-weight:bold;
 }
 
@@ -60,11 +83,11 @@
     font-weight:bold;
 }
 
-.save_cancel {
-    float : right;
+.menu {
+    float: right;
 }
 
-.save {
+.modify, .cancel {
     width: 80px;
     height: 50px;
     font-size:24px;
@@ -75,11 +98,4 @@
     border-radius: 7%;
 }
 
-#cancel {
-    width: 80px;
-    height: 50px;
-    font-size:24px;
-    font-weight:bold;
-    background: rgba(255, 196, 12, 0.42);
-    float : left;
-}
+

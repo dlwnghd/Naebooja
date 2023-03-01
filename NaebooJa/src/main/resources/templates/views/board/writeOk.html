@@ -25,7 +25,7 @@ location.href = "detail?id=[[${dto.id}]]"
         </div>
       </div>
       <div>
-        <button th:onclick="move()" th:if="${result > 0}">확인</button>
+        <button class="ok" th:onclick="move()" th:if="${result > 0}">확인</button>
         <button th:onclick="history.back()" th:unless="${result > 0}">확인</button>
       </div>
     </div>
