@@ -1,0 +1,118 @@
+.all {
+    display:flex;
+    flex-direction:row;
+
+    padding-left:10px;
+    padding-right:10px
+}
+
+.sub {
+    font-weight: bold;
+}
+
+.id {
+    float: left;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+.id div {
+    display : inline-block;
+    font-size : 24px;
+    font-weight : bold;
+}
+
+#myId {
+    background-color: rgb(237, 235, 235);
+    font-weight:bold;
+}
+
+.username{
+    float: left;
+    margin-left: 5%;
+    width:20%;
+    box-sizing: border-box;
+}
+.username div {
+    display : inline-block;
+    font-size : 24px;
+    font-weight : bold;
+}
+
+#myName {
+    background-color: rgb(237, 235, 235);
+    font-weight:bold;
+}
+
+.regDate {
+    float: right;
+    width:40%;
+    box-sizing: border-box;
+}
+
+.regDate div {
+    display : inline-block;
+    font-size : 24px;
+    font-weight : bold;
+}
+
+#myDate {
+    background-color: rgb(237, 235, 235);
+    font-weight:bold;
+}
+
+.subject div{
+    float : left;
+    padding : 0 1px 0 1px;
+    font-size: 24px;
+    letter-spacing: 6px;
+    font-weight:bold;
+}
+
+.subjectBox {
+    background-color: rgb(237, 235, 235);
+    font-weight:bold;
+    border : 1px solid black;
+    width : 95%
+}
+
+.content {
+    padding : 0 1px 0 1px;
+    font-size: 24px;
+    letter-spacing: 6px;
+    font-weight:bold;
+}
+
+.contentBox {
+    background-color: rgb(237, 235, 235);
+    font-size : 24px;
+    font-weight:bold;
+    border : 1px solid black;
+    width : 100%
+}
+
+.allMenu {
+    float: right;
+}
+
+#modify, #list {
+    width: 80px;
+    height: 50px;
+    font-size:24px;
+    font-weight:bold;
+    background: rgba(255, 196, 12, 0.42);
+    float : left;
+    margin-right: 10px;
+    border : 2px solid black;
+}
+
+.delete {
+    width: 80px;
+    height: 50px;
+    font-size:24px;
+    font-weight:bold;
+    background: rgba(255, 196, 12, 0.42);
+    float : left;
+    margin-right: 10px;
+    border-radius: 7%;
+}

@@ -36,18 +36,18 @@
         VALUE(#{username}, #{password}, #{name})
     </insert>
 
-    <!-- User 정보 업데이트 -->
-    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.User">
-        UPDATE user SET username = #{username}, password = #{password}, name = #{name}
-        WHERE id = #{id}
-    </update>
-
     <!-- 아이디 찾기 -->
     <select id="findByName" resultType="com.lec.spring.domain.User">
         <include refid="SELECT_BASE"/>
         WHERE
         name = #{name}
     </select>
+
+    <!-- 비밀번호 변경 -->
+    <update id="update" flushCache="true" parameterType="com.lec.spring.domain.User">
+        UPDATE user SET password = #{password}
+        WHERE username = #{username} and name = #{name}
+    </update>
 
 </mapper>
 

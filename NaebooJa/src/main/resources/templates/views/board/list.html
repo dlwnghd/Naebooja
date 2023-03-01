@@ -65,18 +65,18 @@
         </thead>
         <tbody class="content_list">
         <tr th:each="a_dto : ${adminList}">
-            <td>[[${a_dto.id}]]</td>
-            <td><a class="notice-subject" th:href="@{/board/detail(id=${a_dto.id})}">[[${a_dto.subject}]]</a></td>
-            <td>[[${a_dto.user.username}]]</td>
-            <td>[[${a_dto.viewCnt}]]</td>
-            <td>[[${#temporals.format(a_dto.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+            <td th:text="${a_dto.id}"></td>
+            <td><a class="notice-subject" th:href="@{/board/detail(id=${a_dto.id})}" th:text="${a_dto.subject}"></a></td>
+            <td th:text="${a_dto.user.username}"></td>
+            <td th:text="${a_dto.viewCnt}"></td>
+            <td th:text="${#temporals.format(a_dto.regDate, 'yyyy년 MM월 dd일 HH시 mm분')}"></td>
         </tr>
         <tr th:each="dto : ${list}">
-            <td>[[${dto.id}]]</td>
-            <td><a th:href="@{/board/detail(id=${dto.id})}">[[${dto.subject}]]</a></td>
-            <td>[[${dto.user.username}]]</td>
-            <td>[[${dto.viewCnt}]]</td>
-            <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+            <td th:text="${dto.id}"></td>
+            <td><a th:href="@{/board/detail(id=${dto.id})}" th:text="${dto.subject}"></a></td>
+            <td th:text="${dto.user.username}"></td>
+            <td th:text="${dto.viewCnt}"></td>
+            <td th:text="${#temporals.format(dto.regDate, 'yyyy년 MM월 dd일 HH시 mm분')}"></td>
         </tr>
         </tbody>
     </table>
