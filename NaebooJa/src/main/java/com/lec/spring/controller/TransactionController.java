@@ -60,10 +60,10 @@ public class TransactionController {
 
     @GetMapping("/calendar")
     public void calendar(Model model){
-        LocalDate date = LocalDate.now();
-        model.addAttribute("income", transactionService.listByTypeinDay("수입", date));
-        model.addAttribute("outcome",transactionService.listByTypeinDay("지출", date));
-        model.addAttribute("transfer",transactionService.listByTypeinDay("이체", date));
+        LocalDate date = LocalDate.parse("2023-02-16");
+        model.addAttribute("income", transactionService.listByTypeinMonth("수입", date));
+        model.addAttribute("outcome",transactionService.listByTypeinMonth("지출", date));
+        model.addAttribute("transfer",transactionService.listByTypeinMonth("이체", date));
         model.addAttribute("list",transactionService.listByMonth(date));
     }
 

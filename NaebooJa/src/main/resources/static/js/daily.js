@@ -21,68 +21,68 @@ function buildTrans(result){
 
     let row = `
     <div class="favorite-area">
-                    <div class="transition-type" >
-                        <div class="transition-total">
-                            <span>통계</span><br>
-                            <span class="money">${total}</span>
-                        </div>
-                        <div class="transition-income">
-                            <span>수입</span><br>
-                            <span class="money"> + ${income}</span>
-                        </div>
-                        <div class="transition-outcome">
-                            <span>지출</span><br>
-                            <span class="money"> - ${outcome}</span>
-                        </div>
-                        <div class="transition-transfer">
-                            <span>이체</span><br>
-                            <span class="money">${transfer}</span>
-                        </div>
-                    </div>
+        <div class="transition-type" >
+            <div class="transition-total">
+                <span>통계</span><br>
+                <span class="money">${total}</span>
+            </div>
+            <div class="transition-income">
+                <span>수입</span><br>
+                <span class="money"> + ${income}</span>
+            </div>
+            <div class="transition-outcome">
+                <span>지출</span><br>
+                <span class="money"> - ${outcome}</span>
+            </div>
+            <div class="transition-transfer">
+                <span>이체</span><br>
+                <span class="money">${transfer}</span>
+            </div>
+        </div>
 
-                    <hr>`
+        <hr>`
         row += `
             <div class="content" id="dailyTransaction">
-                                <table class="table table-hover" bgcolor="#F4F4F7">
-                                    <thead th="table-success">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>날짜</th>
-                                        <th>계좌</th>
-                                        <th>거래</th>
-                                        <th>분류</th>
-                                        <th>내용</th>
-                                        <th>금액</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                <table class="table table-hover" bgcolor="#F4F4F7">
+                    <thead th="table-success">
+                    <tr>
+                        <th>ID</th>
+                        <th>날짜</th>
+                        <th>계좌</th>
+                        <th>거래</th>
+                        <th>분류</th>
+                        <th>내용</th>
+                        <th>금액</th>
+                    </tr>
+                    </thead>
+                    <tbody>
     `
 
     result.data.forEach(transaction => {
-            let category = transaction.category;
-            let id = transaction.id;
-            let money = String(transaction.money).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-            let transaction_type = transaction.transaction_type;
-            let regdate = transaction.regdate;
-            let content = transaction.content;
-            let property = transaction.property_id.name;
-
-            row += `
-                <tr>
-                    <td>${id}</td>
-                    <td>${regdate}</td>
-                    <td>${property}</td>
-                    <td>${transaction_type}</td>
-                    <td>${category}</td>
-                    <td>${content}</td>
-                    <td>${money}</td>
-                </tr>`;
-        });
+        let category = transaction.category;
+        let id = transaction.id;
+        let money = String(transaction.money).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        let transaction_type = transaction.transaction_type;
+        let regdate = transaction.regdate;
+        let content = transaction.content;
+        let property = transaction.property_id.name;
 
         row += `
-                    </tbody>
-                </table>
-            </div>
+            <tr>
+                <td>${id}</td>
+                <td>${regdate}</td>
+                <td>${property}</td>
+                <td>${transaction_type}</td>
+                <td>${category}</td>
+                <td>${content}</td>
+                <td>${money}</td>
+            </tr>`;
+    });
+
+        row += `
+            </tbody>
+        </table>
+    </div>
         `
 
         out.push(row);
@@ -117,24 +117,22 @@ $(function () {
             $("#mydate").text(week[date.getDay()]);
 
             $.ajax({
-                    url: "/transactionDetail/transacList?date=" + d,
-                    type: "GET",
-                    cache: false,
-                    success: function(data, status, xhr){
-                        if(status == "success"){
-                            console.log(xhr.responseText);  // response 결과 확인용
-                            console.log(data);
+                url: "/transactionDetail/transacList?date=" + d,
+                type: "GET",
+                cache: false,
+                success: function(data, status, xhr){
+                    if(status == "success"){
+                        console.log(xhr.responseText);  // response 결과 확인용
+                        console.log(data);
 
-
-                            // 서버쪽 에러 메세지 있는 경우
-                            if(data.status !== "OK"){
-                                alert(data.status);
-                                return;
-                            }
-                            buildTrans(data);  // 화면 렌더링
-
+                        // 서버쪽 에러 메세지 있는 경우
+                        if(data.status !== "OK"){
+                            alert(data.status);
+                            return;
                         }
-                    },
+                        buildTrans(data);  // 화면 렌더링
+                    }
+                },
             });
         }
     });

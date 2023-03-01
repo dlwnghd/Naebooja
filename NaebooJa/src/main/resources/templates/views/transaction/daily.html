@@ -43,27 +43,36 @@
                 <div th:class="monthly" th:onclick="location.href='/transaction/monthly'">
                     <p>월 별</p>
                 </div>
-                <p>Date: <input type="text" th:id="datepicker" size="10"></p>
+                <p>Date: <input type="text" th:id="datepicker" size="10" th:value="${date}"></p>
             </div>
 
             <hr>
             <div class="favorite-area" id="dailyTransaction">
-                <div th:class="transition-type" >
+                <div th:class="transition-type">
                     <div th:class="transition-total">
                         <span>통계</span><br>
-                        <span class="money">0</span>
+                        <span class="money" id="total"></span>
                     </div>
                     <div th:class="transition-income">
                         <span>수입</span><br>
-                        <span class="money">0</span>
+                        <span class="money" id="income" th:if="${income}"
+                              th:text="${#aggregates.sum(income.![money])}">000000
+                        </span>
+                        <span th:unless="${income}">0</span>
                     </div>
                     <div th:class="transition-outcome">
                         <span>지출</span><br>
-                        <span class="money">0</span>
+                        <span class="money" id="outcome" th:if="${outcome}"
+                              th:text="${#aggregates.sum(outcome.![money])}">000000
+                        </span>
+                        <span th:unless="${outcome}">0</span>
                     </div>
                     <div th:class="transition-transfer">
                         <span>이체</span><br>
-                        <span class="money">0</span>
+                        <span class="money" th:if="${transfer}"
+                              th:text="${#aggregates.sum(transfer.![money])}">000000
+                        </span>
+                        <span th:unless="${transfer}">0</span>
                     </div>
                 </div>
 
@@ -101,7 +110,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
 
 </div>
@@ -111,6 +119,11 @@
     <th:block th:insert="~{common/button}"></th:block>
 </footer>
 <script>
+  let income = document.getElementById("income")?document.getElementById("income"):0;
+  let outcome = document.getElementById("outcome")?document.getElementById("outcome"):0;
+  let totalmoney = parseInt(income) - parseInt(outcome);
+  document.getElementById("total").value = totalmoney;
+
   let money = document.getElementsByClassName("money");
   const array = Array.from(money);
   const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());

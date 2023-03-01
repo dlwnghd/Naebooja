@@ -1,5 +1,25 @@
 // 임시 데이터
 const out = [];
+
+//if (transactions != []){
+//    transactions.data.forEach(function(transaction){
+//        var money = transaction.money;
+//        if (transaction.transaction_type == "수입"){
+//            money = '+' + money;
+//        }
+//        else if (transaction.transaction_type == "지출"){
+//            money = '-' + money;
+//        }
+//        else if (transaction.transaction_type == "이체 "){
+//            money = money
+//        }
+//        out.push({
+//            date: toStringByFormatting(new Date(transaction.regdate)),
+//            money: money
+//        });
+//    });
+//}
+
 // 데이터 가공
 const calendarList = out.reduce(
                     (acc, v) =>
@@ -77,8 +97,7 @@ Number.prototype.pad = function() {
   return this > 9 ? this : '0' + this;
 }
 
-const makeCalendar = (date, out) => {
-
+const makeCalendar = (date) => {
   const currentYear = new Date(date).getFullYear();
   const currentMonth = new Date(date).getMonth() + 1;
 
@@ -96,12 +115,32 @@ const makeCalendar = (date, out) => {
 
   for (let i = 1; i <= lastDay; i++) {
     const date = `${currentYear}-${currentMonth.pad()}-${i.pad()}`
-    
+    console.log(date);
+    console.log(calendarList[date]);
+    var transfer = 0;
+    var income = 0;
+    var outcome = 0;
+    if( calendarList[date]){
+        calendarList[date].forEach( test => {
+                                if( Number.isInteger(test)){
+                                    transfer += test;
+                                }
+                                else if (test[0] == "+"){
+                                    income += parseInt(test.slice(1));
+                                }
+                                else if (test[0]== "-"){
+                                    outcome += parseInt(test.slice(1));
+                                }
+                            });
+    }
+
     htmlDummy += `
       <div>
         ${i}
         <p>
-          ${calendarList[date]?.join('</p><p>') || ''}
+          ${transfer}<br>
+          + ${income}<br>
+          - ${outcome}<br>
         </p>
       </div>
     `;
@@ -112,10 +151,11 @@ const makeCalendar = (date, out) => {
   }
   console.log("********************");
   console.log(calendarList);
-  
+
   document.querySelector(`.dateBoard`).innerHTML = htmlDummy;
   document.querySelector(`.dateTitle`).innerText = `${currentYear}년 ${currentMonth}월`;
 }
+
 
 const date = new Date();
 
@@ -123,7 +163,6 @@ makeCalendar(date, []);
 
 // 이전달 이동
 document.querySelector(`.prevDay`).onclick = () => {
-
     makeCalendar(new Date(date.setMonth(date.getMonth() - 1)));
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -136,8 +175,6 @@ document.querySelector(`.prevDay`).onclick = () => {
         success: function(data, status, xhr){
             if(status == "success"){
                 console.log(xhr.responseText);  // response 결과 확인용
-                console.log(data);
-                console.log(str);
 
                 // 서버쪽 에러 메세지 있는 경우
                 if(data.status !== "OK"){
@@ -161,8 +198,6 @@ document.querySelector(`.prevDay`).onclick = () => {
                         money: money
                     });
                 });
-                console.log("-----out------");
-                console.log(out);
                 const calendarList = out.reduce(
                                     (acc, v) =>
                                       ({ ...acc, [v.date]: [...(acc[v.date]
