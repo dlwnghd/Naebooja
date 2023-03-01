@@ -18,7 +18,7 @@
 
 .id div {
     display : inline-block;
-    font-size : 24px;
+    font-size : 16px;
     font-weight : bold;
 }
 
@@ -35,7 +35,7 @@
 }
 .username div {
     display : inline-block;
-    font-size : 24px;
+    font-size : 16px;
     font-weight : bold;
 }
 
@@ -52,7 +52,7 @@
 
 .regDate div {
     display : inline-block;
-    font-size : 24px;
+    font-size : 16px;
     font-weight : bold;
 }
 
@@ -64,7 +64,7 @@
 .subject div{
     float : left;
     padding : 0 1px 0 1px;
-    font-size: 24px;
+    font-size: 16px;
     letter-spacing: 6px;
     font-weight:bold;
 }
@@ -73,19 +73,19 @@
     background-color: rgb(237, 235, 235);
     font-weight:bold;
     border : 1px solid black;
-    width : 95%
+    width : 100%
 }
 
 .content {
     padding : 0 1px 0 1px;
-    font-size: 24px;
+    font-size: 16px;
     letter-spacing: 6px;
     font-weight:bold;
 }
 
 .contentBox {
     background-color: rgb(237, 235, 235);
-    font-size : 24px;
+    font-size : 16px;
     font-weight:bold;
     border : 1px solid black;
     width : 100%
@@ -96,9 +96,9 @@
 }
 
 #modify, #list {
-    width: 80px;
-    height: 50px;
-    font-size:24px;
+    width: 90px;
+    height: 40px;
+    font-size:16px;
     font-weight:bold;
     background: rgba(255, 196, 12, 0.42);
     float : left;
@@ -107,12 +107,16 @@
 }
 
 .delete {
-    width: 80px;
-    height: 50px;
-    font-size:24px;
+    width: 90px;
+    height: 40px;
+    font-size:16px;
     font-weight:bold;
     background: rgba(255, 196, 12, 0.42);
     float : left;
     margin-right: 10px;
     border-radius: 7%;
+}
+
+.delete:hover{
+    color:white;
 }
