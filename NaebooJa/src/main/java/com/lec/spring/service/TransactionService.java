@@ -1,5 +1,6 @@
 package com.lec.spring.service;
 
+import com.lec.spring.domain.QryTransactionList;
 import com.lec.spring.domain.Transaction;
 import com.lec.spring.domain.User;
 import com.lec.spring.repository.PropertyRepository;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +50,7 @@ public class TransactionService {
         Long id = user.getId();
 
         List<Transaction> list = transactionRepository.findAlls(id);
+//        list == null 이면 , list = []
         model.addAttribute("list", list);
         return list;
     }
@@ -59,32 +63,59 @@ public class TransactionService {
     }
 
 //    (2-3) 특정 user 의 특정 날짜(일) 의 거래내역 전체 불러오기
-    public List<Transaction> listByDay(Date date){
+    public List<Transaction> listByDay(LocalDate date){
         User user = U.getLoggedUser();
         Long id = user.getId();
         return transactionRepository.findAllByDaily(id, date);
     }
 
 //    (2-4) 특정 user 의 특정 달(월) 의 거래내역 전체 불러오기
-    public List<Transaction> listByMonth(Date date){
+    public List<Transaction> listByMonth(LocalDate date){
         User user = U.getLoggedUser();
         Long id = user.getId();
         return transactionRepository.findAllByMonthly(id, date);
     }
 
 //    (2-5) 특정 user 의 특정 날짜(일) 의 특정 타입의 거래 내역 불러오기
-    public List<Transaction> listByTypeinDay(String type, Date date){
+    public List<Transaction> listByTypeinDay(String type, LocalDate date){
         User user = U.getLoggedUser();
         Long id = user.getId();
         return transactionRepository.findByDayType(id, type, date);
     }
 
 //    (2-6) 특정 user 의 특정 달(월)의 특정 타입의 거래 내역 불러오기
-    public List<Transaction> listByTypeinMonth(String type, Date date){
+    public List<Transaction> listByTypeinMonth(String type, LocalDate date){
     User user = U.getLoggedUser();
     Long id = user.getId();
     return transactionRepository.findByMonthType(id, type, date);
 }
+//    (2-7) 특정 user 의 특정 날짜의 transaction 불러오기
+    public QryTransactionList transacDetail(Date date){
+        QryTransactionList transactionList = new QryTransactionList();
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+
+        LocalDate localDate = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        List<Transaction> trans = transactionRepository.findAllByDaily(id, localDate);
+        transactionList.setList(trans);
+        transactionList.setStatus("OK");
+
+        return transactionList;
+    }
+
+//    (2-8) 특정 user 의 특정 달의 transaction 불러오기
+    public QryTransactionList transacDetailbyMonth(Date date){
+        QryTransactionList transactionList = new QryTransactionList();
+        User user = U.getLoggedUser();
+        Long id = user.getId();
+
+        LocalDate localDate = LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        List<Transaction> trans = transactionRepository.findAllByMonthly(id, localDate);
+        transactionList.setList(trans);
+        transactionList.setStatus("OK");
+
+        return transactionList;
+    }
 
 //    3. CRUD - Update
     public int update(Transaction transaction){

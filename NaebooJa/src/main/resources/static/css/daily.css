@@ -76,4 +76,10 @@
 .monthly {
     width: 155px;
     height: 50px;
+    border : 2px solid #F4F4F7;
+}
+
+p {
+    height: 50px;
+    width : 240px;
 }
