@@ -374,3 +374,35 @@ FROM `transaction` t
 WHERE
 	property_id = 1
 ;
+
+
+# 오늘 기준 특정 사용자의 특정 월의 특정 자산의 수입내역 (최신순)
+SELECT t.id "거래번호", u.id "유저번호", t.property_id "출금자산번호",
+	t.in_property_id "입금자산번호",
+	t.transaction_type "거래타입",
+	t.regdate "거래일",
+	t.money "거래액",
+	t.category "분류"
+FROM transaction t, `user` u
+WHERE
+	MONTH(t.regdate) = MONTH('2023-02-24')
+   	AND YEAR(t.regdate) = YEAR('2023-02-24')
+   	AND t.transaction_type = "수입"
+	AND u.id = 1
+ORDER BY
+	t.regdate DESC, t.id DESC;
+
+
+
+
+# 오늘 기준 특정 사용자의 전체 지출내역 (최신순)
+SELECT t.id "거래번호", u.id "유저번호", t.property_id "출금자산번호",
+	t.in_property_id "입금자산번호",
+	t.transaction_type "거래타입",
+	t.regdate "거래일",
+	t.money "거래액",
+	t.category "분류"
+FROM transaction t, `user` u
+WHERE
+	t.user_id = 1
+	AND t.transaction_type = "지출"

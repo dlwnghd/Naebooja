@@ -3,6 +3,7 @@ package com.lec.spring.controller;
 import com.lec.spring.domain.QryStatisticList;
 import com.lec.spring.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -30,6 +31,16 @@ public class StatisticDetailController {
             e.printStackTrace();
         }
         return statisticService.statisticDetail(id, ChangeDate);}
+
+    @GetMapping("/statList")
+    public QryStatisticList list(){
+
+        return statisticService.Qrylist();}
+
+    @GetMapping("/statList_income")
+    public QryStatisticList QrylistIncome(){
+
+        return statisticService.QrylistIncome();}
 }
 
 

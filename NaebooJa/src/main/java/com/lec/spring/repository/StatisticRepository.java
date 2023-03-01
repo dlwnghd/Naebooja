@@ -16,7 +16,7 @@ public interface StatisticRepository {
     List<Transaction> findUserOutcomeAll(Long id);
 
 //    // 특정 유저의 전체 수입보기 : 최신순
-//    List<Transaction> findUserIncomeAll(Long id);
+    List<Transaction> findUserIncomeAll(Long id);
 
     // 특정 유저의 특정월 지출보기 : 최신순
     List<Transaction> findUserOutcomeAll_Monthly(Long id, Date date);
