@@ -37,10 +37,12 @@ flex:1 1 auto;
 
 .content_top th{
     text-align: center;
+    font-size: 24px;
 }
 
 .content_list td{
     text-align: center;
+    font-size: 24px;
 }
 
 .list-table a{
