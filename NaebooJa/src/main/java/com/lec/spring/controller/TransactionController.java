@@ -42,7 +42,6 @@ public class TransactionController {
             localdate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
         }
         model.addAttribute("income", transactionService.listByTypeinDay("수입", localdate));
-
         model.addAttribute("outcome",transactionService.listByTypeinDay("지출", localdate));
         model.addAttribute("transfer",transactionService.listByTypeinDay("이체", localdate));
         model.addAttribute("list", transactionService.listByDay(localdate));
@@ -61,7 +60,11 @@ public class TransactionController {
 
     @GetMapping("/calendar")
     public void calendar(Model model){
-        model.addAttribute("list",transactionService.list(model));
+        LocalDate date = LocalDate.now();
+        model.addAttribute("income", transactionService.listByTypeinDay("수입", date));
+        model.addAttribute("outcome",transactionService.listByTypeinDay("지출", date));
+        model.addAttribute("transfer",transactionService.listByTypeinDay("이체", date));
+        model.addAttribute("list",transactionService.listByMonth(date));
     }
 
     @GetMapping("/insert")
