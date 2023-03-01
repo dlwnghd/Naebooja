@@ -105,6 +105,25 @@ public class UserController {
         return page;
     }
 
+    // 비밀번호 변경
+    @GetMapping("/updatePw")
+    public void updatePw() {
+
+    }
+
+    // 비밀번호 변경
+    @PostMapping("/updatePw")
+    public String updatePwOk(User user
+            , Model model
+    ){
+
+        // 에러 없었으면 회원 등록 진행
+        String page = "/user/updatePwOk";
+        int result = userService.updatePw(user);
+        model.addAttribute("result", result);
+        return page;
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.setValidator(new UserValidator());

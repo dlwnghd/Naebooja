@@ -26,7 +26,7 @@
 
             <!-- 로그인 안했을때는 로그인 form 보여주기 -->
             <!-- 모달창으로 로그인창 띄우기 -->
-            <a data-toggle="modal" data-target="#modal_login" class="btn btn-primary" sec:authorize="isAnonymous()" >Login</a>
+            <a data-toggle="modal" data-target="#modal_login" class="btn btn-warning" sec:authorize="isAnonymous()" >Login</a>
 
 
             <form th:action="@{/user/logout}" method="POST" sec:authorize="isAuthenticated()" th:with="user=${#authentication.getPrincipal().getUser()}">
