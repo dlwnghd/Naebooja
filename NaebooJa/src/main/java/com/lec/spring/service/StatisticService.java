@@ -31,7 +31,7 @@ public class StatisticService {
         System.out.println("StatisticService() 생성");
     }
 
-    // 한 유저의 전체 지출 정보
+    // 한 유저의 전체 지출 정보_1
     public List<Transaction> list(Model model){
 
         // 현재 로그인 사용자 정보
@@ -46,6 +46,40 @@ public class StatisticService {
 
         // 한 유저의 전체 지출 정보
         return list;
+    }
+
+
+    // 한 유저의 전체 지출 정보_1
+    public QryStatisticList Qrylist(){
+        QryStatisticList statisticList = new QryStatisticList();
+
+        // 현재 로그인 사용자 정보
+        User user = U.getLoggedUser();
+        System.out.println("아니 유저의 번호가 : " + user.getId());
+
+        // 특정 유저의 지출 리스트
+        List<Transaction> trans = statisticRepository.findUserOutcomeAll(user.getId());
+        statisticList.setList(trans);
+        statisticList.setStatus("OK");
+
+        // 한 유저의 전체 지출 정보
+        return statisticList;
+    }
+
+    // 한 유저의 전체 수입 정보
+    public QryStatisticList QrylistIncome(){
+        QryStatisticList statisticList = new QryStatisticList();
+
+        // 현재 로그인 사용자 정보
+        User user = U.getLoggedUser();
+
+        // 특정 유저의 지출 리스트
+        List<Transaction> trans = statisticRepository.findUserIncomeAll(user.getId());
+        statisticList.setList(trans);
+        statisticList.setStatus("OK");
+
+        // 한 유저의 전체 지출 정보
+        return statisticList;
     }
 
     // 특정 유저의 특정 월 지출 정보
