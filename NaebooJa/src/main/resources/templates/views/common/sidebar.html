@@ -17,19 +17,19 @@
     <div class="sidebar">
         <ul class="link-items">
             <li class="link-item">
-                <a th:href="@{/transaction/daily}" class="link">
+                <a th:href="@{/transaction/daily}" class="link" name="transaction/monthly">
                     <ion-icon name="cash-outline"></ion-icon>
                     <span style="--i: 1">내역</span>
                 </a>
             </li>
             <li class="link-item">
-                <a th:href="@{/transaction/calendar}" class="link">
+                <a th:href="@{/transaction/calendar}" class="link" name="calendar">
                     <ion-icon name="calendar-outline"></ion-icon>
                     <span style="--i: 2">달력</span>
                 </a>
             </li>
             <li class="link-item">
-                <a th:href="@{/statistic/list}" class="link"
+                <a th:href="@{/statistic/stat}" class="link"
                 ><ion-icon name="cellular"></ion-icon>
                     <span style="--i: 3">통계</span>
                 </a>

@@ -10,11 +10,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{/css/prop.css}">
 
   <script src="https://kit.fontawesome.com/51772bd9bd.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script th:src="@{/js/list.js}"></script>
 
   <script th:src="@{/js/prop_detail.js}"></script>
 
@@ -31,14 +29,27 @@
   <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
 
 
+  <!-- 이 페이지에서 보여줄 내용 -->
+  <div class="container mt-3">
+    <h2>통계</h2>
+    <hr>
+    <div style="display: flex;justify-content: space-around;">
+        <div id="graph_container"></div>
+        <div id="graph_container_test"></div>
+    </div>
+  </div>
+</div>
 
 </div>
 </div>
 </body>
-<script>
-  // 자산 천의 자리숫자 로직
-  let rest_money = document.getElementsByClassName("rest_money");
-  const array = Array.from(rest_money);
-  const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());
-</script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/stat.css}">
+<script src="https://code.highcharts.com/js/highcharts.js"></script>
+<script th:src="@{/js/stat.js}"></script>
+<!--<script>-->
+<!--  // 자산 천의 자리숫자 로직-->
+<!--  let rest_money = document.getElementsByClassName("rest_money");-->
+<!--  const array = Array.from(rest_money);-->
+<!--  const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());-->
+<!--</script>-->
 </html>
