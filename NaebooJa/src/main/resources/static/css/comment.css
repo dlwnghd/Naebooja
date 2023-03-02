@@ -1,3 +1,39 @@
 .c1m_11 {
-    font-size: 24px;
+    font-size: 16px;
+    font-weight: bold;
+    
+}
+
+.cm_title th{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#cmt_list {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cm_write{
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid black;
+    width : 1045px;
+    margin-right: 20px;
+}
+
+.regist {
+    width: 80px;
+    height: 40px;
+    font-size:16px;
+    font-weight:bold;
+    background: rgba(255, 196, 12, 0.42);
+
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 7%;
+}
+
+.regist:hover{
+    color: white;
 }

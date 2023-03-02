@@ -1,6 +1,7 @@
 package com.lec.spring.domain;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 public class Transaction {
     private Long id;                        // 거래의 고유번호
     private String transaction_type;        // 거래의 타입 (수입, 지출, 이체)
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDateTime regdate;          // 거래의 생성일
     private Long money;                     // 거래액
     private String category;                // 거래의 분류(이체,월급,용돈,식비,교통비,쇼핑,기타)

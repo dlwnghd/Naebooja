@@ -16,6 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script th:src="@{/js/transaction.js}"></script>
 
+
     <title>일별 거래</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
 
 
     <!-- 이 페이지에서 보여줄 내용 -->
-    <div class="container mt-3">
+    <div class="container mt-3" id="monthlyTransaction">
         <div th:class="show-duration">
             <div th:class="daily" th:onclick="location.href='/transaction/daily'">
                 <p>일 별</p>
@@ -37,26 +38,47 @@
             <div th:class="monthly">
                 <p>월 별</p>
             </div>
+
+            <div>
+                <div class="btn prevMonth">
+                    <p> < </p>
+                </div>
+                <span id="setYear" th:text="${#temporals.year(date)}"></span>
+                <span id="setMonth" th:text="${#temporals.month(date)}"></span>
+                <div class="btn nextMonth">
+                    <p> > </p>
+                </div>
+            </div>
+
         </div>
 
         <hr>
-        <div class="favorite-area">
+        <div class="favorite-area" >
             <div th:class="transition-type">
-                <div th:class="transition-total" th:onclick='total()'>
+                <div th:class="transition-total">
                     <span>통계</span><br>
-                    <span>000000</span>
+                    <span class="money" id="total"></span>
                 </div>
-                <div th:class="transition-income" th:onclick='income()'>
+                <div th:class="transition-income">
                     <span>수입</span><br>
-                    <span>000000</span>
+                    <span class="money" id="income" th:if="${income}"
+                          th:text="${#aggregates.sum(income.![money])}">000000
+                        </span>
+                    <span th:unless="${income}">0</span>
                 </div>
-                <div th:class="transition-outcome" th:onclick='outcome()'>
+                <div th:class="transition-outcome">
                     <span>지출</span><br>
-                    <span>000000</span>
+                    <span class="money" id="outcome" th:if="${outcome}"
+                          th:text="${#aggregates.sum(outcome.![money])}">000000
+                        </span>
+                    <span th:unless="${outcome}">0</span>
                 </div>
-                <div th:class="transition-transfer" th:onclick='transfer()'>
+                <div th:class="transition-transfer">
                     <span>이체</span><br>
-                    <span>000000</span>
+                    <span class="money" th:if="${transfer}"
+                          th:text="${#aggregates.sum(transfer.![money])}">000000
+                        </span>
+                    <span th:unless="${transfer}">0</span>
                 </div>
             </div>
             <hr>
@@ -67,21 +89,22 @@
                         <th>ID</th>
                         <th>날짜</th>
                         <th>계좌</th>
+                        <th>거래</th>
                         <th>분류</th>
                         <th>내용</th>
                         <th>금액</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
+                    <tr th:each="dto : ${list}">
                         <td>[[${dto.id}]]</td>
-                        <td>[[${dto.regdate}]]</td>
+                        <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd')}]]</td>
                         <td>[[${dto.property_id.name}]]</td>
+                        <td>[[${dto.transaction_type}]]</td>
                         <td>[[${dto.category}]]</td>
                         <td>[[${dto.content}]]</td>
-                        <td>[[${dto.money}]]</td>
+                        <td class="money">[[${dto.money}]]</td>
                         <td style="display: flex; justify-content: space-between;">
-                            [[${dto.money}]]
                             <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
                         </td>
                         <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
@@ -91,12 +114,6 @@
                     </tbody>
                 </table>
                 <!-- 목록 -->
-
-                <div class="row">
-                    <div class="col-12">
-                        <a class="btn btn-outline-dark" th:href="@{/property/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">자산 생성</a>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -109,6 +126,16 @@
 <footer>
     <th:block th:insert="~{common/button}"></th:block>
 </footer>
+<script th:src="@{/js/monthly.js}"></script>
+<script>
+  let income = document.getElementById("income")?document.getElementById("income"):0;
+  let outcome = document.getElementById("outcome")?document.getElementById("outcome"):0;
+  let totalmoney = parseInt(income) - parseInt(outcome);
+  document.getElementById("total").value = totalmoney;
 
+  let money = document.getElementsByClassName("money");
+  const array = Array.from(money);
+  const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());
+</script>
 
 </html>

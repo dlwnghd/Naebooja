@@ -3,6 +3,7 @@ package com.lec.spring.repository;
 import com.lec.spring.domain.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -30,16 +31,16 @@ public interface TransactionRepository {
     List<Transaction> findByType(Long id, String type);
 
     // 특정 user 의 하루동안 거래내역 전체 보기 (user_id, regDate)
-    List<Transaction> findAllByDaily(Long id, Date date);
+    List<Transaction> findAllByDaily(Long id, LocalDate date);
 
     // 특정 user 의 한달동안 거래내역 전체 보기 (user_id, regDate)
-    List<Transaction> findAllByMonthly(Long id, Date date);
+    List<Transaction> findAllByMonthly(Long id, LocalDate date);
 
     // 특정 user 의 하룻동안 특정 type 의 거래내역 전체 보기
-    List<Transaction> findByDayType(Long id, String type, Date date);
+    List<Transaction> findByDayType(Long id, String type, LocalDate date);
 
     // 특정 user 의 한달동안 특정 type 의 거래내역 전체 보기
-    List<Transaction> findByMonthType(Long id, String type, Date date);
+    List<Transaction> findByMonthType(Long id, String type, LocalDate date);
 
 
 }
