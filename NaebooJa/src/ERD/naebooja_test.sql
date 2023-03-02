@@ -405,4 +405,4 @@ SELECT t.id "거래번호", u.id "유저번호", t.property_id "출금자산번�
 FROM transaction t, `user` u
 WHERE
 	t.user_id = 1
-	AND t.transaction_type = "지출"
+	AND t.transaction_type = "수입"
