@@ -37,17 +37,18 @@ function buildTrans(result, date){
        // [삭제] 버튼
         $(".btnDel").click(function(){
             console.log(this.value);
+            let val = this.value;
             console.log("________________btn second")
             let answer = confirm("삭제하시겠습니까?");
             if(answer){
-                $("form[name='"+this.value+"']").submit();
+                $("form[name='"+val+"']").submit();
             }
         });
     });
     const out = [];
     const dateObj = new Date(date);
     const year = dateObj.getFullYear();
-    const month = dateObj.toLocaleString("en-US", { month: "long" });
+    const month = dateObj.getMonth() + 1;
     let row = `
         <div class="show-duration">
             <div class="daily" onclick="location.href='/transaction/daily'">
@@ -166,9 +167,13 @@ function buildTrans(result, date){
 }  // end buildComment();
 
 function prevMonth(){
-    const year = document.getElementById("setYear").innerText;
-    const month = parseInt(document.getElementById("setMonth").innerText) -1 ;
-    let str = [year, month,1].join('-');
+    let month = parseInt(document.getElementById("setMonth").innerText) - 1 ;
+    let year = parseInt(document.getElementById("setYear").innerText);
+    if (month == 0){
+        year -= 1;
+        month = 12;
+    }
+    let str = [year, month, 1].join('-');
     console.log(str);
     $.ajax({
             url: "/transactionDetail/transacListbyMonth?date=" + str,
@@ -193,9 +198,15 @@ function prevMonth(){
 }
 
 function nextMonth(){
-    const year = document.getElementById("setYear").innerText;
-    const month = parseInt(document.getElementById("setMonth").innerText)+1;
+    let month = parseInt(document.getElementById("setMonth").innerText) + 1 ;
+    let year = parseInt(document.getElementById("setYear").innerText);
+    if (month == 13){
+        year += 1;
+        month = 1;
+    }
     let str = [year, month, 1].join('-');
+    console.log(str);
+
     $.ajax({
             url: "/transactionDetail/transacListbyMonth?date=" + str,
             type: "GET",
