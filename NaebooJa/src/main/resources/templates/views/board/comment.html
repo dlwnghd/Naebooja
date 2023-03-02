@@ -2,13 +2,12 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-  <link rel="stylesheet" th:href="@{/css/comment.css}">
-</head>
 
 
 <th:block th:fragment="comment">
   <script src="https://kit.fontawesome.com/51772bd9bd.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" th:href="@{/css/comment.css}">
+
 
   <!-- 댓글 -->
   <div class="container my-3 border rounded">
@@ -17,13 +16,13 @@
 
       <!-- ROLE_MEMBER 권한 가진 사용자만 댓글 작성 가능 -->
       <div class="input-group my-2" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">
-        <input type="text" class="form-control" id="input_comment">
-        <button type="button" class="btn btn-outline-primary" id="btn_comment">작성</button>
+        <input type="text" class="cm_write" id="input_comment">
+        <button type="button" class="regist" id="btn_comment">등록</button>
       </div>
 
       <table class="table table-hover mt-3" id="cmt_table">
         <thead>
-        <tr>
+        <tr class="cm_title">
           <th style="width: 16.66%">작성자</th>
           <th>내용</th>
           <th style="width: 16.66%">작성일</th>

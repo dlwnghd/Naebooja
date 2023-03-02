@@ -50,7 +50,7 @@
 
 
         <div class="all">
-            <div class="container mt-3">
+            <div class="mt-3">
                 <h2 class="sub">D e t a i l</h2>
                 <hr>
 
@@ -85,8 +85,8 @@
                         </div>
                         <br><br>
 
-                        <div class="3">
-                            <div class="content">내용</div>
+                        <div class="content">
+                            <div>내용</div<br>
                             <div class="contentBox" th:utext="${dto.content}"></div>
                         </div>
 
@@ -109,7 +109,7 @@
                         </div>
                         <!-- 첨부파일목록 -->
 
-                   `     <!-- 댓글 -->
+                        <!-- 댓글 -->
                         <th:block th:insert="~{board/comment::comment}"></th:block>
                         <!-- 댓글 -->
 
@@ -117,7 +117,7 @@
 
                         <div class="allMenu">
                             <button type="button" class="delete" id="btnDel" th:if="${logged_user.id == dto.user.id}">
-                                삭제
+                                삭 제
                             </button>
                             <a class="btn btn-outline-dark" id="modify" th:href="@{/board/update(id=${dto.id})}"
                                th:if="${logged_user.id == dto.user.id}">수정</a>
@@ -126,8 +126,8 @@
 
                             <!-- 하단 링크 -->
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
         </div>
 

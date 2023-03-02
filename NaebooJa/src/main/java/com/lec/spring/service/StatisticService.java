@@ -73,7 +73,7 @@ public class StatisticService {
         // 현재 로그인 사용자 정보
         User user = U.getLoggedUser();
 
-        // 특정 유저의 지출 리스트
+        // 특정 유저의 수입 리스트
         List<Transaction> trans = statisticRepository.findUserIncomeAll(user.getId());
         statisticList.setList(trans);
         statisticList.setStatus("OK");

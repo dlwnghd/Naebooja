@@ -17,10 +17,12 @@ $.ajax({
             let outcomeCategoryList = {};
 
             data.data.forEach(test => {
-                if(test.category in outcomeCategoryList){
+                // 지출 카테고리에 있다면
+                if(!(test.category in outcomeCategoryList)){
                     outcomeCategoryList[test.category] = test.money;
+                }else {
+                    outcomeCategoryList[test.category] += test.money;
                 }
-                outcomeCategoryList[test.category] += test.money;
             });
 
             const arr = Object.entries(outcomeCategoryList).map(([key, value]) => [key, value, false]);
@@ -64,10 +66,12 @@ $.ajax({
             let incomeCategoryList = {};
 
             data.data.forEach(test => {
-                if(test.category in incomeCategoryList){
+                // 수입 카테고리에 없다면
+                if(!(test.category in incomeCategoryList)){
                     incomeCategoryList[test.category] = test.money;
+                }else {
+                    incomeCategoryList[test.category] += test.money;
                 }
-                incomeCategoryList[test.category] += test.money;
             });
 
             const arr = Object.entries(incomeCategoryList).map(([key, value]) => [key, value, false]);

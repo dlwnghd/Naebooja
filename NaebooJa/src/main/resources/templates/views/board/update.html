@@ -75,12 +75,12 @@
                 <div class="subject">
                     <div>제 목</div>
                     <input type="text" class="inputBox" id="subject" placeholder="제목을 입력하세요" name="subject"
-                           th:value="${subject}" required>
+                           th:value="${dto.subject}" required>
                 </div>
 
                 <div class="content">
                     <div>내 용</div>
-                    <textarea class="form-control" rows="5" id="content" placeholder="내용을 입력하세요" name="content">[[${content}]]</textarea>
+                    <textarea class="form-control" rows="5" id="content"  name="content" >[[${dto.content}]]</textarea>
                 </div>
 
                 <!-- 기존 첨부파일  목록 (삭제 가능) -->
