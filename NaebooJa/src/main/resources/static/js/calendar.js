@@ -96,8 +96,6 @@ const makeCalendar = (date) => {
 
   for (let i = 1; i <= lastDay; i++) {
     const date = `${currentYear}-${currentMonth.pad()}-${i.pad()}`
-    console.log(date);
-    console.log(calendarList[date]);
     var transfer = 0;
     var income = 0;
     var outcome = 0;
@@ -118,11 +116,11 @@ const makeCalendar = (date) => {
     htmlDummy += `
       <div>
         ${i}
-        <p>
-          ${transfer}<br>
-          + ${income}<br>
-          - ${outcome}<br>
-        </p>
+        <div class="datainDay">
+          <p class="transinDay">${transfer}</p>
+          <p class="incomeinDay">+ ${income}</p>
+          <p class="outcomeinDay">- ${outcome}</p>
+        </div>
       </div>
     `;
   }
@@ -130,8 +128,6 @@ const makeCalendar = (date) => {
   for (let i = limitDay; i < nextDay; i++) {
     htmlDummy += `<div class="noColor"></div>`;
   }
-  console.log("********************");
-  console.log(calendarList);
 
   document.querySelector(`.dateBoard`).innerHTML = htmlDummy;
   document.querySelector(`.dateTitle`).innerText = `${currentYear}년 ${currentMonth}월`;
@@ -153,8 +149,6 @@ $.ajax({
     cache: false,
     success: function(data, status, xhr){
         if(status == "success"){
-            console.log(xhr.responseText);  // response 결과 확인용
-
             // 서버쪽 에러 메세지 있는 경우
             if(data.status !== "OK"){
                 alert(data.status);
@@ -203,8 +197,6 @@ $.ajax({
 
               for (let i = 1; i <= lastDay; i++) {
                 const date = `${currentYear}-${currentMonth.pad()}-${i.pad()}`
-                console.log(date);
-                console.log(calendarList[date]);
                 var transfer = 0;
                 var income = 0;
                 var outcome = 0;
@@ -225,11 +217,11 @@ $.ajax({
                 htmlDummy += `
                   <div>
                     ${i}
-                    <p>
-                      ${transfer}<br>
-                      + ${income}<br>
-                      - ${outcome}<br>
-                    </p>
+                    <div class="datainDay">
+                      <p class="transinDay">${transfer}</p>
+                      <p class="incomeinDay">+ ${income}</p>
+                      <p class="outcomeinDay">- ${outcome}</p>
+                    </div>
                   </div>
                 `;
               }
@@ -237,8 +229,6 @@ $.ajax({
               for (let i = limitDay; i < nextDay; i++) {
                 htmlDummy += `<div class="noColor"></div>`;
               }
-              console.log("********************");
-              console.log(calendarList);
 
               document.querySelector(`.dateBoard`).innerHTML = htmlDummy;
               document.querySelector(`.dateTitle`).innerText = `${currentYear}년 ${currentMonth}월`;
@@ -249,7 +239,6 @@ $.ajax({
         }
     },
 });
-// 😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️
 
 
 // 이전달 이동
@@ -265,8 +254,6 @@ document.querySelector(`.prevDay`).onclick = () => {
         cache: false,
         success: function(data, status, xhr){
             if(status == "success"){
-                console.log(xhr.responseText);  // response 결과 확인용
-
                 // 서버쪽 에러 메세지 있는 경우
                 if(data.status !== "OK"){
                     alert(data.status);
@@ -315,8 +302,6 @@ document.querySelector(`.prevDay`).onclick = () => {
 
                   for (let i = 1; i <= lastDay; i++) {
                     const date = `${currentYear}-${currentMonth.pad()}-${i.pad()}`
-                    console.log(date);
-                    console.log(calendarList[date]);
                     var transfer = 0;
                     var income = 0;
                     var outcome = 0;
@@ -337,11 +322,11 @@ document.querySelector(`.prevDay`).onclick = () => {
                     htmlDummy += `
                       <div>
                         ${i}
-                        <p>
-                          ${transfer}<br>
-                          + ${income}<br>
-                          - ${outcome}<br>
-                        </p>
+                        <div class="datainDay">
+                          <p class="transinDay">${transfer}</p>
+                          <p class="incomeinDay">+ ${income}</p>
+                          <p class="outcomeinDay">- ${outcome}</p>
+                        </div>
                       </div>
                     `;
                   }
@@ -349,8 +334,6 @@ document.querySelector(`.prevDay`).onclick = () => {
                   for (let i = limitDay; i < nextDay; i++) {
                     htmlDummy += `<div class="noColor"></div>`;
                   }
-                  console.log("********************");
-                  console.log(calendarList);
 
                   document.querySelector(`.dateBoard`).innerHTML = htmlDummy;
                   document.querySelector(`.dateTitle`).innerText = `${currentYear}년 ${currentMonth}월`;
@@ -376,10 +359,6 @@ const year = date.getFullYear();
         cache: false,
         success: function(data, status, xhr){
             if(status == "success"){
-                console.log(xhr.responseText);  // response 결과 확인용
-                console.log(data);
-                console.log(str);
-
                 // 서버쪽 에러 메세지 있는 경우
                 if(data.status !== "OK"){
                     alert(data.status);
@@ -402,8 +381,7 @@ const year = date.getFullYear();
                         money: money
                     });
                 });
-                console.log("-----out------");
-                console.log(out);
+
                 const calendarList = out.reduce(
                                     (acc, v) =>
                                       ({ ...acc, [v.date]: [...(acc[v.date]
@@ -430,8 +408,6 @@ const year = date.getFullYear();
 
                   for (let i = 1; i <= lastDay; i++) {
                     const date = `${currentYear}-${currentMonth.pad()}-${i.pad()}`
-                    console.log(date);
-                    console.log(calendarList[date]);
                     var transfer = 0;
                     var income = 0;
                     var outcome = 0;
@@ -452,11 +428,11 @@ const year = date.getFullYear();
                     htmlDummy += `
                       <div>
                         ${i}
-                        <p>
-                          ${transfer}<br>
-                          + ${income}<br>
-                          - ${outcome}<br>
-                        </p>
+                        <div class="datainDay">
+                          <p class="transinDay">${transfer}</p>
+                          <p class="incomeinDay">+ ${income}</p>
+                          <p class="outcomeinDay">- ${outcome}</p>
+                        </div>
                       </div>
                     `;
                   }
@@ -464,8 +440,6 @@ const year = date.getFullYear();
                   for (let i = limitDay; i < nextDay; i++) {
                     htmlDummy += `<div class="noColor"></div>`;
                   }
-                  console.log("********************");
-                  console.log(calendarList);
 
                   document.querySelector(`.dateBoard`).innerHTML = htmlDummy;
                   document.querySelector(`.dateTitle`).innerText = `${currentYear}년 ${currentMonth}월`;

@@ -81,6 +81,14 @@
   border: 1px solid #eee;
 }
 
+.incomeinDay {
+  font-color : #5A9DF8;
+}
+
+.outcomeinDay {
+  font-color : #EE6E5E;
+}
+
 .noColor {
   background: #eee;
 }
