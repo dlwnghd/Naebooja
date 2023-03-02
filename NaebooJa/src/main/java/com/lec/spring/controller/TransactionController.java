@@ -76,10 +76,10 @@ public class TransactionController {
     }
 
     @PostMapping("/insert")
-    public String insertOk(@ModelAttribute("dto")Transaction transaction
+    public String insertOk(@ModelAttribute("dto")Transaction transaction, Long propertyId, Long inpropertyId
             , Model model
     ){
-        model.addAttribute("result", transactionService.insert(transaction));
+        model.addAttribute("result", transactionService.insert(transaction, propertyId,inpropertyId));
         System.out.println(model);
         return "transaction/insertOk";
     }
@@ -89,4 +89,6 @@ public class TransactionController {
         model.addAttribute("result", transactionService.delete(id));
         return "transaction/deleteOk";
     }
+
+
 }

@@ -1,23 +1,3 @@
-//// 위에 날짜(년 - 월) 바꿔주기
-//function buildDate(date){
-//    const result = [];
-//    const dateObj = new Date(date);
-//    const year = dateObj.getFullYear();
-//    const month = dateObj.toLocaleString("en-US", { month: "long" });
-//    let row = `
-//        <div class="btn prevMonth">
-//            <p> < </p>
-//        </div>
-//        <span id="setYear">${year}</span>
-//        <span id="setMonth">${month}</span>
-//        <div class="btn nextMonth">
-//            <p> > </p>
-//        </div>
-//    `
-//    result.push(row);
-//    $("#checkmonth").html(result.join("\n"));
-//}
-
 $(function(){
    // [삭제] 버튼
    $(".btnDel").click(function(){
@@ -30,21 +10,9 @@ $(function(){
    });
 });
 
-
 // 해당 월의 거래 내역 출력
 function buildTrans(result, date){
-    $(function(){
-       // [삭제] 버튼
-        $(".btnDel").click(function(){
-            console.log(this.value);
-            let val = this.value;
-            console.log("________________btn second")
-            let answer = confirm("삭제하시겠습니까?");
-            if(answer){
-                $("form[name='"+val+"']").submit();
-            }
-        });
-    });
+
     const out = [];
     const dateObj = new Date(date);
     const year = dateObj.getFullYear();
@@ -148,9 +116,9 @@ function buildTrans(result, date){
                 <td style="display: flex; justify-content: space-between;">
                     <button type="button" class="btn btn-outline-danger btnDel" value="${id}">삭제</button>
                 </td>
-                <form name="${id}" action="/transaction/delete" method="post">
+                <td><form name="${id}" action="/transaction/delete" method="post">
                     <input type="hidden" name="id" value="${id}">
-                </form>
+                </form></td>
             </tr>
             `;
         });
@@ -163,7 +131,16 @@ function buildTrans(result, date){
 
         out.push(row);
     $("#monthlyTransaction").html(out.join("\n"));
-
+    $(".btnDel").click(function(){
+       console.log("________________btn new")
+       console.log(this.value);
+            let answer = confirm("삭제하시겠습니까?");
+            if(answer){
+                console.log("-----------");
+                console.log(this.value);
+                $("form[name='"+this.value+"']").submit();
+            }
+    });
 }  // end buildComment();
 
 function prevMonth(){

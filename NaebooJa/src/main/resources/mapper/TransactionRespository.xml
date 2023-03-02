@@ -6,13 +6,14 @@
 <mapper namespace="com.lec.spring.repository.TransactionRepository">
 
 <!--        transaction Create-->
-        <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"
-                keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-            INSERT INTO `transaction`
-                    (`transaction_type`, money, `category`, `content`, property_id, in_property_id, user_id)
-            VALUE
-                (#{transaction_type}, #{money}, #{category}, #{content}, #{property.id}, #{in_property.id}, #{user.id})
-        </insert>
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"
+            keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        INSERT INTO `transaction`
+                (`transaction_type`, money, `category`, `content`, property_id, in_property_id, user_id)
+        VALUE
+            (#{transaction_type}, #{money}, #{category}, #{content}, #{property_id.id}, #{in_property_id.id},
+        #{user_id.id})
+    </insert>
 
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
     <sql id="SELECT_BASE">

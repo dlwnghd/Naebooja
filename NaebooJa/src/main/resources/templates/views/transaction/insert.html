@@ -81,14 +81,21 @@
         </div>
         <div class="mb-3 mt-3">
                 <label for="property_id">거래 계좌 :</label>
-                <select id="property_id" name="property_id">
+                <select id="property_id" name="propertyId">
                     <option type="Long" th:each="dto:${property}"
                             th:value="${dto.id}" th:text="${dto.id}">
-                        <p name="group" th:value="${dto.group}"></p>
-                        <p name="name" th:value="${dto.name}"></p>
-                        <p name="rest_money" th:value="${dto.rest_money}"></p>
                     </option>
                 </select>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="in_property_id">(이체 시) 계좌 :</label>
+            <select id="in_property_id" name="inpropertyId">
+                <option type="Long" th:each="dto:${property}"
+                        th:value="${dto.id}" th:text="${dto.id}">
+                </option>
+                <option type="Long" value="0">0</option>
+            </select>
         </div>
 
         <div class="mb-3 mt-3">

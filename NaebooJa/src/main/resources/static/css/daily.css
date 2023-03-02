@@ -17,7 +17,7 @@
 }
 
 .transition-income {
-    border: 1px solid #EE6E5E;
+    border: 1px solid #5A9DF8;
     border-radius: 1em;
     float: left;
     width:24%;
@@ -27,7 +27,7 @@
 }
 
 .transition-outcome{
-    border: 1px solid #5A9DF8;
+    border: 1px solid #EE6E5E;
     border-radius: 1em;
     float: left;
     width:24%;
@@ -48,10 +48,10 @@
     background-color: #F4F4F7;
 }
 .transaction-income:hover{
-    background-color: #EE6E5E;
+    background-color: #5A9DF8;
 }
 .transaction-outcome:hover{
-    background-color: #5A9DF8;
+    background-color: #EE6E5E;
 }
 .transaction-transfer:hover{
     background-color: #F4F4F7;
@@ -71,15 +71,18 @@
     width: 155px;
     height: 50px;
     background: #F4F4F7;
+    text-align: center;
 }
 
 .monthly {
     width: 155px;
     height: 50px;
     border : 2px solid #F4F4F7;
+    text-align: center;
+
 }
 
-p {
+#datePicker {
     height: 50px;
-    width : 240px;
+    width : 500px;
 }

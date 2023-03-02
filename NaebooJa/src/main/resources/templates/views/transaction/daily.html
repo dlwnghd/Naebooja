@@ -43,7 +43,8 @@
                 <div th:class="monthly" th:onclick="location.href='/transaction/monthly'">
                     <p>월 별</p>
                 </div>
-                <p>Date: <input type="text" th:id="datepicker" size="10" th:value="${date}"></p>
+                <div th:id="datePicker">Date:
+                    <input type="text" th:id="datepicker" size="10" th:value="${date}"></div>
             </div>
 
             <hr>

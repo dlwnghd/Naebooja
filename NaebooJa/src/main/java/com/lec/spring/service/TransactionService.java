@@ -34,11 +34,17 @@ public class TransactionService {
     }
 
 //    1. CRUD - Create
-    public int insert(Transaction transaction){
+    public int insert(Transaction transaction, Long propertyId, Long InpropertyId){
         User user = U.getLoggedUser();
 //        DB 에서 다시 읽어옴
         user = userRepository.findById(user.getId());
+        Property property = propertyRepository.findById(propertyId);
+        if (InpropertyId != 0){
+            Property inproperty = propertyRepository.findById(InpropertyId);
+            transaction.setIn_property_id(property);
+        }
         transaction.setUser_id(user);
+        transaction.setProperty_id(property);
 
         int cnt = transactionRepository.save(transaction);
         return cnt;
