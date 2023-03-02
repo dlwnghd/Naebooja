@@ -9,7 +9,7 @@
         <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Transaction"
                 keyProperty="id" useGeneratedKeys="true" keyColumn="id">
             INSERT INTO `transaction`
-                    (`transaction_type`, money, `category`, `content`, `property_id`, `in_property_id`, user_id)
+                    (`transaction_type`, money, `category`, `content`, property_id, in_property_id, user_id)
             VALUE
                 (#{transaction_type}, #{money}, #{category}, #{content}, #{property.id}, #{property.id}, #{user.id})
         </insert>
@@ -71,8 +71,7 @@
     <!--특정 ID의 거래를 찾는데 결과는 mapTransaction⬇️ 가 책임진다-->
     <select id="findById" resultMap="mapTransaction">
         <include refid="SELECT_BASE"/>
-            AND u.id = #{u_id}
-            AND p.id = #{p_id}
+            AND t.id = #{id}
             ORDER BY t.id DESC
     </select>
 
@@ -144,7 +143,7 @@
 <!--    transaction Delete-->
     <delete id="delete" flushCache="true"
             parameterType="com.lec.spring.domain.Transaction">
-        DELETE FROM `transaction` WHERE t.id = #{id}
+        DELETE FROM `transaction` WHERE id = #{id}
     </delete>
 
     <!--특정 사용자의 특정 자산의 전체 거래를 찾는데 결과는 mapProperty⬇️ 가 책임진다-->

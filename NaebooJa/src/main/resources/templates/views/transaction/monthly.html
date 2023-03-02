@@ -40,12 +40,12 @@
             </div>
 
             <div>
-                <div class="btn prevMonth">
+                <div class="btn prevMonth" onclick="prevMonth()">
                     <p> < </p>
                 </div>
                 <span id="setYear" th:text="${#temporals.year(date)}"></span>
                 <span id="setMonth" th:text="${#temporals.month(date)}"></span>
-                <div class="btn nextMonth">
+                <div class="btn nextMonth" onclick="nextMonth()">
                     <p> > </p>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                         <td style="display: flex; justify-content: space-between;">
                             <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
                         </td>
-                        <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
+                        <form th:name="${dto.id}" th:action="@{/transaction/delete}" method="post">
                             <input type="hidden" name="id" th:value="${dto.id}">
                         </form>
                     </tr>

@@ -1,25 +1,6 @@
 // 임시 데이터
 const out = [];
 
-//if (transactions != []){
-//    transactions.data.forEach(function(transaction){
-//        var money = transaction.money;
-//        if (transaction.transaction_type == "수입"){
-//            money = '+' + money;
-//        }
-//        else if (transaction.transaction_type == "지출"){
-//            money = '-' + money;
-//        }
-//        else if (transaction.transaction_type == "이체 "){
-//            money = money
-//        }
-//        out.push({
-//            date: toStringByFormatting(new Date(transaction.regdate)),
-//            money: money
-//        });
-//    });
-//}
-
 // 데이터 가공
 const calendarList = out.reduce(
                     (acc, v) =>
@@ -160,9 +141,7 @@ const makeCalendar = (date) => {
 const date = new Date();
 
 
-// 😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️
 // 처음 달력 랜더링
-//makeCalendar(date, []);
 makeCalendar(new Date(date.setMonth(date.getMonth())));
 const year = date.getFullYear();
 const month = date.getMonth() + 1;
