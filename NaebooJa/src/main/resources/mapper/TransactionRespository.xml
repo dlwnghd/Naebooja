@@ -11,7 +11,7 @@
             INSERT INTO `transaction`
                     (`transaction_type`, money, `category`, `content`, property_id, in_property_id, user_id)
             VALUE
-                (#{transaction_type}, #{money}, #{category}, #{content}, #{property.id}, #{property.id}, #{user.id})
+                (#{transaction_type}, #{money}, #{category}, #{content}, #{property.id}, #{in_property.id}, #{user.id})
         </insert>
 
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
