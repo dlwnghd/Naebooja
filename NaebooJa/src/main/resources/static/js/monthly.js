@@ -1,29 +1,22 @@
-//// 위에 날짜(년 - 월) 바꿔주기
-//function buildDate(date){
-//    const result = [];
-//    const dateObj = new Date(date);
-//    const year = dateObj.getFullYear();
-//    const month = dateObj.toLocaleString("en-US", { month: "long" });
-//    let row = `
-//        <div class="btn prevMonth">
-//            <p> < </p>
-//        </div>
-//        <span id="setYear">${year}</span>
-//        <span id="setMonth">${month}</span>
-//        <div class="btn nextMonth">
-//            <p> > </p>
-//        </div>
-//    `
-//    result.push(row);
-//    $("#checkmonth").html(result.join("\n"));
-//}
+$(function(){
+   // [삭제] 버튼
+   $(".btnDel").click(function(){
+   console.log("________________btn first")
+   console.log(this.value);
+        let answer = confirm("삭제하시겠습니까?");
+        if(answer){
+            $("form[name='"+this.value+"']").submit();
+        }
+   });
+});
 
 // 해당 월의 거래 내역 출력
 function buildTrans(result, date){
+
     const out = [];
     const dateObj = new Date(date);
     const year = dateObj.getFullYear();
-    const month = dateObj.toLocaleString("en-US", { month: "long" });
+    const month = dateObj.getMonth() + 1;
     let row = `
         <div class="show-duration">
             <div class="daily" onclick="location.href='/transaction/daily'">
@@ -34,12 +27,12 @@ function buildTrans(result, date){
             </div>
 
             <div>
-                <div class="btn prevMonth">
+                <div class="btn prevMonth" onclick="prevMonth()">
                     <p> < </p>
                 </div>
                 <span id="setYear">${year}</span>
                 <span id="setMonth">${month}</span>
-                <div class="btn nextMonth">
+                <div class="btn nextMonth" onclick="nextMonth()">
                     <p> > </p>
                 </div>
             </div>
@@ -47,10 +40,7 @@ function buildTrans(result, date){
         </div>
 
     `
-//    setDateList.push(daterow);
-//    $("#checkmonth").html(setDateList.join("\n"));
-//
-//    const out = [];
+
     let totals = 0;
     let incomes = 0;
     let outcomes = 0;
@@ -123,7 +113,14 @@ function buildTrans(result, date){
                 <td>${category}</td>
                 <td>${content}</td>
                 <td>${money}</td>
-            </tr>`;
+                <td style="display: flex; justify-content: space-between;">
+                    <button type="button" class="btn btn-outline-danger btnDel" value="${id}">삭제</button>
+                </td>
+                <td><form name="${id}" action="/transaction/delete" method="post">
+                    <input type="hidden" name="id" value="${id}">
+                </form></td>
+            </tr>
+            `;
         });
 
         row += `
@@ -134,13 +131,26 @@ function buildTrans(result, date){
 
         out.push(row);
     $("#monthlyTransaction").html(out.join("\n"));
-
+    $(".btnDel").click(function(){
+       console.log("________________btn new")
+       console.log(this.value);
+            let answer = confirm("삭제하시겠습니까?");
+            if(answer){
+                console.log("-----------");
+                console.log(this.value);
+                $("form[name='"+this.value+"']").submit();
+            }
+    });
 }  // end buildComment();
 
-document.querySelector(`.prevMonth`).onclick = () => {
-    const year = document.getElementById("setYear").innerText;
-    const month = parseInt(document.getElementById("setMonth").innerText) -1 ;
-    let str = [year, month,1].join('-');
+function prevMonth(){
+    let month = parseInt(document.getElementById("setMonth").innerText) - 1 ;
+    let year = parseInt(document.getElementById("setYear").innerText);
+    if (month == 0){
+        year -= 1;
+        month = 12;
+    }
+    let str = [year, month, 1].join('-');
     console.log(str);
     $.ajax({
             url: "/transactionDetail/transacListbyMonth?date=" + str,
@@ -157,7 +167,6 @@ document.querySelector(`.prevMonth`).onclick = () => {
                         return;
                     }
                     console.log(str);
-
                     buildTrans(data, str);  // 화면 렌더링
 
                 }
@@ -165,12 +174,16 @@ document.querySelector(`.prevMonth`).onclick = () => {
     });
 }
 
-document.querySelector(`.nextMonth`).onclick = () => {
+function nextMonth(){
+    let month = parseInt(document.getElementById("setMonth").innerText) + 1 ;
+    let year = parseInt(document.getElementById("setYear").innerText);
+    if (month == 13){
+        year += 1;
+        month = 1;
+    }
+    let str = [year, month, 1].join('-');
+    console.log(str);
 
-    const year = document.getElementById("setYear").innerText;
-    const month = parseInt(document.getElementById("setMonth").innerText)+1;
-    console.log(year, month);
-    let str = [year, month,1].join('-');
     $.ajax({
             url: "/transactionDetail/transacListbyMonth?date=" + str,
             type: "GET",

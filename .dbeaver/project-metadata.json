@@ -1,1 +1,1 @@
-{"resources":{}}
+{"resources":{"NaebooJa/src/ERD/naebooja_data.sql":{"default-datasource":"mysql8-1866e676f04-1b9895bf675ee4d1","default-catalog":"naeboojadb"},"NaebooJa/src/ERD/naebooja_test.sql":{"default-datasource":"mysql8-1866e676f04-1b9895bf675ee4d1","default-catalog":"naeboojadb"}}}

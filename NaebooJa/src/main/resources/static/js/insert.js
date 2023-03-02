@@ -8,6 +8,6 @@ $('input[type="radio"][id="cs_channel_etc"]').on('click', function(){
              $('#etc_view').css('display','block');
   }
 
-});
+  });
 
 });

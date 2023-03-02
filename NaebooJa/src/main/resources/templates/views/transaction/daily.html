@@ -43,7 +43,8 @@
                 <div th:class="monthly" th:onclick="location.href='/transaction/monthly'">
                     <p>월 별</p>
                 </div>
-                <p>Date: <input type="text" th:id="datepicker" size="10" th:value="${date}"></p>
+                <div th:id="datePicker">Date:
+                    <input type="text" th:id="datepicker" size="10" th:value="${date}"></div>
             </div>
 
             <hr>
@@ -102,7 +103,7 @@
                                 <td style="display: flex; justify-content: space-between;">
                                     <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
                                 </td>
-                                <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
+                                <form th:name="${dto.id}" th:action="@{/transaction/delete}" method="post">
                                     <input type="hidden" name="id" th:value="${dto.id}">
                                 </form>
                             </tr>
