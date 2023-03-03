@@ -22,7 +22,7 @@ public interface TransactionRepository {
 
 //    Read
     // 특정 id (PK)의 거래 보기 -> transaction 에서는 사용하지 않긴 하는데, 이거 왜 Param 이 2개나 필요한건지 모르겠습니다..!
-    Transaction findById(Long u_id, Long p_id);
+    Transaction findById(Long id);
 
     // 특정 user(FK) 의 거래 내역 일괄 보기(user_id)
     List<Transaction> findAlls(Long id);

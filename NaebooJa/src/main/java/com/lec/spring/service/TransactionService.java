@@ -1,5 +1,6 @@
 package com.lec.spring.service;
 
+import com.lec.spring.domain.Property;
 import com.lec.spring.domain.QryTransactionList;
 import com.lec.spring.domain.Transaction;
 import com.lec.spring.domain.User;
@@ -33,11 +34,17 @@ public class TransactionService {
     }
 
 //    1. CRUD - Create
-    public int insert(Transaction transaction){
+    public int insert(Transaction transaction, Long propertyId, Long InpropertyId){
         User user = U.getLoggedUser();
 //        DB 에서 다시 읽어옴
         user = userRepository.findById(user.getId());
+        Property property = propertyRepository.findById(propertyId);
+        if (InpropertyId != 0){
+            Property inproperty = propertyRepository.findById(InpropertyId);
+            transaction.setIn_property_id(property);
+        }
         transaction.setUser_id(user);
+        transaction.setProperty_id(property);
 
         int cnt = transactionRepository.save(transaction);
         return cnt;
@@ -125,13 +132,15 @@ public class TransactionService {
     }
 
 //    4. CRUD - Delete
-    public int delete(Transaction transaction){
-        User user = U.getLoggedUser();
-    //        DB 에서 다시 읽어옴
-        user = userRepository.findById(user.getId());
-        transaction.setUser_id(user);
+    public int delete(long id){
+        int result = 0;
 
-        int cnt = transactionRepository.delete(transaction);
-        return cnt;
+        Transaction transaction = transactionRepository.findById(id);
+        if(transaction != null) {
+            // 삭제
+            result = transactionRepository.delete(transaction);
+        }
+
+        return result;
     }
 }

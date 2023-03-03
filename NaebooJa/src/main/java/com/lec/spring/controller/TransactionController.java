@@ -2,6 +2,7 @@ package com.lec.spring.controller;
 
 import com.lec.spring.domain.Transaction;
 import com.lec.spring.domain.Write;
+import com.lec.spring.service.PropertyService;
 import com.lec.spring.service.TransactionService;
 import com.lec.spring.util.U;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ import java.util.Map;
 @RequestMapping("/transaction")
 public class TransactionController {
     private TransactionService transactionService;
+    private PropertyService propertyService;
 
     @Autowired
-    public void setTransactionService(TransactionService transactionService){
+    public void setTransactionService(TransactionService transactionService, PropertyService propertyService){
         this.transactionService = transactionService;
+        this.propertyService = propertyService;
     }
 
     public TransactionController() {
@@ -60,7 +63,7 @@ public class TransactionController {
 
     @GetMapping("/calendar")
     public void calendar(Model model){
-        LocalDate date = LocalDate.parse("2023-02-16");
+        LocalDate date = LocalDate.now();
         model.addAttribute("income", transactionService.listByTypeinMonth("수입", date));
         model.addAttribute("outcome",transactionService.listByTypeinMonth("지출", date));
         model.addAttribute("transfer",transactionService.listByTypeinMonth("이체", date));
@@ -68,13 +71,24 @@ public class TransactionController {
     }
 
     @GetMapping("/insert")
-    public void insert(){}
+    public void insert(Model model){
+        model.addAttribute("property", propertyService.list(model));
+    }
 
     @PostMapping("/insert")
-    public String insertOk(@ModelAttribute("dto")Transaction transaction
+    public String insertOk(@ModelAttribute("dto")Transaction transaction, Long propertyId, Long inpropertyId
             , Model model
     ){
-        model.addAttribute("result", transactionService.insert(transaction));
+        model.addAttribute("result", transactionService.insert(transaction, propertyId,inpropertyId));
+        System.out.println(model);
         return "transaction/insertOk";
     }
+
+    @PostMapping("/delete")
+    public String deleteOk(long id, Model model){
+        model.addAttribute("result", transactionService.delete(id));
+        return "transaction/deleteOk";
+    }
+
+
 }
