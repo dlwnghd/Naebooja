@@ -62,14 +62,15 @@ public class BoardService {
 
         write.setUser(user);  // 글 작성자 세팅
 
-        int cnt ;
-        if(user.getUsername() == "admin"){   // 작성자가 admin 이면
-            cnt = writeRepository.saveAdmin(write);
-        }
-        else{
-            cnt = writeRepository.save(write);   // 그 외
 
+        int cnt;
+
+        if(user.getUsername().equals( "ADMIN1"))
+        {   // 작성자가 admin 이면
+            write.setSubject( "[공지사항]" + write.getSubject());
         }
+
+         cnt = writeRepository.save(write);
 
 
         // 첨부파일 추가

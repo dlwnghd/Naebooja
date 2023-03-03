@@ -5,13 +5,7 @@
 
 <mapper namespace="com.lec.spring.repository.WriteRepository">
 
-    <insert id="saveAdmin" flushCache="true" parameterType="com.lec.spring.domain.Write"
-            useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO `write`
-            (subject, content, user_id)
-        VALUES
-            ("[공지사항]"#{subject}, #{content}, #{user.id})
-    </insert>
+
 
     <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Write"
             useGeneratedKeys="true" keyColumn="id" keyProperty="id">

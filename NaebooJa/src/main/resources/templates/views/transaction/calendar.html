@@ -83,7 +83,6 @@
                     </div>
 
                     <div class="grid dateBoard"></div>
-                    <script th:src="@{/js/calendar.js}"></script>
                 </div>
             </div>
         </div>
@@ -93,6 +92,7 @@
 <th:block th:insert="~{common/button}"></th:block>
 
 </body>
+<script th:src="@{/js/calendar.js}"></script>
 <script>
   let income = document.getElementById("income")?document.getElementById("income"):0;
   let outcome = document.getElementById("outcome")?document.getElementById("outcome"):0;

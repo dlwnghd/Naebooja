@@ -18,7 +18,7 @@
 
 .id div {
     display : inline-block;
-    font-size : 24px;
+    font-size : 16px;
     font-weight : bold;
 }
 
@@ -35,7 +35,7 @@
 }
 .username div {
     display : inline-block;
-    font-size : 24px;
+    font-size : 16px;
     font-weight : bold;
 }
 
@@ -52,7 +52,7 @@
 
 .regDate div {
     display : inline-block;
-    font-size : 24px;
+    font-size : 16px;
     font-weight : bold;
 }
 
@@ -64,7 +64,7 @@
 .subject div{
     float : left;
     padding : 0 1px 0 1px;
-    font-size: 24px;
+    font-size: 16px;
     letter-spacing: 6px;
     font-weight:bold;
 }
@@ -72,13 +72,13 @@
 .inputBox {
     display : inline-block;
     width : 1045px;
-    font-size:24px;
+    font-size:16px;
     font-weight:bold;
 }
 
 .content div{
 
-    font-size: 24px;
+    font-size: 16px;
     letter-spacing: 6px;
     font-weight:bold;
 }
@@ -89,8 +89,8 @@
 
 .modify, .cancel {
     width: 80px;
-    height: 50px;
-    font-size:24px;
+    height: 40px;
+    font-size:16px;
     font-weight:bold;
     background: rgba(255, 196, 12, 0.42);
     float : left;

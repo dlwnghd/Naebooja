@@ -15,12 +15,19 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <title>거래 생성</title>
 </head>
 
 <body>
 <!--/* 인증 헤더 */-->
 <th:block th:insert="~{common/header::header}"></th:block>
+<div class="under_header">
+    <!--/* 사이드바 */-->
+    <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
 
 <div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}">
     <h2>거래 생성</h2>
@@ -32,6 +39,8 @@
         </div>
     </div>
 
+
+
     <form th:action="@{/transaction/insert}" method="post" enctype="Multipart/form-data">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check A" id="group1" name="transaction_type" autocomplete="off" value="수입"
@@ -42,12 +51,27 @@
             <input type="radio" class="btn-check B" id="group3" name="transaction_type" autocomplete="off" value="이체">
             <label class="btn btn-outline-primary B_" for="group3">이체</label>
         </div>
-
         <div class="mb-3 mt-3">
             <label for="category">분류 :</label>
             <input type="text" class="form-control" id="category" placeholder="이체, 월급, 용돈, 식비, 교통비, 쇼핑, 기타"
                    name="category"
                    th:value="${category}" required>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="regdate">거래 날짜 :</label>
+            <input type="text" name="mb_11 regdate" id="regdate" class="ts" autocomplete="off"/>
+            <script>
+                $(function(){
+                    $('#regdate').datepicker({
+                        lang:'ko',
+                        dateFormat: 'yy-mm-dd',
+                        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 텍스트
+                        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 Tooltip
+                        dayNamesMin: ['일','월','화','수','목','금','토'], //달력의 요일 텍스트
+                        dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+                    });
+                })
+</script>
         </div>
         <div class="mb-3 mt-3">
             <label for="content">거래 내용 :</label>
@@ -56,14 +80,28 @@
                    th:value="${content}" required>
         </div>
         <div class="mb-3 mt-3">
-            <label for="property_id">거래 계좌 :</label>
-            <input type="Long" class="form-control" id="property_id" placeholder="거래 계좌를 입력하세요" name="property_id"
-                   th:value="${property_id}">
+                <label for="property_id">거래 계좌 :</label>
+                <select id="property_id" name="propertyId">
+                    <option type="Long" th:each="dto:${property}"
+                            th:value="${dto.id}" th:text="${dto.id}">
+                    </option>
+                </select>
+        </div>
+
+        <div class="mb-3 mt-3">
+            <label for="in_property_id">(이체 시) 계좌 :</label>
+            <select id="in_property_id" name="inpropertyId">
+                <option type="Long" th:each="dto:${property}"
+                        th:value="${dto.id}" th:text="${dto.id}">
+                </option>
+                <option type="Long" value="0">0</option>
+            </select>
         </div>
 
         <div class="mb-3 mt-3">
             <label for="money">금액:</label>
-            <input type="Long" class="form-control" id="money" placeholder="잔액을 입력하세요" name="money" th:value="${money}">
+            <input type="Long" class="form-control" id="money" placeholder="거래 금액을 입력하세요" name="money"
+                   th:value="${money}">
         </div>
 
         <button type="submit" class="btn btn-outline-dark">작성완료</button>
@@ -71,6 +109,7 @@
     </form>
 
 </div>
-
+</div>
 </body>
+<script th:src="@{/js/insert.js}"></script>
 </html>

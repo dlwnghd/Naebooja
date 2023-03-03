@@ -1,3 +1,26 @@
+$(function(){
+    // 자산 [삭제] 버튼
+    $(".btnDel").click(function(){
+        console.log("________________btn");
+        console.log(this.value);
+        let answer = confirm("삭제하시겠습니까?");
+        if(answer){
+            $("form[name='"+this.value+"']").submit();
+        }
+        console.log("________________btn");
+    });
+});
+
+function btnClick(){
+   console.log("btnfunction1");
+   console.log(this.value);
+   let answer = confirm("삭제하시겠습니까?");
+   if(answer){
+       $("form[name='"+this.value+"']").submit();
+   }
+   console.log("btnfunction2");
+}
+
 // 해당 날짜의 거래 내역 출력
 function buildTrans(result){
     const out = [];
@@ -76,7 +99,14 @@ function buildTrans(result){
                 <td>${category}</td>
                 <td>${content}</td>
                 <td>${money}</td>
-            </tr>`;
+                <td style="display: flex; justify-content: space-between;">
+                    <button type="button" class="btn btn-outline-danger btnDel" value="${id}">삭제</button>
+                </td>
+                <td><form name="${id}" action="/transaction/delete" method="post">
+                    <input type="hidden" name="id" value="${id}">
+                </form></td>
+            </tr>
+        `;
     });
 
         row += `
@@ -87,7 +117,16 @@ function buildTrans(result){
 
         out.push(row);
     $("#dailyTransaction").html(out.join("\n"));
-
+    $(".btnDel").click(function(){
+           console.log("________________btn new")
+           console.log(this.value);
+                let answer = confirm("삭제하시겠습니까?");
+                if(answer){
+                    console.log("-----------");
+                    console.log(this.value);
+                    $("form[name='"+this.value+"']").submit();
+                }
+        });
 }  // end buildComment();
 
 $(function () {
