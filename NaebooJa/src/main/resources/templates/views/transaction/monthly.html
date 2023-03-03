@@ -93,7 +93,10 @@
                         <td>[[${dto.property_id.name}]]</td>
                         <td>[[${dto.transaction_type}]]</td>
                         <td>[[${dto.category}]]</td>
-                        <td>[[${dto.content}]]</td>
+                        <td>
+                            <div th:if="${dto.content}">[[${dto.content}]]</div>
+                            <div th:unless="${dto.content}">-</div>
+                        </td>
                         <td class="money">[[${dto.money}]]</td>
                         <td style="display: flex; justify-content: space-between;">
                             <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>

@@ -101,7 +101,7 @@ function buildTrans(result, date){
         let money = String(transaction.money).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         let transaction_type = transaction.transaction_type;
         let regdate = transaction.regdate;
-        let content = transaction.content;
+        let content = transaction.content==null?"-":transaction.content;
         let property = transaction.property_id.name;
 
         row += `

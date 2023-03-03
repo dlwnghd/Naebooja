@@ -27,11 +27,12 @@
 <body>
 <!--/* 인증 헤더 */-->
     <th:block th:insert="~{common/header::header}"></th:block>
-    <div class="under_header">
+    <div class="under_header" >
         <!--/* 사이드바 */-->
         <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
 
-        <div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}">
+        <div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}"
+             style="font-family: 'Roboto Mono';">
             <h2>거래 생성</h2>
             <hr>
 
@@ -80,21 +81,21 @@
                            th:value="${content}" required>
                 </div>
                 <div class="mb-3 mt-3">
-                        <label for="property_id">거래 계좌 :</label>
+                        <label for="property_id" style="width: 150px;">거래 계좌 :</label>
                         <select id="property_id" name="propertyId">
                             <option type="Long" th:each="dto:${property}"
-                                    th:value="${dto.id}" th:text="${dto.id}">
+                                    th:value="${dto.id}" th:text="${dto.id} + ' : ' + | ( ${dto.group} ) ${dto.name}|">
                             </option>
                         </select>
                 </div>
 
                 <div class="mb-3 mt-3">
-                    <label for="in_property_id">(이체 시) 계좌 :</label>
+                    <label for="in_property_id" style="width: 150px;">(이체 시) 계좌 :</label>
                     <select id="in_property_id" name="inpropertyId">
+                        <option type="Long" value="0" selected>--</option>
                         <option type="Long" th:each="dto:${property}"
-                                th:value="${dto.id}" th:text="${dto.id}">
+                                th:value="${dto.id}" th:text="${dto.id} + ' : ' + | ( ${dto.group} ) ${dto.name}|">
                         </option>
-                        <option type="Long" value="0">0</option>
                     </select>
                 </div>
 
