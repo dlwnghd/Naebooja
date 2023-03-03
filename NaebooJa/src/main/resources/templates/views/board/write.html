@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="regDate" id="date"
-                         th:text="${#temporals.format(user.regDate, 'yyyy년MM월dd일 HH:mm')}"></div>
+                         th:text="${#calendars.format(#calendars.createNow(), 'yyyy년MM월dd일 HH:mm')}"></div>
                     <div class="regDate">작성날짜</div>
                 </div>
 
