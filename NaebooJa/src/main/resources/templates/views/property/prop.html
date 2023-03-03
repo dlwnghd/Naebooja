@@ -25,7 +25,7 @@
 <!--/* 인증 헤더 */-->
 <th:block th:insert="~{common/header::header}"></th:block>
 
-<div class="under_header">
+<div th:class="under_header">
 
 <!--/* 사이드바 */-->
 <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
@@ -33,19 +33,22 @@
 
 <!-- 이 페이지에서 보여줄 내용 -->
   <div class="container mt-3">
-    <h2>자산</h2>
+    <h2> 자 산</h2>
     <hr>
 
     <!-- 목록 -->
+    <div th:class="content">
     <table class="table table-hover">
-      <thead class="table-success">
-      <tr>
-        <th>ID</th>
-        <th>자산명</th>
-        <th>자산그룹</th>
-        <th colspan="2">잔액</th>
-      </tr>
-      </thead>
+        <thead th="table-success">
+        <tr>
+          <th>ID</th>
+          <th>자산명</th>
+          <th>자산그룹</th>
+          <th colspan="2">잔액</th>
+        </tr>
+        </thead>
+
+
       <tbody>
         <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
             <td>[[${dto.id}]]</td>
@@ -63,6 +66,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <!-- 목록 -->
 
     <div class="row">

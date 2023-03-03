@@ -86,3 +86,7 @@
     height: 50px;
     width : 500px;
 }
+
+.content {
+    font-family: 'Roboto Mono', monospace;
+}
