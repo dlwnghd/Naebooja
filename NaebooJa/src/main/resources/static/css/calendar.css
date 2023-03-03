@@ -81,6 +81,12 @@
   border: 1px solid #eee;
 }
 
+.datainDay {
+  text-align: right;
+  float : right;
+  font-size: .8rem;
+}
+
 .incomeinDay {
   font-color : #5A9DF8;
 }

@@ -26,7 +26,7 @@ function buildTrans(result, date){
                 <p>월 별</p>
             </div>
 
-            <div>
+            <div style="width:500px;">
                 <div class="btn prevMonth" onclick="prevMonth()">
                     <p> < </p>
                 </div>

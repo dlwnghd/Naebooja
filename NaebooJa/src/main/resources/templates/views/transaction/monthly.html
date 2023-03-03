@@ -39,7 +39,7 @@
                 <p>월 별</p>
             </div>
 
-            <div>
+            <div style="width:500px;">
                 <div class="btn prevMonth" onclick="prevMonth()">
                     <p> < </p>
                 </div>
@@ -89,7 +89,7 @@
                     <tbody>
                     <tr th:each="dto : ${list}">
                         <td>[[${dto.id}]]</td>
-                        <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd')}]]</td>
+                        <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                         <td>[[${dto.property_id.name}]]</td>
                         <td>[[${dto.transaction_type}]]</td>
                         <td>[[${dto.category}]]</td>
