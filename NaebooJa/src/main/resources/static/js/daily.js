@@ -66,7 +66,7 @@ function buildTrans(result){
         <hr>`
         row += `
             <div class="content" id="dailyTransaction">
-                <table class="table table-hover" bgcolor="#F4F4F7">
+                <table class="table table-hover">
                     <thead th="table-success">
                     <tr>
                         <th>ID</th>

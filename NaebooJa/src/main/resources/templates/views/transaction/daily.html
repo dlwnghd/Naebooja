@@ -49,37 +49,30 @@
 
             <hr>
             <div class="favorite-area" id="dailyTransaction">
+
                 <div th:class="transition-type">
                     <div th:class="transition-total">
                         <span>통계</span><br>
-                        <span class="money" id="total"></span>
+                        <span id="totalspan"></span>
                     </div>
                     <div th:class="transition-income">
                         <span>수입</span><br>
-                        <span class="money" id="income" th:if="${income}"
-                              th:text="${#aggregates.sum(income.![money])}">000000
-                        </span>
-                        <span th:unless="${income}">0</span>
+                        <span id="incomespan"></span>
                     </div>
                     <div th:class="transition-outcome">
                         <span>지출</span><br>
-                        <span class="money" id="outcome" th:if="${outcome}"
-                              th:text="${#aggregates.sum(outcome.![money])}">000000
-                        </span>
-                        <span th:unless="${outcome}">0</span>
+                        <span id="outcomespan"></span>
                     </div>
                     <div th:class="transition-transfer">
                         <span>이체</span><br>
-                        <span class="money" th:if="${transfer}"
-                              th:text="${#aggregates.sum(transfer.![money])}">000000
-                        </span>
-                        <span th:unless="${transfer}">0</span>
+                        <span id="transferspan"></span>
                     </div>
+
                 </div>
 
                 <hr>
                 <div th:class="content">
-                    <table class="table table-hover" bgcolor="#F4F4F7">
+                    <table class="table table-hover">
                         <thead th="table-success">
                         <tr>
                             <th>ID</th>
@@ -119,12 +112,32 @@
 <footer>
     <th:block th:insert="~{common/button}"></th:block>
 </footer>
-<script>
-  let income = document.getElementById("income")?document.getElementById("income"):0;
-  let outcome = document.getElementById("outcome")?document.getElementById("outcome"):0;
-  let totalmoney = parseInt(income) - parseInt(outcome);
-  document.getElementById("total").value = totalmoney;
+<script th:inline="javascript">
+    let totals = 0;
+    let incomes = 0;
+    let outcomes = 0;
+    let transfers = 0;
 
+    [[${income}]].forEach( test => {incomes += test.money; totals += test.money});
+    [[${outcome}]].forEach( test => {outcomes += test.money; totals -= test.money});
+    [[${transfer}]].forEach( test => {transfers += test.money});
+
+    let totalmoney = String(totals).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    let incomemoney = String(incomes).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    let outcomemoney = String(outcomes).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    let transfermoney = String(transfers).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    console.log(totalmoney);
+    console.log(incomemoney);
+    console.log(outcomemoney);
+    console.log(transfermoney);
+
+
+    document.getElementById("totalspan").innerHTML = totalmoney;
+    document.getElementById("incomespan").innerHTML = '+ ' + incomemoney;
+    document.getElementById("outcomespan").innerHTML = '- ' + outcomemoney;
+    document.getElementById("transferspan").innerHTML = transfermoney;
+</script>
+<script>
   let money = document.getElementsByClassName("money");
   const array = Array.from(money);
   const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());
