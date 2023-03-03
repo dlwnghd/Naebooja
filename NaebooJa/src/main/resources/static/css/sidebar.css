@@ -11,7 +11,10 @@
 
 .under_header{
     display: flex;
+    min-width:1404px;
+    width:100%
 }
+
 
 .sidebar{
     min-width: 40px;

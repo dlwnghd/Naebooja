@@ -77,7 +77,7 @@ public class SecurityConfig {
                                                     // 만약 다른 특정페이지에 진입하려다 로그인 하여 성공하면 해당 페이지로 이동 (너무 편리!)
                         // 로그인 성공직후 수행할코드
                         //.successHandler(AuthenticationSuccessHandler)  // 로그인 성공후 수행할 코드.  ➡️ CustomLoginSuccessHandler.java
-                        .successHandler(new CustomLoginSuccessHandler("/board/list"))
+                        .successHandler(new CustomLoginSuccessHandler("/transaction/daily"))
 
                         // 로그인 실패하면 수행할 코드
                         // .failureHandler(AuthenticationFailureHandler)
