@@ -29,26 +29,37 @@
 
     <!-- 이 페이지에서 보여줄 내용 -->
     <div class="container mt-3">
-        <div class="favorite-area">
+        <div class="favorite-area" id="calendarTransaction">
             <div th:class="transition-type">
-                <div th:class="transition-total" th:onclick='total()'>
+                <div th:class="transition-total">
                     <span>통계</span><br>
-                    <span>000000</span>
+                    <span class="money" id="total"></span>
                 </div>
-                <div th:class="transition-income" th:onclick='income()'>
+                <div th:class="transition-income">
                     <span>수입</span><br>
-                    <span>000000</span>
+                    <span class="money" id="income" th:if="${income}"
+                          th:text="${#aggregates.sum(income.![money])}">000000
+                    </span>
+                    <span th:unless="${income}">0</span>
                 </div>
-                <div th:class="transition-outcome" th:onclick='outcome()'>
+                <div th:class="transition-outcome">
                     <span>지출</span><br>
-                    <span>000000</span>
+                    <span class="money" id="outcome" th:if="${outcome}"
+                    th:text="${#aggregates.sum(outcome.![money])}">000000
+                    </span>
+                    <span th:unless="${outcome}">0</span>
                 </div>
-                <div th:class="transition-transfer" th:onclick='transfer()'>
+                <div th:class="transition-transfer">
                     <span>이체</span><br>
-                    <span>000000</span>
+                    <span class="money" th:if="${transfer}"
+                    th:text="${#aggregates.sum(transfer.![money])}">000000
+                    </span>
+                    <span th:unless="${transfer}">0</span>
                 </div>
             </div>
             <hr>
+        </div>
+        <div>
             <div th:class="content">
                 <div class='rap'>
                     <div class="header">
@@ -72,17 +83,24 @@
                     </div>
 
                     <div class="grid dateBoard"></div>
-                    <script th:src="@{/js/calendar.js}"></script>
                 </div>
-
             </div>
         </div>
-
     </div>
 
 </div>
 <th:block th:insert="~{common/button}"></th:block>
 
 </body>
+<script th:src="@{/js/calendar.js}"></script>
+<script>
+  let income = document.getElementById("income")?document.getElementById("income"):0;
+  let outcome = document.getElementById("outcome")?document.getElementById("outcome"):0;
+  let total = parseInt(income) - parseInt(outcome);
+  document.getElementById("total").value = total;
 
+  let money = document.getElementsByClassName("money");
+  const array = Array.from(money);
+  const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());
+</script>
 </html>

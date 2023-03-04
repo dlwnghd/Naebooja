@@ -108,9 +108,7 @@ function buildPropTrans(result){
             </div>
             <div>
     <table class="table table-hover">
-                    <tbody style="display: block;
-                        overflow-y: scroll;
-                        height: 275px;">
+        <tbody style="display: block; overflow-y: scroll; height: 275px;">
     `
 
     // 첫번째 날 세팅을 위한 날짜 0
@@ -128,18 +126,15 @@ function buildPropTrans(result){
         const timeString = dateObject.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true});
 
         // 거래 일자 구하기
+        const monthString = dateObject.getMonth() + 1;
         const dayString = dateObject.getDate();
 
         row += `
             <tr>
-                <td>${dayString} / ${timeString}</td>
+                <td>${monthString} 월 ${dayString} 일 / ${timeString}</td>
                 <td>${category}</td>
-                <td>
-                   <div>
-                        <p>${money}</p>
-                        <p>${transaction_type}</p>
-                    </div>
-                </td>
+                <td>${money}</td>
+                <td>${transaction_type}</td>
             </tr>
             </div>
             `;

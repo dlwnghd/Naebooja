@@ -3,6 +3,7 @@ package com.lec.spring.repository;
 import com.lec.spring.domain.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface TransactionRepository {
 
 //    Read
     // 특정 id (PK)의 거래 보기 -> transaction 에서는 사용하지 않긴 하는데, 이거 왜 Param 이 2개나 필요한건지 모르겠습니다..!
-    Transaction findById(Long u_id, Long p_id);
+    Transaction findById(Long id);
 
     // 특정 user(FK) 의 거래 내역 일괄 보기(user_id)
     List<Transaction> findAlls(Long id);
@@ -30,16 +31,16 @@ public interface TransactionRepository {
     List<Transaction> findByType(Long id, String type);
 
     // 특정 user 의 하루동안 거래내역 전체 보기 (user_id, regDate)
-    List<Transaction> findAllByDaily(Long id, Date date);
+    List<Transaction> findAllByDaily(Long id, LocalDate date);
 
     // 특정 user 의 한달동안 거래내역 전체 보기 (user_id, regDate)
-    List<Transaction> findAllByMonthly(Long id, Date date);
+    List<Transaction> findAllByMonthly(Long id, LocalDate date);
 
     // 특정 user 의 하룻동안 특정 type 의 거래내역 전체 보기
-    List<Transaction> findByDayType(Long id, String type, Date date);
+    List<Transaction> findByDayType(Long id, String type, LocalDate date);
 
     // 특정 user 의 한달동안 특정 type 의 거래내역 전체 보기
-    List<Transaction> findByMonthType(Long id, String type, Date date);
+    List<Transaction> findByMonthType(Long id, String type, LocalDate date);
 
 
 }

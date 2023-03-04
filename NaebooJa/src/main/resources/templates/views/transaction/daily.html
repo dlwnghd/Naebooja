@@ -12,9 +12,15 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/daily.css}">
 
+
     <script src="https://kit.fontawesome.com/51772bd9bd.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script th:src="@{/js/transaction.js}"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
     <title>일별 거래</title>
 </head>
@@ -37,70 +43,67 @@
                 <div th:class="monthly" th:onclick="location.href='/transaction/monthly'">
                     <p>월 별</p>
                 </div>
+                <div th:id="datePicker">Date:
+                    <input type="text" th:id="datepicker" size="10" th:value="${date}"></div>
             </div>
 
             <hr>
-            <div class="favorite-area">
+            <div class="favorite-area" id="dailyTransaction">
+
                 <div th:class="transition-type">
-                    <div th:class="transition-total" th:onclick='total()'>
+                    <div th:class="transition-total">
                         <span>통계</span><br>
-                        <span>000000</span>
+                        <span id="totalspan"></span>
                     </div>
-                    <div th:class="transition-income" th:onclick='income()'>
+                    <div th:class="transition-income">
                         <span>수입</span><br>
-                        <span>000000</span>
+                        <span id="incomespan"></span>
                     </div>
-                    <div th:class="transition-outcome" th:onclick='outcome()'>
+                    <div th:class="transition-outcome">
                         <span>지출</span><br>
-                        <span>000000</span>
+                        <span id="outcomespan"></span>
                     </div>
-                    <div th:class="transition-transfer" th:onclick='transfer()'>
+                    <div th:class="transition-transfer">
                         <span>이체</span><br>
-                        <span>000000</span>
+                        <span id="transferspan"></span>
                     </div>
+
                 </div>
+
                 <hr>
                 <div th:class="content">
-                    <table class="table table-hover" bgcolor="#F4F4F7">
+                    <table class="table table-hover">
                         <thead th="table-success">
                         <tr>
                             <th>ID</th>
                             <th>날짜</th>
                             <th>계좌</th>
+                            <th>거래</th>
                             <th>분류</th>
                             <th>내용</th>
                             <th>금액</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="dto : ${list}" th:onclick="openNav([[${dto.id}]])">
-                            <td>[[${dto.id}]]</td>
-                            <td>[[${dto.regdate}]]</td>
-                            <td>[[${dto.property_id.name}]]</td>
-                            <td>[[${dto.category}]]</td>
-                            <td>[[${dto.content}]]</td>
-                            <td>[[${dto.money}]]</td>
-                            <td style="display: flex; justify-content: space-between;">
-                                [[${dto.money}]]
-                                <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
-                            </td>
-                            <form th:name="${dto.id}" th:action="@{/property/delete}" method="post">
-                                <input type="hidden" name="id" th:value="${dto.id}">
-                            </form>
-                        </tr>
+                            <tr th:each="dto : ${list}">
+                                <td>[[${dto.id}]]</td>
+                                <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                <td>[[${dto.property_id.name}]]</td>
+                                <td>[[${dto.transaction_type}]]</td>
+                                <td>[[${dto.category}]]</td>
+                                <td>[[${dto.content}]]</td>
+                                <td class="money">[[${dto.money}]]</td>
+                                <td style="display: flex; justify-content: space-between;">
+                                    <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>
+                                </td>
+                                <form th:name="${dto.id}" th:action="@{/transaction/delete}" method="post">
+                                    <input type="hidden" name="id" th:value="${dto.id}">
+                                </form>
+                            </tr>
                         </tbody>
                     </table>
-                    <!-- 목록 -->
-
-                    <div class="row">
-                        <div class="col-12">
-                            <a class="btn btn-outline-dark" th:href="@{/property/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">자산 생성</a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-           
         </div>
 
 </div>
@@ -109,6 +112,36 @@
 <footer>
     <th:block th:insert="~{common/button}"></th:block>
 </footer>
+<script th:inline="javascript">
+    let totals = 0;
+    let incomes = 0;
+    let outcomes = 0;
+    let transfers = 0;
 
+    [[${income}]].forEach( test => {incomes += test.money; totals += test.money});
+    [[${outcome}]].forEach( test => {outcomes += test.money; totals -= test.money});
+    [[${transfer}]].forEach( test => {transfers += test.money});
+
+    let totalmoney = String(totals).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    let incomemoney = String(incomes).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    let outcomemoney = String(outcomes).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    let transfermoney = String(transfers).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    console.log(totalmoney);
+    console.log(incomemoney);
+    console.log(outcomemoney);
+    console.log(transfermoney);
+
+
+    document.getElementById("totalspan").innerHTML = totalmoney;
+    document.getElementById("incomespan").innerHTML = '+ ' + incomemoney;
+    document.getElementById("outcomespan").innerHTML = '- ' + outcomemoney;
+    document.getElementById("transferspan").innerHTML = transfermoney;
+</script>
+<script>
+  let money = document.getElementsByClassName("money");
+  const array = Array.from(money);
+  const formattedValues = array.map(element => element.innerText = Number(element.textContent).toLocaleString());
+</script>
+<script th:src="@{/js/daily.js}"></script>
 
 </html>
