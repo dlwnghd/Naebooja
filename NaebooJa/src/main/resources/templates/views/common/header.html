@@ -9,8 +9,8 @@
 <!-- 내가 만든 header -->
     <div class="header">
         <div class="header_left" alt="#">
-            <img class="moneylogo" th:src="@{/img/logo.png}" alt="#">
-            <a class="logo_text" >내부자</a>
+            <img class="moneylogo" th:src="@{/img/logo.png}" th:onclick="location.href='/home'" alt="#">
+            <a class="logo_text" th:onclick="location.href='/home'">내부자</a>
         </div>
         <div class="header_right">
             <!-- 로그인한 사람중 ROLE_MEMBER 권한 있는 사람에게만 보이는 메뉴 -->
