@@ -1,7 +1,6 @@
 .all {
     display:flex;
     flex-direction:row;
-
     padding-left:197px;
     padding-right:197px;
     padding-bottom : 50px;
@@ -12,10 +11,12 @@
 
 .writeName {
     background-color: #F4F4F7;
+    letter-spacing : 7px;
 }
 
 .username {
     display : inline-block;
+    letter-spacing : 4px;
 }
 
 .username div{
@@ -26,16 +27,20 @@
 
 #date {
     background-color: #F4F4F7;
+    letter-spacing : 5px;
 }
 
 .regDate {
+    float: right;
     display : inline-block;
+    letter-spacing : 4px;
 }
 
 .regDate div{
     float : left;
     padding : 5px;
     font-size: 16px;
+    letter-spacing : 4px;
 }
 
 .subject div{

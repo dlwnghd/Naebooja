@@ -37,7 +37,7 @@
     background-color: rgb(237, 235, 235);
     padding : 7px;
     width: 100px;
-    border: 1px solid #C4C4C4;
+        border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
     font-family: 'Roboto Mono', monospace;
