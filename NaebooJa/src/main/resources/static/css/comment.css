@@ -1,17 +1,13 @@
 .c1m_11 {
     font-size: 16px;
-    font-weight: bold;
-    
 }
 
 .cm_title th{
     font-size: 16px;
-    font-weight: bold;
 }
 
 #cmt_list {
     font-size: 16px;
-    font-weight: bold;
 }
 
 .cm_write{
@@ -31,7 +27,7 @@
 
     margin-left: 10px;
     margin-right: 10px;
-    border-radius: 7%;
+    border : none;
 }
 
 .regist:hover{

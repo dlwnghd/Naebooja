@@ -56,18 +56,18 @@
 
                 <div class="container">
                     <div class="id">
-                        <div>ID</div>
+                        <div>ID :  </div>
                         <div id="myId">[[${dto.id}]]</div>
                     </div>
 
                     <div class="username">
-                        <div>작성자</div>
+                        <div>작성자 :  </div>
                         <div id="myName">[[${dto.user.username}]]</div>
                     </div>
 
                     <div class="regDate">
-                        <div>작성일</div>
-                        <div id="myDate">[[${#temporals.format(dto.regDate, 'yyyy년MM월dd일 HH시mm분')}]]</div>
+                        <div>작성일 :  </div>
+                        <div id="myDate">[[${#temporals.format(dto.regDate, 'yyyy년 MM월 dd일 HH시 mm분')}]]</div>
                     </div>
                 </div>
                 <br><br>
@@ -80,13 +80,13 @@
 
 
                         <div class="subject">
-                            <div>제목</div>
+                            <div>제목 : </div>
                             <div class="subjectBox">[[${dto.subject}]]</div>
                         </div>
                         <br><br>
 
                         <div class="content">
-                            <div>내용</div<br>
+                            <div>내용</div>
                             <div class="contentBox" th:utext="${dto.content}"></div>
                         </div>
 
