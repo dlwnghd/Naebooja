@@ -215,12 +215,12 @@ $.ajax({
                 }
 
                 htmlDummy += `
-                  <div>
+                  <div class="dayincal">
                     ${i}
                     <div class="datainDay">
                       <p class="transinDay">${transfer}</p>
-                      <p class="incomeinDay">+ ${income}</p>
-                      <p class="outcomeinDay">- ${outcome}</p>
+                          <p class="incomeinDay" style="color : #5A9DF8">+ ${income}</p>
+                          <p class="outcomeinDay" style="color : #EE6E5E">- ${outcome}</p>
                     </div>
                   </div>
                 `;
@@ -320,12 +320,12 @@ document.querySelector(`.prevDay`).onclick = () => {
                     }
 
                     htmlDummy += `
-                      <div>
+                      <div class="dayincal">
                         ${i}
                         <div class="datainDay">
                           <p class="transinDay">${transfer}</p>
-                          <p class="incomeinDay">+ ${income}</p>
-                          <p class="outcomeinDay">- ${outcome}</p>
+                          <p class="incomeinDay" style="color : #5A9DF8">+ ${income}</p>
+                          <p class="outcomeinDay" style="color : #EE6E5E">- ${outcome}</p>
                         </div>
                       </div>
                     `;
@@ -426,12 +426,12 @@ const year = date.getFullYear();
                     }
 
                     htmlDummy += `
-                      <div>
+                      <div class="dayincal">
                         ${i}
                         <div class="datainDay">
                           <p class="transinDay">${transfer}</p>
-                          <p class="incomeinDay">+ ${income}</p>
-                          <p class="outcomeinDay">- ${outcome}</p>
+                          <p class="incomeinDay" style="color : #5A9DF8">+ ${income}</p>
+                          <p class="outcomeinDay" style="color : #EE6E5E">- ${outcome}</p>
                         </div>
                       </div>
                     `;

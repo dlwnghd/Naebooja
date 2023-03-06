@@ -16,32 +16,29 @@
 
   <script th:src="@{/js/prop_detail.js}"></script>
 
-  <title>자산</title>
+  <title>통계</title>
 </head>
 <body>
 
-<!--/* 인증 헤더 */-->
-<th:block th:insert="~{common/header::header}"></th:block>
+  <!--/* 인증 헤더 */-->
+  <th:block th:insert="~{common/header::header}"></th:block>
 
-<div class="under_header">
+  <div class="under_header">
 
-  <!--/* 사이드바 */-->
-  <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
+    <!--/* 사이드바 */-->
+    <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
 
 
-  <!-- 이 페이지에서 보여줄 내용 -->
-  <div class="container mt-3">
-    <h2>통계</h2>
-    <hr>
-    <div style="display: flex;justify-content: space-around;">
-        <div id="graph_container"></div>
-        <div id="graph_container_test"></div>
+    <!-- 이 페이지에서 보여줄 내용 -->
+    <div class="container mt-3">
+      <h2>통  계</h2>
+      <hr>
+      <div style="display: flex;justify-content: space-around;">
+          <div id="graph_container"></div>
+          <div id="graph_container_test"></div>
+      </div>
     </div>
   </div>
-</div>
-
-</div>
-</div>
 </body>
 <!--/* button */-->
 <footer>
