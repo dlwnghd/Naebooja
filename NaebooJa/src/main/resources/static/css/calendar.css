@@ -72,7 +72,7 @@
   cursor: pointer;
 }
 
-.dateBoard div {
+.dayincal{
   color: #222;
   font-weight: bold;
   min-height: 6rem;
@@ -83,7 +83,7 @@
 
 .datainDay {
   text-align: right;
-  float : right;
+  border : none;
   font-size: .8rem;
 }
 
@@ -106,7 +106,14 @@
 }
 
 /* 좌우 버튼 */
-.btn {
+.prevDay {
+ display: block;
+ width: 60px;
+ height: 60px;
+ cursor: pointer;
+}
+
+.nextDay {
  display: block;
  width: 60px;
  height: 60px;
