@@ -10,6 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" th:href="@{/css/common.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/insert.css}">-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/insert.css}">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -24,92 +26,91 @@
 
 <body>
 <!--/* 인증 헤더 */-->
-<th:block th:insert="~{common/header::header}"></th:block>
-<div class="under_header">
-    <!--/* 사이드바 */-->
-    <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
+    <th:block th:insert="~{common/header::header}"></th:block>
+    <div class="under_header" >
+        <!--/* 사이드바 */-->
+        <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
 
-<div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}">
-    <h2>거래 생성</h2>
-    <hr>
+        <div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}"
+             style="font-family: 'Roboto Mono';">
+            <h2>거래 생성</h2>
+            <hr>
 
-    <div class="row mt-5" th:if="${error }">
-        <div class="col-12 text-danger" th:text="${error }">
-            <!--/* 에러메세지 */-->
-        </div>
+            <div class="row mt-5" th:if="${error }">
+                <div class="col-12 text-danger" th:text="${error }">
+                    <!--/* 에러메세지 */-->
+                </div>
+            </div>
+
+            <form th:action="@{/transaction/insert}" method="post" enctype="Multipart/form-data">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check A" id="group1" name="transaction_type" autocomplete="off" value="수입"
+                       checked>
+                <label class="btn btn-outline-primary A_" for="group1">수입</label>
+                <input type="radio" class="btn-check B" id="group2" name="transaction_type" autocomplete="off" value="지출">
+                <label class="btn btn-outline-primary B_" for="group2">지출</label>
+                <input type="radio" class="btn-check B" id="group3" name="transaction_type" autocomplete="off" value="이체">
+                <label class="btn btn-outline-primary B_" for="group3">이체</label>
+            </div>
+                <div class="mb-3 mt-3">
+                    <label for="category">분류 :</label>
+                    <input type="text" class="form-control" id="category" placeholder="이체, 월급, 용돈, 식비, 교통비, 쇼핑, 기타"
+                           name="category"
+                           th:value="${category}" required>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="regdate">거래 날짜 :</label>
+                    <input type="text" name="mb_11 regdate" id="regdate" class="ts" autocomplete="off"/>
+                    <script>
+                        $(function(){
+                            $('#regdate').datepicker({
+                                lang:'ko',
+                                dateFormat: 'yy-mm-dd',
+                                monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 텍스트
+                                monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 Tooltip
+                                dayNamesMin: ['일','월','화','수','목','금','토'], //달력의 요일 텍스트
+                                dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+                            });
+                        })
+                    </script>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="content">거래 내용 :</label>
+                    <input type="text" class="form-control" id="content" placeholder="거래 내역"
+                           name="content"
+                           th:value="${content}" required>
+                </div>
+                <div class="mb-3 mt-3">
+                        <label for="property_id" style="width: 150px;">거래 계좌 :</label>
+                        <select id="property_id" name="propertyId">
+                            <option type="Long" th:each="dto:${property}"
+                                    th:value="${dto.id}" th:text="${dto.id} + ' : ' + | ( ${dto.group} ) ${dto.name}|">
+                            </option>
+                        </select>
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="in_property_id" style="width: 150px;">(이체 시) 계좌 :</label>
+                    <select id="in_property_id" name="inpropertyId">
+                        <option type="Long" value="0" selected>--</option>
+                        <option type="Long" th:each="dto:${property}"
+                                th:value="${dto.id}" th:text="${dto.id} + ' : ' + | ( ${dto.group} ) ${dto.name}|">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="money">금액:</label>
+                    <input type="Long" class="form-control" id="money" placeholder="거래 금액을 입력하세요" name="money"
+                           th:value="${money}">
+                </div>
+
+                <button type="submit" class="btn btn-outline-dark" style="border: none;background-color: #FFE699;font-family: 'Roboto Mono';">작성완료</button>
+                <a class="btn btn-outline-dark" th:href="@{/transaction/daily}"  style="border: none;background-color: #FFE699;font-family: 'Roboto Mono';">목록</a>
+            </form>
+
     </div>
-
-
-
-    <form th:action="@{/transaction/insert}" method="post" enctype="Multipart/form-data">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check A" id="group1" name="transaction_type" autocomplete="off" value="수입"
-                   checked>
-            <label class="btn btn-outline-primary A_" for="group1">수입</label>
-            <input type="radio" class="btn-check B" id="group2" name="transaction_type" autocomplete="off" value="지출">
-            <label class="btn btn-outline-primary B_" for="group2">지출</label>
-            <input type="radio" class="btn-check B" id="group3" name="transaction_type" autocomplete="off" value="이체">
-            <label class="btn btn-outline-primary B_" for="group3">이체</label>
-        </div>
-        <div class="mb-3 mt-3">
-            <label for="category">분류 :</label>
-            <input type="text" class="form-control" id="category" placeholder="이체, 월급, 용돈, 식비, 교통비, 쇼핑, 기타"
-                   name="category"
-                   th:value="${category}" required>
-        </div>
-        <div class="mb-3 mt-3">
-            <label for="regdate">거래 날짜 :</label>
-            <input type="text" name="mb_11 regdate" id="regdate" class="ts" autocomplete="off"/>
-            <script>
-                $(function(){
-                    $('#regdate').datepicker({
-                        lang:'ko',
-                        dateFormat: 'yy-mm-dd',
-                        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 텍스트
-                        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 Tooltip
-                        dayNamesMin: ['일','월','화','수','목','금','토'], //달력의 요일 텍스트
-                        dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-                    });
-                })
-</script>
-        </div>
-        <div class="mb-3 mt-3">
-            <label for="content">거래 내용 :</label>
-            <input type="text" class="form-control" id="content" placeholder="거래 내역"
-                   name="content"
-                   th:value="${content}" required>
-        </div>
-        <div class="mb-3 mt-3">
-                <label for="property_id">거래 계좌 :</label>
-                <select id="property_id" name="propertyId">
-                    <option type="Long" th:each="dto:${property}"
-                            th:value="${dto.id}" th:text="${dto.id}">
-                    </option>
-                </select>
-        </div>
-
-        <div class="mb-3 mt-3">
-            <label for="in_property_id">(이체 시) 계좌 :</label>
-            <select id="in_property_id" name="inpropertyId">
-                <option type="Long" th:each="dto:${property}"
-                        th:value="${dto.id}" th:text="${dto.id}">
-                </option>
-                <option type="Long" value="0">0</option>
-            </select>
-        </div>
-
-        <div class="mb-3 mt-3">
-            <label for="money">금액:</label>
-            <input type="Long" class="form-control" id="money" placeholder="거래 금액을 입력하세요" name="money"
-                   th:value="${money}">
-        </div>
-
-        <button type="submit" class="btn btn-outline-dark">작성완료</button>
-        <a class="btn btn-outline-dark" th:href="@{/transaction/daily}">목록</a>
-    </form>
-
-</div>
-</div>
+    </div>
 </body>
 <script th:src="@{/js/insert.js}"></script>
 </html>

@@ -17,7 +17,7 @@
     <script th:src="@{/js/transaction.js}"></script>
 
 
-    <title>일별 거래</title>
+    <title>월별 거래</title>
 </head>
 <body>
 
@@ -39,7 +39,7 @@
                 <p>월 별</p>
             </div>
 
-            <div>
+            <div style="width:500px;">
                 <div class="btn prevMonth" onclick="prevMonth()">
                     <p> < </p>
                 </div>
@@ -89,11 +89,14 @@
                     <tbody>
                     <tr th:each="dto : ${list}">
                         <td>[[${dto.id}]]</td>
-                        <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd')}]]</td>
+                        <td>[[${#temporals.format(dto.regdate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                         <td>[[${dto.property_id.name}]]</td>
                         <td>[[${dto.transaction_type}]]</td>
                         <td>[[${dto.category}]]</td>
-                        <td>[[${dto.content}]]</td>
+                        <td>
+                            <div th:if="${dto.content}">[[${dto.content}]]</div>
+                            <div th:unless="${dto.content}">-</div>
+                        </td>
                         <td class="money">[[${dto.money}]]</td>
                         <td style="display: flex; justify-content: space-between;">
                             <button type="button" class="btn btn-outline-danger btnDel" th:value="${dto.id}">삭제</button>

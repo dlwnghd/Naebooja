@@ -13,6 +13,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <link href="'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap'">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
   <title>자산 생성</title>
@@ -22,7 +23,8 @@
 <!--/* 인증 헤더 */-->
 <th:block th:insert="~{common/header::header}"></th:block>
 
-<div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}">
+<div class="container mt-3" th:with="user=${#authentication.getPrincipal().getUser()}"
+     style="font-family: 'Roboto Mono';">
   <h2>자산 생성</h2>
   <hr>
 
@@ -50,8 +52,8 @@
       <input type="text" class="form-control" id="rest_money" placeholder="잔액을 입력하세요" name="rest_money" th:value="${rest_money}">
     </div>
 
-    <button type="submit" class="btn btn-outline-dark">작성완료</button>
-    <a class="btn btn-outline-dark" th:href="@{/property/prop}">목록</a>
+    <button type="submit" class="btn btn-outline-dark" style="border: none;background-color: #FFE699;font-family: 'Roboto Mono';">작성완료</button>
+    <a class="btn btn-outline-dark" th:href="@{/property/prop}" style="border: none;background-color: #FFE699;font-family: 'Roboto Mono';">목록</a>
   </form>
 
 </div>

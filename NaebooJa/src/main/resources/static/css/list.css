@@ -7,8 +7,8 @@
     text-align: center;
     font-family: 'Roboto Mono', monospace;
     flex-direction:column;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:197px;
+    padding-right:197px;
 }
 
 .list {
@@ -18,8 +18,8 @@
     text-align: center;
     font-family: 'Roboto Mono', monospace;
     flex-direction:column;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:197px;
+    padding-right:197px;
 }
 
 .list-paging-header{
@@ -37,7 +37,7 @@
     background-color: rgb(237, 235, 235);
     padding : 7px;
     width: 100px;
-    border: 1px solid #C4C4C4;
+        border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
     font-family: 'Roboto Mono', monospace;
@@ -89,6 +89,7 @@
     font-size:16px;
     font-weight:bold;
     font-family: 'Roboto Mono', monospace;
+    border: none;
 }
 
 .notice-subject {

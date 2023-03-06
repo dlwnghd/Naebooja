@@ -1,30 +1,40 @@
 .all {
     display:flex;
     flex-direction:row;
+    width: 100%;
+    height: auto;
+    padding-left:197px;
+    padding-right:197px;
+    padding-bottom : 50px;
+}
 
-    padding-left:10px;
-    padding-right:10px
+.mt-3 {
+    width :100%;
+}
+
+.container {
+    padding : 15px;
 }
 
 .sub {
-    font-weight: bold;
 }
 
 .id {
     float: left;
     width: 20%;
     box-sizing: border-box;
+    letter-spacing: 6px;
 }
 
 .id div {
     display : inline-block;
     font-size : 16px;
-    font-weight : bold;
+    letter-spacing: 6px;
 }
 
 #myId {
-    background-color: rgb(237, 235, 235);
-    font-weight:bold;
+    background-color: #F4F4F7;
+    letter-spacing: 6px;
 }
 
 .username{
@@ -32,62 +42,60 @@
     margin-left: 5%;
     width:20%;
     box-sizing: border-box;
+    letter-spacing: 6px;
 }
 .username div {
     display : inline-block;
     font-size : 16px;
-    font-weight : bold;
+    letter-spacing: 6px;
 }
 
 #myName {
-    background-color: rgb(237, 235, 235);
-    font-weight:bold;
+    background-color: #F4F4F7;
 }
 
 .regDate {
     float: right;
     width:40%;
     box-sizing: border-box;
+    letter-spacing: 6px;
 }
 
 .regDate div {
     display : inline-block;
     font-size : 16px;
-    font-weight : bold;
+    letter-spacing: 6px;
 }
 
 #myDate {
-    background-color: rgb(237, 235, 235);
-    font-weight:bold;
+    background-color: #F4F4F7;
+    letter-spacing: 6px;
 }
-
-.subject div{
+.subject {
     float : left;
+}
+.subject div{
+    display : inline-block;
     padding : 0 1px 0 1px;
     font-size: 16px;
     letter-spacing: 6px;
-    font-weight:bold;
 }
 
 .subjectBox {
-    background-color: rgb(237, 235, 235);
-    font-weight:bold;
-    border : 1px solid black;
-    width : 100%
+    background-color: #F4F4F7;
+    border : none;
 }
 
 .content {
     padding : 0 1px 0 1px;
     font-size: 16px;
     letter-spacing: 6px;
-    font-weight:bold;
 }
 
 .contentBox {
-    background-color: rgb(237, 235, 235);
+    background-color: #F4F4F7;
     font-size : 16px;
-    font-weight:bold;
-    border : 1px solid black;
+    border : none;
     width : 100%
 }
 
@@ -99,22 +107,20 @@
     width: 90px;
     height: 40px;
     font-size:16px;
-    font-weight:bold;
-    background: rgba(255, 196, 12, 0.42);
+    background: #FFE699;
     float : left;
     margin-right: 10px;
-    border : 2px solid black;
+    border : 1px solid #FFE699;
 }
 
 .delete {
     width: 90px;
     height: 40px;
     font-size:16px;
-    font-weight:bold;
     background: rgba(255, 196, 12, 0.42);
     float : left;
     margin-right: 10px;
-    border-radius: 7%;
+    border : none;
 }
 
 .delete:hover{
