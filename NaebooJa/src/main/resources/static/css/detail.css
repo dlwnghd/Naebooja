@@ -1,11 +1,17 @@
 .all {
     display:flex;
     flex-direction:row;
-
+    width: 100%;
+    height: auto;
     padding-left:197px;
     padding-right:197px;
     padding-bottom : 50px;
 }
+
+.mt-3 {
+    width :100%;
+}
+
 .container {
     padding : 15px;
 }
@@ -17,15 +23,18 @@
     float: left;
     width: 20%;
     box-sizing: border-box;
+    letter-spacing: 6px;
 }
 
 .id div {
     display : inline-block;
     font-size : 16px;
+    letter-spacing: 6px;
 }
 
 #myId {
     background-color: #F4F4F7;
+    letter-spacing: 6px;
 }
 
 .username{
@@ -33,10 +42,12 @@
     margin-left: 5%;
     width:20%;
     box-sizing: border-box;
+    letter-spacing: 6px;
 }
 .username div {
     display : inline-block;
     font-size : 16px;
+    letter-spacing: 6px;
 }
 
 #myName {
@@ -47,15 +58,18 @@
     float: right;
     width:40%;
     box-sizing: border-box;
+    letter-spacing: 6px;
 }
 
 .regDate div {
     display : inline-block;
     font-size : 16px;
+    letter-spacing: 6px;
 }
 
 #myDate {
     background-color: #F4F4F7;
+    letter-spacing: 6px;
 }
 .subject {
     float : left;
