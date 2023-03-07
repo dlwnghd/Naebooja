@@ -15,6 +15,13 @@
     <script src="https://kit.fontawesome.com/51772bd9bd.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    +    <!-- modal login -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <!-- modal login end -->
+
     <script type="text/javascript" th:src="@{/js/list.js}"></script>
     <link rel="stylesheet" th:href="@{/css/list.css}">
     <title>게 시 판</title>
@@ -24,6 +31,9 @@
 <body>
 <!--/* 인증 헤더 */-->
 <th:block th:insert="~{common/header::header}"></th:block>
+
+<!-- modal_login -->
+<th:block th:insert="~{common/modal_login::modal_login}"></th:block>
 
 <div class="under_header">
     <!--/* 사이드바 */-->

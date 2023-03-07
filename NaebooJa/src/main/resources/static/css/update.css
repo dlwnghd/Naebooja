@@ -1,13 +1,11 @@
 .all {
     display:flex;
     flex-direction:row;
-
-    padding-left:10px;
-    padding-right:10px
+    padding-left:190px;
+    padding-right:190px
 }
 
 .sub {
-    font-weight: bold;
 }
 
 .id {
@@ -19,12 +17,10 @@
 .id div {
     display : inline-block;
     font-size : 16px;
-    font-weight : bold;
 }
 
 #myId {
     background-color: rgb(237, 235, 235);
-    font-weight:bold;
 }
 
 .username{
@@ -36,12 +32,10 @@
 .username div {
     display : inline-block;
     font-size : 16px;
-    font-weight : bold;
 }
 
 #myName {
     background-color: rgb(237, 235, 235);
-    font-weight:bold;
 }
 
 .regDate {
@@ -53,12 +47,10 @@
 .regDate div {
     display : inline-block;
     font-size : 16px;
-    font-weight : bold;
 }
 
 #myDate {
     background-color: rgb(237, 235, 235);
-    font-weight:bold;
 }
 
 .subject div{
@@ -66,21 +58,18 @@
     padding : 0 1px 0 1px;
     font-size: 16px;
     letter-spacing: 6px;
-    font-weight:bold;
 }
 
 .inputBox {
     display : inline-block;
     width : 1045px;
     font-size:16px;
-    font-weight:bold;
 }
 
 .content div{
 
     font-size: 16px;
     letter-spacing: 6px;
-    font-weight:bold;
 }
 
 .menu {
@@ -91,7 +80,6 @@
     width: 80px;
     height: 40px;
     font-size:16px;
-    font-weight:bold;
     background: rgba(255, 196, 12, 0.42);
     float : left;
     margin-right: 10px;
