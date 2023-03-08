@@ -72,13 +72,27 @@
   cursor: pointer;
 }
 
-.dateBoard div {
+.dayincal{
   color: #222;
   font-weight: bold;
   min-height: 6rem;
   padding: .6rem .8rem;
   border-radius: 5px;
   border: 1px solid #eee;
+}
+
+.datainDay {
+  text-align: right;
+  border : none;
+  font-size: .8rem;
+}
+
+.incomeinDay {
+  font-color : #5A9DF8;
+}
+
+.outcomeinDay {
+  font-color : #EE6E5E;
 }
 
 .noColor {
@@ -92,7 +106,14 @@
 }
 
 /* 좌우 버튼 */
-.btn {
+.prevDay {
+ display: block;
+ width: 60px;
+ height: 60px;
+ cursor: pointer;
+}
+
+.nextDay {
  display: block;
  width: 60px;
  height: 60px;

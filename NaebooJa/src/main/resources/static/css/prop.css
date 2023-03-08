@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap');
+
+.container mt-3 {
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+}
 .property-detail{
     width: 0px;
     overflow-x: hidden;
     transition: all 0.3s ease;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .property-detail tbody{
@@ -36,8 +46,8 @@
 }
 
 .prop-type {
-    background: gray;
     width: 100px;
+    border: 2px solid #F4F4F7;
 }
 
 .transac-head tr th{
@@ -61,4 +71,9 @@
 
 .btnDel{
     z-index: 9999;
+}
+
+.under_header {
+    font-family: 'Roboto Mono', monospace;
+    --bs-table-bg : #FFFFFF;
 }

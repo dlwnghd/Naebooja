@@ -1,17 +1,30 @@
-.list{
-display:flex;
-flex-direction:column;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap');
 
-padding-left:10px;
-padding-right:10px
+.listTop {
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    flex-direction:column;
+    padding-left:197px;
+    padding-right:197px;
+}
+
+.list {
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    flex-direction:column;
+    padding-left:197px;
+    padding-right:197px;
 }
 
 .list-paging-header{
-
     width: 145px;
     height: 41px;
-
-    background: #F4F4F7;
     flex:0 1 auto;
 }
 
@@ -22,13 +35,12 @@ padding-right:10px
 .frm-select {
     margin-right: 10px;
     background-color: rgb(237, 235, 235);
-
-    width: 150px;
-    border: 1px solid #C4C4C4;
+    padding : 7px;
+    width: 100px;
+        border: 1px solid #C4C4C4;
     box-sizing: border-box;
     border-radius: 10px;
-    padding: 12px 13px;
-    font-family: 'Roboto';
+    font-family: 'Roboto Mono', monospace;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -37,11 +49,12 @@ padding-right:10px
 
 
 .list-top{
-display:flex;
+    display:flex;
 }
 
 .list-top h2{
-flex:1 1 auto;
+    flex:1 1 auto;
+    margin: 10px auto;
 }
 
 .list-table{
@@ -75,6 +88,8 @@ flex:1 1 auto;
     background: #FFE699;
     font-size:16px;
     font-weight:bold;
+    font-family: 'Roboto Mono', monospace;
+    border: none;
 }
 
 .notice-subject {

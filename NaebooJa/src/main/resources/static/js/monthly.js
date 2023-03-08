@@ -26,7 +26,7 @@ function buildTrans(result, date){
                 <p>월 별</p>
             </div>
 
-            <div>
+            <div style="width:500px;">
                 <div class="btn prevMonth" onclick="prevMonth()">
                     <p> < </p>
                 </div>
@@ -80,7 +80,7 @@ function buildTrans(result, date){
         <hr>`
     row += `
         <div class="content" id="dailyTransaction">
-            <table class="table table-hover" bgcolor="#F4F4F7">
+            <table class="table table-hover">
                 <thead th="table-success">
                     <tr>
                         <th>ID</th>
@@ -101,7 +101,7 @@ function buildTrans(result, date){
         let money = String(transaction.money).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         let transaction_type = transaction.transaction_type;
         let regdate = transaction.regdate;
-        let content = transaction.content;
+        let content = transaction.content==null?"-":transaction.content;
         let property = transaction.property_id.name;
 
         row += `

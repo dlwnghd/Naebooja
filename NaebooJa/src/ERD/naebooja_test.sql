@@ -11,7 +11,7 @@ AND TABLE_NAME LIKE '%'
 SELECT * FROM authority;
 SELECT * FROM `user` ORDER BY id DESC;
 SELECT * FROM user_authorities;
-SELECT * FROM board ORDER BY user_id DESC;
+SELECT * FROM `write` ORDER BY user_id DESC;
 SELECT * FROM comment ORDER BY user_id DESC;
 SELECT * FROM file ORDER BY write_id DESC;
 SELECT * FROM property;
@@ -406,3 +406,10 @@ FROM transaction t, `user` u
 WHERE
 	t.user_id = 1
 	AND t.transaction_type = "수입"
+	
+DELETE FROM `write` 
+WHERE user_id = 3;
+
+DELETE FROM user_authorities
+WHERE user_id = 3 
+AND authority_id = 1;

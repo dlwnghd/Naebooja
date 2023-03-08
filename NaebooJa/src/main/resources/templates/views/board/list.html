@@ -15,6 +15,13 @@
     <script src="https://kit.fontawesome.com/51772bd9bd.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    +    <!-- modal login -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <!-- modal login end -->
+
     <script type="text/javascript" th:src="@{/js/list.js}"></script>
     <link rel="stylesheet" th:href="@{/css/list.css}">
     <title>게 시 판</title>
@@ -25,77 +32,71 @@
 <!--/* 인증 헤더 */-->
 <th:block th:insert="~{common/header::header}"></th:block>
 
-<div class="under_header">
+<!-- modal_login -->
+<th:block th:insert="~{common/modal_login::modal_login}"></th:block>
 
+<div class="under_header">
     <!--/* 사이드바 */-->
     <th:block th:insert="~{common/sidebar::sidebar}"></th:block>
-<div>
-    <div class="list mt-3">
-        <div class="list-top">
-            <h2 class="sub">  게 시 판</h2>
+        <div class="list mt-3">
+            <div class="list-top">
+                <h2 class="sub">  게 시 판</h2>
 
-            <!-- 페이징 헤더 -->
-            <div class="mb-3 mt-3 clearfix">
-                <span class="float-end list-paging-header">
-                    <form name="frmPageRows">
-                        <input type="hidden" name="page" th:value="${page}">
-                        <select class="frm-select" name="pageRows">
-                            <option value="10" th:selected="${pageRows==10}">10</option>
-                            <option value="15" th:selected="${pageRows==15}">15</option>
-                            <option value="20" th:selected="${pageRows==20}">20</option>
-                            <option value="50" th:selected="${pageRows==50}">50</option>
-                        </select>
-                    </form>
-                </span>
+                <!-- 페이징 헤더 -->
+                <div class="mb-3 mt-3 clearfix">
+                    <span class="float-end list-paging-header">
+                        <form name="frmPageRows">
+                            <input type="hidden" name="page" th:value="${page}">
+                            <select class="frm-select" name="pageRows">
+                                <option value="10" th:selected="${pageRows==10}">10</option>
+                                <option value="15" th:selected="${pageRows==15}">15</option>
+                                <option value="20" th:selected="${pageRows==20}">20</option>
+                                <option value="50" th:selected="${pageRows==50}">50</option>
+                            </select>
+                        </form>
+                    </span>
+                </div>
             </div>
-        </div>
-    <!-- 페이징 헤더 -->
 
-    <!-- 목록 -->
-        <div class="list-table">
-
-
-    <table class="table table-hover">
-        <thead class="list-table-title">
-        <tr class="content_top">
-            <th>ID</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>조회수</th>
-            <th>작성일</th>
-        </tr>
-        </thead>
-        <tbody class="content_list">
-        <tr th:each="a_dto : ${adminList}">
-            <td th:text="${a_dto.id}"></td>
-            <td><a class="notice-subject" th:href="@{/board/detail(id=${a_dto.id})}" th:text="${a_dto.subject}"></a></td>
-            <td th:text="${a_dto.user.username}"></td>
-            <td th:text="${a_dto.viewCnt}"></td>
-            <td th:text="${#temporals.format(a_dto.regDate, 'yyyy년 MM월 dd일 HH시 mm분')}"></td>
-        </tr>
-        <tr th:each="dto : ${list}">
-            <td th:text="${dto.id}"></td>
-            <td><a th:href="@{/board/detail(id=${dto.id})}" th:text="${dto.subject}"></a></td>
-            <td th:text="${dto.user.username}"></td>
-            <td th:text="${dto.viewCnt}"></td>
-            <td th:text="${#temporals.format(dto.regDate, 'yyyy년 MM월 dd일 HH시 mm분')}"></td>
-        </tr>
-        </tbody>
-    </table>
-
-    <!-- 목록 -->
-
-    <div class="row">
-        <div class="col-12">
-            <a id="write_1" class="btn btn-outline-dark" th:href="@{/board/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">글쓰기</a>
-        </div>
+            <!-- 목록 -->
+            <div class="list-table">
+                <table class="table table-hover">
+                    <thead class="list-table-title">
+                        <tr class="content_top">
+                            <th>ID</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>조회수</th>
+                            <th>작성일</th>
+                        </tr>
+                    </thead>
+                    <tbody class="content_list">
+                    <tr th:each="a_dto : ${adminList}">
+                        <td th:text="${a_dto.id}"></td>
+                        <td><a class="notice-subject" th:href="@{/board/detail(id=${a_dto.id})}" th:text="${a_dto.subject}"></a></td>
+                        <td th:text="${a_dto.user.username}"></td>
+                        <td th:text="${a_dto.viewCnt}"></td>
+                        <td th:text="${#temporals.format(a_dto.regDate, 'yyyy년 MM월 dd일 HH시 mm분')}"></td>
+                    </tr>
+                    <tr th:each="dto : ${list}">
+                        <td th:text="${dto.id}"></td>
+                        <td><a th:href="@{/board/detail(id=${dto.id})}" th:text="${dto.subject}"></a></td>
+                        <td th:text="${dto.user.username}"></td>
+                        <td th:text="${dto.viewCnt}"></td>
+                        <td th:text="${#temporals.format(dto.regDate, 'yyyy년 MM월 dd일 HH시 mm분')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            <!-- 목록 -->
+                <div class="row" style="font-family: 'Roboto Mono';">
+                    <div class="col-12">
+                        <a id="write_1" class="btn btn-outline-dark" th:href="@{/board/write}" sec:authorize="hasAnyRole('ADMIN', 'MEMBER')">글쓰기</a>
+                    </div>
+                </div>
+            </div>
+        <!-- pagination -->
+        <th:block th:insert="~{board/pagination::pagination}"></th:block>
     </div>
-</div>
-    <!-- pagination -->
-    <th:block th:insert="~{board/pagination::pagination}"></th:block>
-    <!-- pagination -->
-    </div>
-</div>
 </div>
 </body>
 

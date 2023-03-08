@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap');
+
 .header {
   padding: 10px 0;
   display: flex;
@@ -39,20 +41,21 @@
   display: inline-block;
   padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
   font-size: var(--bs-badge-font-size);
-  font-weight: var(--bs-badge-font-weight);
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .logo_text {
   font-size: 40px;
-  font-weight: bold;
   margin: 0;
   text-decoration: none;
   cursor: pointer;
   color: black;
+  font-weight : bold;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .logo_text:hover {
@@ -68,4 +71,8 @@
 
 .userlogo {
   width: 50px;
+}
+
+.btn{
+    font-family: 'Roboto Mono', monospace;
 }

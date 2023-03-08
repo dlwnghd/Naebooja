@@ -1,24 +1,18 @@
 $(function(){
     // 자산 [삭제] 버튼
     $(".btnDel").click(function(){
-        console.log("________________btn");
-        console.log(this.value);
         let answer = confirm("삭제하시겠습니까?");
         if(answer){
             $("form[name='"+this.value+"']").submit();
         }
-        console.log("________________btn");
     });
 });
 
 function btnClick(){
-   console.log("btnfunction1");
-   console.log(this.value);
    let answer = confirm("삭제하시겠습니까?");
    if(answer){
        $("form[name='"+this.value+"']").submit();
    }
-   console.log("btnfunction2");
 }
 
 // 해당 날짜의 거래 내역 출력
@@ -66,7 +60,7 @@ function buildTrans(result){
         <hr>`
         row += `
             <div class="content" id="dailyTransaction">
-                <table class="table table-hover" bgcolor="#F4F4F7">
+                <table class="table table-hover">
                     <thead th="table-success">
                     <tr>
                         <th>ID</th>
@@ -87,7 +81,7 @@ function buildTrans(result){
         let money = String(transaction.money).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         let transaction_type = transaction.transaction_type;
         let regdate = transaction.regdate;
-        let content = transaction.content;
+        let content = transaction.content==null?"-":transaction.content;
         let property = transaction.property_id.name;
 
         row += `
@@ -118,12 +112,8 @@ function buildTrans(result){
         out.push(row);
     $("#dailyTransaction").html(out.join("\n"));
     $(".btnDel").click(function(){
-           console.log("________________btn new")
-           console.log(this.value);
                 let answer = confirm("삭제하시겠습니까?");
                 if(answer){
-                    console.log("-----------");
-                    console.log(this.value);
                     $("form[name='"+this.value+"']").submit();
                 }
         });
@@ -150,7 +140,6 @@ $(function () {
             //데이터를 먼저 가져오고 (숫자로 넘어옴)
             var date=new Date($("#datepicker").datepicker({dateFormat:"yy/mm/dd"}).val());
             //일요일 0~
-            alert("date:"+date.getDay());
 
             week=new Array("일","월","화","수","목","금","토");
             $("#mydate").text(week[date.getDay()]);
