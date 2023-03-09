@@ -37,6 +37,10 @@ INSERT INTO user_authorities VALUES
 (3, 1),
 (3, 2)
 ;
+-- 샘플 사용자-권한
+INSERT INTO user_authorities VALUES
+(2, 1)
+;
 -- 샘플 글
 INSERT INTO `write` (user_id, subject, content) VALUES
 (1, '제목입니다1', '내용입니다1'),
